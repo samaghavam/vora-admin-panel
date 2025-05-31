@@ -45,8 +45,8 @@ import Lock from "views/pages/Lock.js";
 
 // Import Flight components
 import Flight from "views/pages/flight/Flight"; // Main Flight page with two boxes
-import ReservationList from "views/pages/flight/ReservationList"; // Ensure this path is correct
-import FlightAnalytics from "views/pages/flight/FlightAnalytics"; // Ensure this path is correct
+import ReservationList from "views/pages/flight/ReservationList.js";
+import FlightAnalytics from "views/pages/flight/FlightAnalytics.js";
 
 const routes = [
   {
@@ -57,31 +57,29 @@ const routes = [
     component: <Dashboard />,
     layout: "/admin",
   },
-  // Flight Info - Direct link in sidebar, not collapsible
+  // Flight Info - Direct link in sidebar
   {
-    path: "/flight", // This path renders the Flight.js component with the two boxes
+    path: "/flight",
     name: "Flight Info",
     rtlName: "معلومات الرحلة",
-    icon: "tim-icons icon-send", // Icon for the main "Flight Info" link
-    component: <Flight />, // The component that shows the two blue boxes
+    icon: "tim-icons icon-send",
+    component: <Flight />,
     layout: "/admin",
   },
-  // Routes for the sub-pages, will be rendered by Router but NOT directly in sidebar menu
+  // Sub-routes for Flight section - hidden from sidebar
   {
     path: "/flight/reservation-list",
-    name: "Reservation List", // Name not used for sidebar display in this flat structure
+    name: "Reservation List", // Name is still useful for breadcrumbs or page titles
     component: <ReservationList />,
     layout: "/admin",
-    // To explicitly hide from sidebar if your Sidebar component has logic for it:
-    // invisible: true, 
+    hideInSidebar: true, // Custom flag to hide this from sidebar
   },
   {
     path: "/flight/analytics",
-    name: "Flight Analytics", // Name not used for sidebar display in this flat structure
+    name: "Flight Analytics", // Name is still useful for breadcrumbs or page titles
     component: <FlightAnalytics />,
     layout: "/admin",
-    // To explicitly hide from sidebar if your Sidebar component has logic for it:
-    // invisible: true,
+    hideInSidebar: true, // Custom flag to hide this from sidebar
   },
   // ALL OTHER ROUTES FOLLOW
   {
