@@ -43,6 +43,11 @@ import Login from "views/pages/Login.js";
 import Rtl from "views/pages/Rtl.js";
 import Lock from "views/pages/Lock.js";
 
+// Import Flight components
+import Flight from "views/pages/flight/Flight"; // Main Flight page with two boxes
+import ReservationList from "views/pages/flight/ReservationList"; // Ensure this path is correct
+import FlightAnalytics from "views/pages/flight/FlightAnalytics"; // Ensure this path is correct
+
 const routes = [
   {
     path: "/dashboard",
@@ -52,6 +57,33 @@ const routes = [
     component: <Dashboard />,
     layout: "/admin",
   },
+  // Flight Info - Direct link in sidebar, not collapsible
+  {
+    path: "/flight", // This path renders the Flight.js component with the two boxes
+    name: "Flight Info",
+    rtlName: "معلومات الرحلة",
+    icon: "tim-icons icon-send", // Icon for the main "Flight Info" link
+    component: <Flight />, // The component that shows the two blue boxes
+    layout: "/admin",
+  },
+  // Routes for the sub-pages, will be rendered by Router but NOT directly in sidebar menu
+  {
+    path: "/flight/reservation-list",
+    name: "Reservation List", // Name not used for sidebar display in this flat structure
+    component: <ReservationList />,
+    layout: "/admin",
+    // To explicitly hide from sidebar if your Sidebar component has logic for it:
+    // invisible: true, 
+  },
+  {
+    path: "/flight/analytics",
+    name: "Flight Analytics", // Name not used for sidebar display in this flat structure
+    component: <FlightAnalytics />,
+    layout: "/admin",
+    // To explicitly hide from sidebar if your Sidebar component has logic for it:
+    // invisible: true,
+  },
+  // ALL OTHER ROUTES FOLLOW
   {
     collapse: true,
     name: "Pages",
@@ -124,6 +156,7 @@ const routes = [
       },
     ],
   },
+  // ... (rest of your components, forms, tables, maps, etc. routes)
   {
     collapse: true,
     name: "Components",
