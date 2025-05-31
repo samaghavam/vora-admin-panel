@@ -1,170 +1,85 @@
 /*!
-
 =========================================================
 * Black Dashboard PRO React - v1.2.4
+* Modified FixedPlugin for Theme Mode Toggle Only with LocalStorage
 =========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
 */
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { CustomInput } from "reactstrap";
 
-import { Button, CustomInput } from "reactstrap";
+const FixedPlugin = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-const FixedPlugin = (props) => {
-  const [classes, setClasses] = React.useState("dropdown");
-  const [darkMode, setDarkMode] = React.useState(true);
-  const handleClick = () => {
-    if (classes === "dropdown") {
-      setClasses("dropdown show");
-    } else {
-      setClasses("dropdown");
+  // Initialize switch state:
+  // true if dark mode is active, false if light mode (white-content) is active.
+  const [isDarkActive, setIsDarkActive] = useState(() => {
+    const storedTheme = localStorage.getItem('theme');
+    // If a theme is stored, use it. Otherwise, check body class (which Admin.js might have set).
+    // Default to dark mode if no info at all.
+    if (storedTheme) {
+      return storedTheme === 'dark';
     }
+    return !document.body.classList.contains("white-content");
+  });
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
   };
-  const handleActiveMode = () => {
-    setDarkMode(!darkMode);
-    document.body.classList.toggle("white-content");
+
+  const handleThemeModeToggle = () => {
+    const newIsDarkActive = !isDarkActive; // Target state after toggle
+    if (newIsDarkActive) {
+      document.body.classList.remove("white-content");
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.add("white-content");
+      localStorage.setItem('theme', 'light');
+    }
+    setIsDarkActive(newIsDarkActive);
   };
+
+  // Effect to listen for external changes to body class (e.g., dev tools) and update switch
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const currentBodyIsDark = !document.body.classList.contains("white-content");
+      if (currentBodyIsDark !== isDarkActive) {
+        setIsDarkActive(currentBodyIsDark);
+        // Optionally re-sync localStorage here if body is canonical, but toggle should handle it.
+        // localStorage.setItem('theme', currentBodyIsDark ? 'dark' : 'light');
+      }
+    });
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, [isDarkActive]);
+
+
   return (
     <div className="fixed-plugin">
-      <div className={classes}>
+      <div className={`dropdown ${dropdownOpen ? "show" : ""}`}>
         <a
           href="#pablo"
           onClick={(e) => {
             e.preventDefault();
-            handleClick();
+            toggleDropdown();
           }}
         >
           <i className="fa fa-cog fa-2x" />
         </a>
-        <ul className="dropdown-menu show">
-          <li className="header-title">SIDEBAR BACKGROUND</li>
-          <li className="adjustments-line">
-            <div className="badge-colors text-center">
-              <span
-                className={
-                  props.activeColor === "primary"
-                    ? "badge filter badge-primary active"
-                    : "badge filter badge-primary"
-                }
-                data-color="primary"
-                onClick={() => {
-                  props.handleActiveClick("primary");
-                }}
-              />
-              <span
-                className={
-                  props.activeColor === "blue"
-                    ? "badge filter badge-info active"
-                    : "badge filter badge-info"
-                }
-                data-color="info"
-                onClick={() => {
-                  props.handleActiveClick("blue");
-                }}
-              />
-              <span
-                className={
-                  props.activeColor === "green"
-                    ? "badge filter badge-success active"
-                    : "badge filter badge-success"
-                }
-                data-color="success"
-                onClick={() => {
-                  props.handleActiveClick("green");
-                }}
-              />
-              <span
-                className={
-                  props.activeColor === "orange"
-                    ? "badge filter badge-warning active"
-                    : "badge filter badge-warning"
-                }
-                data-color="warning"
-                onClick={() => {
-                  props.handleActiveClick("orange");
-                }}
-              />
-              <span
-                className={
-                  props.activeColor === "red"
-                    ? "badge filter badge-danger active"
-                    : "badge filter badge-danger"
-                }
-                data-color="danger"
-                onClick={() => {
-                  props.handleActiveClick("red");
-                }}
-              />
-            </div>
-          </li>
-          <li className="header-title">SIDEBAR MINI</li>
-          <li className="adjustments-line">
-            <div className="togglebutton switch-sidebar-mini d-flex align-items-center justify-content-center">
-              <span className="label-switch">OFF</span>
-              <CustomInput
-                type="switch"
-                id="switch-1"
-                onChange={props.handleMiniClick}
-                value={props.sidebarMini}
-                checked={props.sidebarMini}
-                className="mt-n4"
-              />
-              <span className="label-switch ml-n3">ON</span>
-            </div>
-          </li>
+        <ul className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>
+          <li className="header-title">DISPLAY MODE</li>
           <li className="adjustments-line">
             <div className="togglebutton switch-change-color mt-3 d-flex align-items-center justify-content-center">
-              <span className="label-switch">LIGHT MODE</span>
+              <span className="label-switch">LIGHT</span>
               <CustomInput
                 type="switch"
-                id="switch-2"
-                onChange={handleActiveMode}
-                value={darkMode}
-                checked={darkMode}
-                className="mt-n4"
+                id="theme-mode-switch"
+                checked={isDarkActive} // Switch is ON when Dark Mode is active
+                onChange={handleThemeModeToggle}
+                className="mt-n4" // Check visual alignment of this class
+                label="" // Add empty label for accessibility / reactstrap
               />
-              <span className="label-switch ml-n3">DARK MODE</span>
+              <span className="label-switch ml-n3">DARK</span>
             </div>
-          </li>
-          <li className="button-container">
-            <Button
-              href="https://www.creative-tim.com/product/black-dashboard-pro-react"
-              color="primary"
-              block
-              className="btn-round"
-            >
-              Buy now
-            </Button>
-          </li>
-          <li className="button-container">
-            <Button
-              color="default"
-              block
-              className="btn-round"
-              outline
-              href="https://demos.creative-tim.com/black-dashboard-pro-react/#/documentation/tutorial"
-              target="_blank"
-            >
-              <i className="nc-icon nc-paper" /> Documentation
-            </Button>
-          </li>
-          <li className="button-container">
-            <Button
-              href="https://www.creative-tim.com/product/black-dashboard-react"
-              color="info"
-              block
-              className="btn-round"
-            >
-              Get free version
-            </Button>
           </li>
         </ul>
       </div>

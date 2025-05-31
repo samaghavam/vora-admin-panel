@@ -27,13 +27,13 @@ const AdminNavbar = (props) => {
       }
     };
     window.addEventListener("resize", updateLocalColorOnResize);
-    updateLocalColorOnResize();
+    updateLocalColorOnResize(); // Initial check
     return function cleanup() {
       window.removeEventListener("resize", updateLocalColorOnResize);
     };
   }, [collapseOpen]);
 
-  const toggleNavbarCollapse = () => { // Renamed to avoid confusion with sidebar toggle
+  const toggleNavbarCollapse = () => {
     setCollapseOpen(!collapseOpen);
     if (!collapseOpen && window.innerWidth < 993) {
         setLocalNavbarColor("bg-white");
@@ -58,43 +58,38 @@ const AdminNavbar = (props) => {
         style={{
           position: "sticky",
           top: 0,
-          zIndex: 1030, // Adjusted zIndex if necessary
+          zIndex: 1030,
         }}
       >
         <Container fluid>
           <div className="navbar-wrapper">
-            {/* Desktop sidebar minimize button (onClick={props.handleMiniClick}) remains REMOVED */}
-
-            {/* --- Mobile Sidebar Toggle (Hamburger Menu) - RESTORED --- */}
             <div
-              className={classNames("navbar-toggle d-inline", { // This div typically handles visibility on mobile
-                toggled: props.sidebarOpened, // For visual feedback on the button if styled
+              className={classNames("navbar-toggle d-inline", {
+                toggled: props.sidebarOpened,
               })}
             >
               <button
-                className="navbar-toggler" // Standard Bootstrap class for hamburger
+                className="navbar-toggler"
                 type="button"
-                onClick={props.toggleSidebar} // Calls toggleSidebar from Admin.js
+                onClick={props.toggleSidebar}
               >
                 <span className="navbar-toggler-bar bar1" />
                 <span className="navbar-toggler-bar bar2" />
                 <span className="navbar-toggler-bar bar3" />
               </button>
             </div>
-            {/* --- End Mobile Sidebar Toggle --- */}
-
             <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
               {props.brandText}
             </NavbarBrand>
           </div>
           <button
-            className="navbar-toggler" // This is for the navbar's own right-side items collapse
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navigation"
             aria-expanded={collapseOpen}
             aria-label="Toggle navigation"
-            onClick={toggleNavbarCollapse} // Use the renamed function here
+            onClick={toggleNavbarCollapse}
           >
             <span className="navbar-toggler-bar navbar-kebab" />
             <span className="navbar-toggler-bar navbar-kebab" />
@@ -102,10 +97,10 @@ const AdminNavbar = (props) => {
           </button>
           <Collapse navbar isOpen={collapseOpen} id="navigation">
             <Nav className="ml-auto" navbar>
-              {/* ... Your existing right-side navbar items (user dropdown, etc.) ... */}
               <UncontrolledDropdown nav>
                 <DropdownToggle
-                  caret
+                  caret // This prop from reactstrap might render its own caret.
+                        // If a caret still appears and you want it gone, set this to caret={false}
                   color="default"
                   data-toggle="dropdown"
                   nav
@@ -114,7 +109,7 @@ const AdminNavbar = (props) => {
                   <div className="photo">
                     <img alt="..." src={require("assets/img/mike.jpg")} />
                   </div>
-                  <b className="caret d-none d-lg-block d-xl-block" />
+                  {/* The <b className="caret ..."></b> element has been REMOVED from here */}
                   <p className="d-lg-none">Log out</p>
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-navbar" right tag="ul">
