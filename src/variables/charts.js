@@ -36,33 +36,36 @@ let chart_1_2_3_options = {
   },
   responsive: true,
   scales: {
-    yAxes: {
-      barPercentage: 1.6,
-      gridLines: {
-        drawBorder: false,
-        color: "rgba(29,140,248,0.0)",
-        zeroLineColor: "transparent",
+    yAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+      {
+        barPercentage: 1.6,
+        gridLines: {
+          drawBorder: false,
+          color: "rgba(29,140,248,0.0)",
+          zeroLineColor: "transparent",
+        },
+        ticks: {
+          suggestedMin: 60,
+          suggestedMax: 125,
+          padding: 20,
+          fontColor: "#9a9a9a",
+        },
       },
-      ticks: {
-        suggestedMin: 60,
-        suggestedMax: 125,
-        padding: 20,
-        fontColor: "#9a9a9a",
+    ],
+    xAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+      {
+        barPercentage: 1.6,
+        gridLines: {
+          drawBorder: false,
+          color: "rgba(29,140,248,0.1)",
+          zeroLineColor: "transparent",
+        },
+        ticks: {
+          padding: 20,
+          fontColor: "#9a9a9a",
+        },
       },
-    },
-
-    xAxes: {
-      barPercentage: 1.6,
-      gridLines: {
-        drawBorder: false,
-        color: "rgba(29,140,248,0.1)",
-        zeroLineColor: "transparent",
-      },
-      ticks: {
-        padding: 20,
-        fontColor: "#9a9a9a",
-      },
-    },
+    ],
   },
 };
 
@@ -110,6 +113,7 @@ let chartExample1 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
+          tension: 0.4, // Added for smooth lines
           data: [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
         },
       ],
@@ -155,6 +159,7 @@ let chartExample1 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
+          tension: 0.4, // Added for smooth lines
           data: [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120],
         },
       ],
@@ -200,6 +205,7 @@ let chartExample1 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
+          tension: 0.4, // Added for smooth lines
           data: [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130],
         },
       ],
@@ -239,6 +245,7 @@ let chartExample2 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
+          tension: 0.6, // Added for smooth lines
           data: [80, 100, 70, 80, 120, 80],
         },
       ],
@@ -294,30 +301,34 @@ let chartExample3 = {
     },
     responsive: true,
     scales: {
-      yAxes: {
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(225,78,202,0.1)",
-          zeroLineColor: "transparent",
+      yAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(225,78,202,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 60,
+            suggestedMax: 120,
+            padding: 20,
+            fontColor: "#9e9e9e",
+          },
         },
-        ticks: {
-          suggestedMin: 60,
-          suggestedMax: 120,
-          padding: 20,
-          fontColor: "#9e9e9e",
+      ],
+      xAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(225,78,202,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9e9e9e",
+          },
         },
-      },
-      xAxes: {
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(225,78,202,0.1)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          padding: 20,
-          fontColor: "#9e9e9e",
-        },
-      },
+      ],
     },
   },
 };
@@ -353,6 +364,7 @@ const chartExample4 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
+          tension: 0.4, // Added for smooth lines
           data: [90, 27, 60, 12, 80],
         },
       ],
@@ -375,32 +387,36 @@ const chartExample4 = {
     },
     responsive: true,
     scales: {
-      yAxes: {
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(29,140,248,0.0)",
-          zeroLineColor: "transparent",
+      yAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(29,140,248,0.0)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 50,
+            suggestedMax: 125,
+            padding: 20,
+            fontColor: "#9e9e9e",
+          },
         },
-        ticks: {
-          suggestedMin: 50,
-          suggestedMax: 125,
-          padding: 20,
-          fontColor: "#9e9e9e",
+      ],
+      xAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(0,242,195,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9e9e9e",
+          },
         },
-      },
-      xAxes: {
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(0,242,195,0.1)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          padding: 20,
-          fontColor: "#9e9e9e",
-        },
-      },
+      ],
     },
   },
 };
@@ -435,6 +451,7 @@ const chartExample5 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
+          tension: 0.4, // Added for smooth lines
           data: [80, 100, 70, 80, 120, 80],
         },
       ],
@@ -457,33 +474,36 @@ const chartExample5 = {
     },
     responsive: true,
     scales: {
-      yAxes: {
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(186,84,245,0.1)",
-          zeroLineColor: "transparent",
+      yAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(186,84,245,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 60,
+            suggestedMax: 125,
+            padding: 20,
+            fontColor: "#9e9e9e",
+          },
         },
-        ticks: {
-          suggestedMin: 60,
-          suggestedMax: 125,
-          padding: 20,
-          fontColor: "#9e9e9e",
+      ],
+      xAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(186,84,245,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9e9e9e",
+          },
         },
-      },
-
-      xAxes: {
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(186,84,245,0.1)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          padding: 20,
-          fontColor: "#9e9e9e",
-        },
-      },
+      ],
     },
   },
 };
@@ -516,6 +536,7 @@ const chartExample6 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
+          tension: 0.4, // Added for smooth lines
           data: [80, 100, 70, 80, 120, 80],
         },
       ],
@@ -538,33 +559,36 @@ const chartExample6 = {
     },
     responsive: true,
     scales: {
-      yAxes: {
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(29,140,248,0.0)",
-          zeroLineColor: "transparent",
+      yAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(29,140,248,0.0)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 60,
+            suggestedMax: 125,
+            padding: 20,
+            fontColor: "#9e9e9e",
+          },
         },
-        ticks: {
-          suggestedMin: 60,
-          suggestedMax: 125,
-          padding: 20,
-          fontColor: "#9e9e9e",
+      ],
+      xAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(29,140,248,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9e9e9e",
+          },
         },
-      },
-
-      xAxes: {
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(29,140,248,0.1)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          padding: 20,
-          fontColor: "#9e9e9e",
-        },
-      },
+      ],
     },
   },
 };
@@ -577,7 +601,7 @@ const chartExample7 = {
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
     gradientStroke.addColorStop(1, "rgba(253,93,147,0.8)");
-    gradientStroke.addColorStop(0, "rgba(253,93,147,0)"); //blue colors
+    gradientStroke.addColorStop(0, "rgba(253,93,147,0)"); //red colors
     return {
       labels: ["JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
       datasets: [
@@ -590,6 +614,7 @@ const chartExample7 = {
           borderWidth: 2,
           borderDash: [],
           borderDashOffset: 0.0,
+          tension: 0.4, // Added for smooth lines
           data: [80, 100, 70, 80, 120, 80],
         },
       ],
@@ -612,30 +637,34 @@ const chartExample7 = {
     },
     responsive: true,
     scales: {
-      yAxes: {
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(253,93,147,0.1)",
-          zeroLineColor: "transparent",
+      yAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(253,93,147,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 60,
+            suggestedMax: 125,
+            padding: 20,
+            fontColor: "#9e9e9e",
+          },
         },
-        ticks: {
-          suggestedMin: 60,
-          suggestedMax: 125,
-          padding: 20,
-          fontColor: "#9e9e9e",
+      ],
+      xAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(253,93,147,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9e9e9e",
+          },
         },
-      },
-      xAxes: {
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(253,93,147,0.1)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          padding: 20,
-          fontColor: "#9e9e9e",
-        },
-      },
+      ],
     },
   },
 };
@@ -655,6 +684,7 @@ const chartExample8 = {
         borderWidth: 2,
         borderDash: [],
         borderDashOffset: 0.0,
+        // tension: 0.4, // Bar charts don't have tension
         data: [80, 100, 70, 80, 120, 80, 130],
       },
       {
@@ -666,6 +696,7 @@ const chartExample8 = {
         borderWidth: 2,
         borderDash: [],
         borderDashOffset: 0.0,
+        // tension: 0.4, // Bar charts don't have tension
         data: [60, 110, 90, 70, 90, 100],
       },
     ],
@@ -687,31 +718,34 @@ const chartExample8 = {
     },
     responsive: true,
     scales: {
-      yAxes: {
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(29,140,248,0.1)",
-          zeroLineColor: "transparent",
+      yAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(29,140,248,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 60,
+            suggestedMax: 120,
+            padding: 20,
+            fontColor: "#9e9e9e",
+          },
         },
-        ticks: {
-          suggestedMin: 60,
-          suggestedMax: 120,
-          padding: 20,
-          fontColor: "#9e9e9e",
+      ],
+      xAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(29,140,248,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9e9e9e",
+          },
         },
-      },
-
-      xAxes: {
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(29,140,248,0.1)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          padding: 20,
-          fontColor: "#9e9e9e",
-        },
-      },
+      ],
     },
   },
 };
@@ -750,30 +784,33 @@ const chartExample9 = {
     },
 
     scales: {
-      yAxes: {
-        display: 0,
-        ticks: {
-          display: false,
+      yAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          display: 0,
+          ticks: {
+            display: false,
+          },
+          gridLines: {
+            drawBorder: false,
+            zeroLineColor: "transparent",
+            color: "rgba(255,255,255,0.05)",
+          },
         },
-        gridLines: {
-          drawBorder: false,
-          zeroLineColor: "transparent",
-          color: "rgba(255,255,255,0.05)",
+      ],
+      xAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          display: 0,
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(255,255,255,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            display: false,
+          },
         },
-      },
-
-      xAxes: {
-        display: 0,
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(255,255,255,0.1)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          display: false,
-        },
-      },
+      ],
     },
   },
 };
@@ -810,30 +847,33 @@ const chartExample10 = {
       position: "nearest",
     },
     scales: {
-      yAxes: {
-        display: 0,
-        ticks: {
-          display: false,
+      yAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          display: 0,
+          ticks: {
+            display: false,
+          },
+          gridLines: {
+            drawBorder: false,
+            zeroLineColor: "transparent",
+            color: "rgba(255,255,255,0.05)",
+          },
         },
-        gridLines: {
-          drawBorder: false,
-          zeroLineColor: "transparent",
-          color: "rgba(255,255,255,0.05)",
+      ],
+      xAxes: [ // In Chart.js v3 and later, axes are arrays of objects
+        {
+          display: 0,
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(255,255,255,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            display: false,
+          },
         },
-      },
-
-      xAxes: {
-        display: 0,
-        barPercentage: 1.6,
-        gridLines: {
-          drawBorder: false,
-          color: "rgba(255,255,255,0.1)",
-          zeroLineColor: "transparent",
-        },
-        ticks: {
-          display: false,
-        },
-      },
+      ],
     },
   },
 };
