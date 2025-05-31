@@ -1,10 +1,7 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-// javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
-
-// reactstrap components
 import { Nav, Collapse } from "reactstrap";
 
 var ps;

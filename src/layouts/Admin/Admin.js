@@ -1,20 +1,14 @@
-/*!
-=========================================================
-* Admin Layout - Always Expanded Desktop, Off-Canvas Mobile Sidebar
-=========================================================
-*/
 import React from "react";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
-import NotificationAlert from "react-notification-alert";
 
-import AdminNavbar from "components/Navbars/AdminNavbar.js"; // Will be the updated version
+import AdminNavbar from "components/Navbars/AdminNavbar.js"; 
 import Footer from "components/Footer/Footer.js";
-import Sidebar from "components/Sidebar/Sidebar.js";       // Should be the version showing full logo
+import Sidebar from "components/Sidebar/Sidebar.js";       
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
-import voraLogo from "assets/img/vora.svg"; // Your logo
+import voraLogo from "assets/img/vora.svg"; 
 
 var ps; // PerfectScrollbar instance for main panel
 
@@ -35,11 +29,9 @@ const Admin = (props) => {
     }
   }, [location]);
 
-  // Manage body classes and scrollbar
   React.useEffect(() => {
-    document.body.classList.remove("sidebar-mini"); // CRITICAL: Ensures sidebar is not in mini-mode on desktop
+    document.body.classList.remove("sidebar-mini"); 
 
-    // PerfectScrollbar and Navbar background logic
     const mainPanel = mainPanelRef.current;
     let scrollHandler = null;
 
@@ -88,7 +80,7 @@ const Admin = (props) => {
   };
   // --- End Mobile Logic ---
 
-  const getRoutes = (routes) => { /* ... (your existing getRoutes function) ... */
+  const getRoutes = (routes) => { 
     return routes.map((prop, key) => {
       if (prop.collapse) {
         return getRoutes(prop.views);
@@ -103,8 +95,8 @@ const Admin = (props) => {
     });
   };
 
-  const getActiveRoute = (routes) => { /* ... (your existing/preferred getActiveRoute function) ... */
-    let activeRoute = "Dashboard"; // Default
+  const getActiveRoute = (routes) => { 
+    let activeRoute = "Dashboard"; 
     for (let i = 0; i < routes.length; i++) {
         const route = routes[i];
         if (route.collapse) {
@@ -146,11 +138,8 @@ const Admin = (props) => {
           {...props}
           brandText={getActiveRoute(routes)}
           navbarColor={navbarBackgroundColor}
-          // --- Props for Mobile Sidebar Toggle ---
           sidebarOpened={sidebarOpened}
           toggleSidebar={toggleSidebar}
-          // --- End Mobile Props ---
-          // location={location} // Already passed via {...props} if needed
         />
         <Routes>
           {getRoutes(routes)}
@@ -164,7 +153,6 @@ const Admin = (props) => {
       <FixedPlugin
         activeColor={activeColor}
         handleActiveClick={handleActiveClick}
-        // sidebarMini and handleMiniClick props are removed
       />
     </div>
   );

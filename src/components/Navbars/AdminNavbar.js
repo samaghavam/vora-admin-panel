@@ -12,7 +12,6 @@ import {
   NavLink,
   Nav,
   Container,
-  // Button and UncontrolledTooltip for desktop mini toggle are still removed
 } from "reactstrap";
 
 const AdminNavbar = (props) => {
