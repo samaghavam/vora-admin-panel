@@ -3,6 +3,7 @@ import { Row, Col } from "reactstrap";
 import SimpleBreadcrumb from "../../components/BreadCrumbs"; // Or BreadCrumbs if that's the filename
 import FlightAnalyticMonth from "./FlightAnalyticMonth";
 import FlightAnalyticAllTime from "./FlightAnalyticAllTime";
+import FlightAnalyticalOveral from "./FlightAnalyticalOveral";
 
 const FlightAnalytics = () => {
   // Breadcrumb items based on the new screenshot
@@ -33,6 +34,11 @@ const FlightAnalytics = () => {
       <Row>
         <Col md="12">
           <FlightAnalyticAllTime />
+        </Col>
+      </Row>
+      <Row>
+        <Col md="6">
+          <FlightAnalyticalOveral />
         </Col>
       </Row>
     </div>
