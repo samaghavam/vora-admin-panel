@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardBody, Col, Row } from "reactstrap"; // Using reactstrap for layout
 import FunnelRequestChart from "../../components/FunnelRequestChart";
 import ReusableLineChartCard from "views/components/LineChartCard";
+import ReusableBarChartCard from "views/components/ReusableBarChartCard";
 
 const FlightAnalyticalOveral = () => {
   const funnelChartData = [
@@ -11,6 +12,19 @@ const FlightAnalyticalOveral = () => {
     { label: "Payment page", value: 22 },
     { label: "Purchase", value: 12 },
   ];
+
+  const filterChartData = {
+    labels: ["Date", "Price", "Duration", "Class", "Baggage", "Layover"],
+    datasets: [
+      {
+        label: "Applied Count", // Shows in tooltip
+        data: [80, 100, 70, 80, 120, 80], // Example data from Chart 3 2.png
+        // To use a different color for this specific dataset:
+        // backgroundColor: "#1f8ef1", // This will be the base for its gradient
+        // borderColor: "#1f8ef1",
+      },
+    ],
+  };
 
   const weeklySpendData = {
     labels: [
@@ -53,6 +67,16 @@ const FlightAnalyticalOveral = () => {
             // You can customize further with other props:
             // lineColor="#1f8ef1" // Example: change to blue
             // chartHeight="300px"
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col md="12"> {/* Or a smaller column like md="8" or lg="6" */}
+          <ReusableBarChartCard
+            cardTitleText="Most applied filters"
+            chartData={filterChartData}
+            // defaultBarColor="#FD5D93" // This is the default, can be changed
+            // chartHeight="280px"
           />
         </Col>
       </Row>
