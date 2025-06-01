@@ -1,46 +1,25 @@
 import React from "react";
-import { Row, Col } from "reactstrap";
-import SimpleBreadcrumb from "../../components/BreadCrumbs"; // Or BreadCrumbs if that's the filename
+import SimpleBreadcrumb from "../../components/BreadCrumbs"; 
 import FlightAnalyticMonth from "./FlightAnalyticMonth";
 import FlightAnalyticAllTime from "./FlightAnalyticAllTime";
 import FlightAnalyticalOveral from "./FlightAnalyticalOveral";
 
 const FlightAnalytics = () => {
-  // Breadcrumb items based on the new screenshot
   const breadcrumbItems = [
-    { label: "Home", to: "/admin/dashboard" }, // Example route, adjust as needed
-    { label: "Flight management", to: "/admin/flight" }, // Example route, adjust as needed
-    { label: "Flight Info graphics" }, // Current page
+    { label: "Home", to: "/admin/dashboard" }, 
+    { label: "Flight management", to: "/admin/flight" }, 
+    { label: "Flight Info graphics" }, 
   ];
 
   return (
     <div className="content">
-      {/* Breadcrumb Row */}
-      <Row>
-        <Col md="12">
-          {/* Ensure your CSS for .screenshot-style-breadcrumb is loaded globally or imported. */}
-          <SimpleBreadcrumb
-            items={breadcrumbItems}
-            olClassName="screenshot-style-breadcrumb"
-          />
-        </Col>
-      </Row>
-
-      <Row>
-        <Col md="12">
-          <FlightAnalyticMonth />
-        </Col>
-      </Row>
-      <Row>
-        <Col md="12">
-          <FlightAnalyticAllTime />
-        </Col>
-      </Row>
-      <Row>
-        <Col md="6">
-          <FlightAnalyticalOveral />
-        </Col>
-      </Row>
+      <SimpleBreadcrumb
+        items={breadcrumbItems}
+        olClassName="screenshot-style-breadcrumb"
+      />
+      <FlightAnalyticMonth />
+      <FlightAnalyticAllTime />
+      <FlightAnalyticalOveral />
     </div>
   );
 };

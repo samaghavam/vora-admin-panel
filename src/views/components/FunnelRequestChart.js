@@ -1,4 +1,5 @@
 import React from 'react';
+// PropTypes import removed
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -10,6 +11,7 @@ import {
   Legend as ChartJsLegend
 } from 'chart.js';
 
+// Register necessary ChartJS components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -19,6 +21,7 @@ ChartJS.register(
   ChartJsLegend
 );
 
+// Helper function to convert hex to rgba
 const hexToRgba = (hex, alpha) => {
   if (!hex || typeof hex !== 'string' || hex.length < 4) { 
     console.warn("Invalid hex color provided to hexToRgba:", hex);
@@ -34,7 +37,13 @@ const hexToRgba = (hex, alpha) => {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 
-const FunnelRequestChart = ({ title, funnelDataItems, chartTitleClass = 'text-light mb-3 h5', chartBackgroundColor = '#27293D' }) => {
+const FunnelRequestChart = ({ 
+  title, 
+  funnelDataItems, 
+  chartTitleClass = 'text-light mb-3 h5', 
+  chartBackgroundColor = '#27293D',
+  chartCanvasHeight = null // New prop for specific canvas height
+}) => {
   if (!Array.isArray(funnelDataItems) || funnelDataItems.length === 0) {
     return <div className="text-light text-center p-3" style={{ backgroundColor: chartBackgroundColor }}>No data to display.</div>;
   }
@@ -121,18 +130,20 @@ const FunnelRequestChart = ({ title, funnelDataItems, chartTitleClass = 'text-li
     layout: { padding: { top: 5, bottom: 5, left: 5, right: 5 } }, 
   };
 
+  // Calculate dynamic height for the chart canvas if no specific height is provided
   const barSpacing = 15; 
-  const chartHeight = (sortedFunnelData.length * (25 + barSpacing)) - barSpacing + 10; 
+  const calculatedCanvasHeight = `${(sortedFunnelData.length * (25 + barSpacing)) - barSpacing + 10}px`;
+  // Use the passed chartCanvasHeight if available, otherwise use the calculated height
+  const finalCanvasHeight = chartCanvasHeight || calculatedCanvasHeight;
 
   return (
-    <div className="p-3" style={{ backgroundColor: chartBackgroundColor, borderRadius: '0.25rem' }}>
-      {title && <h4 className={chartTitleClass} style={{ color: '#E3E3E3'}}>{title}</h4>}
-      <div className="d-flex align-items-center"> 
-        <div className="w-60" style={{ position: 'relative', height: `${chartHeight}px`, minWidth: '120px' }}>
+    <div className="p-3" style={{ backgroundColor: chartBackgroundColor, borderRadius: '0.25rem', height: '100%', display: 'flex', flexDirection: 'column' }}>
+      {title && <h4 className={chartTitleClass} style={{ color: '#E3E3E3', flexShrink: 0 }}>{title}</h4>}
+      <div className="d-flex align-items-center" style={{flexGrow: 1 /* Allow this flex container to grow */}}>
+        <div className="w-60" style={{ position: 'relative', height: finalCanvasHeight, minWidth: '120px' }}>
           <Bar data={chartJsData} options={chartJsOptions} />
         </div>
-
-        <div className="w-40 ml-3"> 
+        <div className="w-40 ml-3 d-flex flex-column justify-content-center"> {/* Legend */}
           <ul className="list-unstyled p-0 m-0">
             {sortedFunnelData.map((item, index) => (
               <li 
@@ -159,7 +170,7 @@ const FunnelRequestChart = ({ title, funnelDataItems, chartTitleClass = 'text-li
                   style={{ 
                     fontSize: '0.875rem', 
                     flexShrink: 0, 
-                    paddingLeft: '4.5rem' 
+                    paddingLeft: '0.5rem' 
                   }}
                 >
                   {item.value}%

@@ -1,86 +1,248 @@
-import React from "react";
-import { Card, CardBody, Col, Row } from "reactstrap"; // Using reactstrap for layout
-import FunnelRequestChart from "../../components/FunnelRequestChart";
-import ReusableLineChartCard from "views/components/LineChartCard";
-import ReusableBarChartCard from "views/components/ReusableBarChartCard";
+import React from 'react';
+import { Row, Col, Card, CardBody } from 'reactstrap';
+import ReusableLineChartCard from '../../components/LineChartCard';
+import ReusableBarChartCard from '../../components/ReusableBarChartCard';
+import ReusableDoughnutChart from '../../components/DoughnutChart';
+import FunnelRequestChart from '../../components/FunnelRequestChart';
+
 
 const FlightAnalyticalOveral = () => {
-  const funnelChartData = [
-    { label: "Total search", value: 78 },
-    { label: "Select ticket", value: 92 },
-    { label: "Buying Process", value: 32 },
-    { label: "Payment page", value: 22 },
-    { label: "Purchase", value: 12 },
-  ];
+  // 1. Average Spend daily Past week (Line Chart)
+  const averageSpendData = {
+    labels: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    datasets: [
+      {
+        label: "Daily Spend",
+        data: [80, 100, 80, 70, 90, 120, 80], 
+      },
+    ],
+  };
 
-  const filterChartData = {
+  // 2. Most applied filters (Bar Chart)
+  const mostAppliedFiltersData = {
     labels: ["Date", "Price", "Duration", "Class", "Baggage", "Layover"],
     datasets: [
       {
-        label: "Applied Count", // Shows in tooltip
-        data: [80, 100, 70, 80, 120, 80], // Example data from Chart 3 2.png
-        // To use a different color for this specific dataset:
-        // backgroundColor: "#1f8ef1", // This will be the base for its gradient
-        // borderColor: "#1f8ef1",
+        label: "Applied Count",
+        data: [80, 100, 70, 80, 120, 80], 
       },
     ],
   };
 
-  const weeklySpendData = {
-    labels: [
-      "Saturday",
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-    ],
+  // 3. Reservation Duration (Bar Chart)
+  const reservationDurationData = {
+    labels: ["< 2 days", "2 days", "3-4 days", "5-6 days", "7-8 days", "9-10 days", "> 10 days"],
     datasets: [
       {
-        label: "Daily Spend", // This will show in tooltips
-        data: [80, 100, 80, 70, 90, 120, 80], // Example data from Chart 1.png
-        // You can override lineColor per dataset if needed:
-        // borderColor: '#00d6b4', // Example: a teal color
+        label: "Reservations",
+        data: [70, 100, 120, 90, 110, 80, 60], 
+        barColor: "#1f8ef1", 
+        borderColor: "#1f8ef1",
       },
     ],
   };
-  return (
-    <>
-      <Card className="card-plain">
-        <CardBody>
-          <FunnelRequestChart
-            title="Funnel request rate"
-            funnelDataItems={funnelChartData}
-          />
-        </CardBody>
-      </Card>
+   const reservationDurationOptions = {
+    scales: {
+      y: {
+        suggestedMin: 0, 
+        suggestedMax: 130, 
+        ticks: {
+          stepSize: 20
+        }
+      }
+    }
+  };
 
+
+  // 4. Funnel request rate (Funnel Chart)
+  const funnelRequestData = [
+    { label: "Total search", value: 78 },
+    { label: "Select accommodation", value: 65 }, 
+    { label: "Select Rooms", value: 50 },
+    { label: "Process page", value: 35 }, 
+    { label: "Purchase", value: 22 },
+  ];
+
+  // 5. Accommodation type (Doughnut Chart)
+  const accommodationTypeData = [
+    { label: "Hotel", value: 78, color: "#00d6b4" }, 
+    { label: "Accommodation", value: 22, color: "#1f8ef1" }, 
+  ];
+
+  // 6. Ration of reserved rooms per booking (Doughnut Chart)
+  const reservedRoomsData = [
+    { label: "1 room", value: 78, color: "#00d6b4" }, 
+    { label: "2 rooms", value: 22, color: "#1f8ef1" }, 
+    { label: "3 rooms", value: 15, color: "#ff8d72" }, 
+    { label: "4 rooms", value: 10, color: "#ba54f5" }, 
+    { label: "5 rooms and more", value: 5, color: "#fd5d93" }, 
+  ];
+  const smallDoughnutSize = "120px"; 
+
+
+  // 7. UAE visa request ratio (Doughnut Chart)
+  const uaeVisaData = [
+    { label: "Total bookings to UAE", value: 78, color: "#00d6b4" }, 
+    { label: "Visa Requested", value: 22, color: "#ff8d72" }, 
+  ];
+
+  // 8. Most Popular destinations (Doughnut Chart)
+  const popularDestinationsData = [
+    { label: "USA", value: 78, color: "#00d6b4" },
+    { label: "Germany", value: 22, color: "#1f8ef1" },
+    { label: "Australia", value: 18, color: "#ff8d72" },
+    { label: "United Kingdom", value: 15, color: "#ba54f5" },
+    { label: "Canada", value: 10, color: "#fd5d93" },
+  ];
+
+  // 9. Travel Group percentages (Doughnut Chart)
+  const travelGroupData = [
+    { label: "Adults", value: 78, color: "#00d6b4" },
+    { label: "Children", value: 22, color: "#1f8ef1" },
+    { label: "Infants", value: 10, color: "#ff8d72" },
+  ];
+
+  // 10. Most Popular Accommodation (Doughnut Chart)
+  const popularAccommodationData = [
+    { label: "Accommodation name", value: 78, color: "#00d6b4" },
+    { label: "Accommodation name", value: 22, color: "#1f8ef1" }, 
+    { label: "Accommodation name", value: 18, color: "#ff8d72" },
+    { label: "Accommodation name", value: 15, color: "#ba54f5" },
+    { label: "Accommodation name", value: 10, color: "#fd5d93" },
+  ];
+
+  // Define a common height for the chart drawing areas in the second row
+  const secondRowChartCanvasHeight = "240px"; // You can adjust this value
+
+  return (
+    <div className="content"> 
+      <h2 className="title text-white mb-4">Overall</h2>
+
+      {/* First Row of Charts (Line Chart and Bar Chart) */}
       <Row>
-        <Col md="12">
-          {" "}
-          {/* Or md="8", lg="6" depending on desired width */}
+        <Col lg="7" md="12" className="mb-4"> 
           <ReusableLineChartCard
             cardTitleText="Average Spend daily Past week"
             cardCategoryText="Average Week $ 10,000"
-            chartData={weeklySpendData}
-            // You can customize further with other props:
-            // lineColor="#1f8ef1" // Example: change to blue
-            // chartHeight="300px"
+            chartData={averageSpendData}
+            chartHeight="300px" 
           />
         </Col>
-      </Row>
-      <Row>
-        <Col md="12"> {/* Or a smaller column like md="8" or lg="6" */}
+        <Col lg="5" md="12" className="mb-4"> 
           <ReusableBarChartCard
             cardTitleText="Most applied filters"
-            chartData={filterChartData}
-            // defaultBarColor="#FD5D93" // This is the default, can be changed
-            // chartHeight="280px"
+            chartData={mostAppliedFiltersData}
+            chartHeight="300px" 
           />
         </Col>
       </Row>
-    </>
+
+      {/* Second Row of Charts (Reservation Duration and Funnel Chart) */}
+      <Row className="d-flex align-items-stretch">
+        <Col lg="7" md="12" className="mb-4 d-flex"> 
+           <ReusableBarChartCard
+            cardTitleText="Reservation Duration"
+            chartData={reservationDurationData}
+            defaultBarColor="#1f8ef1" 
+            customOptions={reservationDurationOptions}
+            chartHeight={secondRowChartCanvasHeight} 
+          />
+        </Col>
+        <Col lg="5" md="12" className="mb-4 d-flex"> 
+          <Card className="card-chart d-flex flex-column flex-grow-1"> 
+            <CardBody className="d-flex flex-column flex-grow-1"> 
+              <FunnelRequestChart
+                title="Funnel request rate"
+                funnelDataItems={funnelRequestData}
+                chartCanvasHeight={secondRowChartCanvasHeight} 
+                chartBackgroundColor="transparent" 
+              />
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+
+      {/* Third Row of Charts (3 Doughnut Charts) */}
+      <Row>
+        <Col lg="4" md="6" sm="12" className="mb-4">
+          <Card className="card-chart">
+            <CardBody>
+              <ReusableDoughnutChart
+                title="Accommodation type"
+                chartDataItems={accommodationTypeData}
+                chartHeight={smallDoughnutSize}
+                chartWidth={smallDoughnutSize}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+        <Col lg="4" md="6" sm="12" className="mb-4">
+          <Card className="card-chart">
+            <CardBody>
+              <ReusableDoughnutChart
+                title="Ration of reserved rooms per booking"
+                chartDataItems={reservedRoomsData}
+                chartHeight={smallDoughnutSize}
+                chartWidth={smallDoughnutSize}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+        <Col lg="4" md="6" sm="12" className="mb-4">
+          <Card className="card-chart">
+            <CardBody>
+              <ReusableDoughnutChart
+                title="UAE visa request ratio"
+                chartDataItems={uaeVisaData}
+                chartHeight={smallDoughnutSize}
+                chartWidth={smallDoughnutSize}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+      
+      {/* Fourth Row of Charts (3 Doughnut Charts) */}
+      <Row>
+        <Col lg="4" md="6" sm="12" className="mb-4">
+          <Card className="card-chart">
+            <CardBody>
+              <ReusableDoughnutChart
+                title="Most Popular destinations"
+                chartDataItems={popularDestinationsData}
+                chartHeight={smallDoughnutSize}
+                chartWidth={smallDoughnutSize}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+        <Col lg="4" md="6" sm="12" className="mb-4">
+          <Card className="card-chart">
+            <CardBody>
+              <ReusableDoughnutChart
+                title="Travel Group percentages"
+                chartDataItems={travelGroupData}
+                chartHeight={smallDoughnutSize}
+                chartWidth={smallDoughnutSize}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+        <Col lg="4" md="6" sm="12" className="mb-4">
+          <Card className="card-chart">
+            <CardBody>
+              <ReusableDoughnutChart
+                title="Most Popular Accommodation"
+                chartDataItems={popularAccommodationData}
+                chartHeight={smallDoughnutSize}
+                chartWidth={smallDoughnutSize}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+
+    </div>
   );
 };
 
