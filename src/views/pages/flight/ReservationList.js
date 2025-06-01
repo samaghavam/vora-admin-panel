@@ -1,24 +1,26 @@
 import React from "react";
-import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
+import { Row, Col } from "reactstrap";
+import SimpleBreadcrumb from "../../components/BreadCrumbs";
+import ReservationTable from "./ReservationTable";
 
 const ReservationList = () => {
+  const breadcrumbItems = [
+    { label: "Home", to: "/admin/dashboard" },
+    { label: "Flight management", to: "/admin/flight" },
+    { label: "Reservation List" },
+  ];
+
   return (
     <div className="content">
       <Row>
-        <Col md="12">
-          <Card>
-            <CardHeader>
-              <CardTitle tag="h4">Flight Reservation List</CardTitle>
-            </CardHeader>
-            <CardBody>
-              <p>
-                This page will display the list of flight reservations.
-                {/* TODO: Add table or list of reservations here */}
-              </p>
-            </CardBody>
-          </Card>
+        <Col>
+          <SimpleBreadcrumb
+            items={breadcrumbItems}
+            olClassName="screenshot-style-breadcrumb"
+          />
         </Col>
       </Row>
+      <ReservationTable />
     </div>
   );
 };

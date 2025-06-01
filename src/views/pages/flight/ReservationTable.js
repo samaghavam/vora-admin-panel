@@ -27,7 +27,7 @@ const dataTable = [
   // You can add more data rows here following the same structure
 ];
 
-const ReactTables = () => {
+const ReservationTable = () => {
   const [data, setData] = React.useState(
     dataTable.map((prop, key) => {
       return {
@@ -121,10 +121,11 @@ const ReactTables = () => {
   return (
     <>
       <div className="content">
-        <Row >
+        <Row className="mt-5">
           <Col xs={12} md={12}>
             <Card>
               <CardHeader>
+                {/* Card title can be adjusted as per the image, e.g. "React Table" or something more specific */}
                 <CardTitle tag="h4">React Table</CardTitle>
               </CardHeader>
               <CardBody>
@@ -132,33 +133,33 @@ const ReactTables = () => {
                   data={data}
                   filterable
                   resizable={false}
-                  columns={[ 
+                  columns={[ // Updated column definitions
                     {
-                      Header: "NAME", 
+                      Header: "NAME", // Matched from image
                       accessor: "name",
                     },
                     {
-                      Header: "From", 
+                      Header: "From", // Matched from image
                       accessor: "from",
                     },
                     {
-                      Header: "Destination", 
+                      Header: "Destination", // Matched from image
                       accessor: "destination",
                     },
                     {
-                      Header: "Airline", 
+                      Header: "Airline", // Matched from image
                       accessor: "airline",
                     },
                     {
-                      Header: "Date", 
+                      Header: "Date", // Matched from image
                       accessor: "date",
                     },
                     {
-                      Header: "Reservation number",
+                      Header: "Reservation number", // Matched from image
                       accessor: "reservationNumber",
                     },
                     {
-                      Header: "Actions",
+                      Header: "Actions", // Matched from image
                       accessor: "actions",
                       sortable: false,
                       filterable: false,
@@ -178,4 +179,4 @@ const ReactTables = () => {
   );
 };
 
-export default ReactTables;
+export default ReservationTable;
