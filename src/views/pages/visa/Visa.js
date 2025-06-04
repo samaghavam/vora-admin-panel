@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col } from "reactstrap";
 import NavigationBox from "../../components/NavigationBox"; 
 
-const Flight = () => {
+const Visa = () => {
   return (
     <div className="content">
       <Row 
@@ -11,13 +11,13 @@ const Flight = () => {
       >
         <Col md="auto" className="mb-4 mb-md-0 d-flex justify-content-center">
           <NavigationBox
-            to="/admin/flight/reservation-list"
-            title="Reservation list"
+            to="/admin/visa/request-list"
+            title="Request list"
           />
         </Col>
         <Col md="auto" className="d-flex justify-content-center">
           <NavigationBox
-            to="/admin/flight/analytics"
+            to="/admin/visa/analytics"
             title="Analytics"
           />
         </Col>
@@ -26,4 +26,4 @@ const Flight = () => {
   );
 };
 
-export default Flight;
+export default Visa;

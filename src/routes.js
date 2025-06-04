@@ -47,6 +47,9 @@ import Lock from "views/pages/Lock.js";
 import Flight from "views/pages/flight/Flight"; // Main Flight page with two boxes
 import ReservationList from "views/pages/flight/ReservationList.js";
 import FlightAnalytics from "views/pages/flight/FlightAnalytics.js";
+import Visa from "views/pages/visa/Visa";
+import VisaRequestList from "views/pages/visa/VisaRequestList";
+import VisaAnalytics from "views/pages/visa/VisaAnalytics";
 
 const routes = [
   {
@@ -78,6 +81,29 @@ const routes = [
     path: "/flight/analytics",
     name: "Flight Analytics", // Name is still useful for breadcrumbs or page titles
     component: <FlightAnalytics />,
+    layout: "/admin",
+    hideInSidebar: true, // Custom flag to hide this from sidebar
+  },
+  {
+    path: "/visa",
+    name: "UAE Visa",
+    rtlName: "معلومات الرحلة",
+    icon: "tim-icons icon-image-02",
+    component: <Visa />,
+    layout: "/admin",
+  },
+  // Sub-routes for Visa section - hidden from sidebar
+  {
+    path: "/visa/request-list",
+    name: "Request List", // Name is still useful for breadcrumbs or page titles
+    component: <VisaRequestList />,
+    layout: "/admin",
+    hideInSidebar: true, // Custom flag to hide this from sidebar
+  },
+  {
+    path: "/visa/analytics",
+    name: "Visa Analytics", // Name is still useful for breadcrumbs or page titles
+    component: <VisaAnalytics />,
     layout: "/admin",
     hideInSidebar: true, // Custom flag to hide this from sidebar
   },
