@@ -58,7 +58,7 @@ const VisaAnalyticAllTime = () => {
 
   return (
     <div>
-      <h3 className="title text-white mb-4">This month</h3> {/* Added mb-4 for spacing */}
+      <h3 className="title text-white mb-4">All Time</h3> {/* Added mb-4 for spacing */}
       
       {/* Top Row: Bar Chart and Line Chart */}
       <Row>
