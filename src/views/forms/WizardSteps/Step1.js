@@ -1,22 +1,5 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.2.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import classnames from "classnames";
-// reactstrap components
 import {
   Input,
   InputGroupAddon,
@@ -137,7 +120,7 @@ const Step1 = React.forwardRef((props, ref) => {
     },
   }));
   return (
-    <>
+    <div className="content">
       <h5 className="info-text">
         Let's start with the basic information (with validation)
       </h5>
@@ -255,7 +238,7 @@ const Step1 = React.forwardRef((props, ref) => {
           </InputGroup>
         </Col>
       </Row>
-    </>
+    </div>
   );
 });
 
