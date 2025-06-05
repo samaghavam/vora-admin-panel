@@ -175,6 +175,44 @@ const StaystAnalyticalOveral = () => {
           </Card>
         </Col>
       </Row>
+      <Row>
+        <Col lg="4" md="6" sm="12" className="mb-4">
+          <Card className="card-chart">
+            <CardBody>
+              <ReusableDoughnutChart
+                title="Accommodation type"
+                chartDataItems={accommodationTypeData}
+                chartHeight={smallDoughnutSize}
+                chartWidth={smallDoughnutSize}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+        <Col lg="4" md="6" sm="12" className="mb-4">
+          <Card className="card-chart">
+            <CardBody>
+              <ReusableDoughnutChart
+                title="Ration of reserved rooms per booking"
+                chartDataItems={reservedRoomsData}
+                chartHeight={smallDoughnutSize}
+                chartWidth={smallDoughnutSize}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+        <Col lg="4" md="6" sm="12" className="mb-4">
+          <Card className="card-chart">
+            <CardBody>
+              <ReusableDoughnutChart
+                title="UAE visa request ratio"
+                chartDataItems={uaeVisaData}
+                chartHeight={smallDoughnutSize}
+                chartWidth={smallDoughnutSize}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 };
