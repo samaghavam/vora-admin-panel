@@ -50,6 +50,10 @@ import FlightAnalytics from "views/pages/flight/FlightAnalytics.js";
 import Visa from "views/pages/visa/Visa";
 import VisaRequestList from "views/pages/visa/VisaRequestList";
 import VisaAnalytics from "views/pages/visa/VisaAnalytics";
+import Stays from "views/pages/stays/Stays";
+import StaysReservationList from "views/pages/stays/StaysReservationList";
+import StaysAnalytics from "views/pages/stays/StaysAnalytics";
+import StaysAccommodations from "views/pages/stays/StaysAccommodations";
 
 const routes = [
   {
@@ -72,18 +76,51 @@ const routes = [
   // Sub-routes for Flight section - hidden from sidebar
   {
     path: "/flight/reservation-list",
-    name: "Reservation List", // Name is still useful for breadcrumbs or page titles
+    name: "Reservation List",
     component: <ReservationList />,
     layout: "/admin",
-    hideInSidebar: true, // Custom flag to hide this from sidebar
+    hideInSidebar: true,
   },
   {
     path: "/flight/analytics",
-    name: "Flight Analytics", // Name is still useful for breadcrumbs or page titles
+    name: "Flight Analytics",
     component: <FlightAnalytics />,
     layout: "/admin",
-    hideInSidebar: true, // Custom flag to hide this from sidebar
+    hideInSidebar: true,
   },
+
+  // Stays - Direct link in sidebar
+  {
+    path: "/stays",
+    name: "Stays",
+    rtlName: "معلومات الرحلة",
+    icon: "tim-icons icon-pin",
+    component: <Stays />,
+    layout: "/admin",
+  },
+  // Sub-routes for Flight section - hidden from sidebar
+  {
+    path: "/Stays/reservation-list",
+    name: "Reservation List",
+    component: <StaysReservationList />,
+    layout: "/admin",
+    hideInSidebar: true,
+  },
+  {
+    path: "/stays/analytics",
+    name: "Analytics",
+    component: <StaysAnalytics />,
+    layout: "/admin",
+    hideInSidebar: true,
+  },
+  {
+    path: "/stays/accomodations",
+    name: "Accommodations",
+    component: <StaysAccommodations />,
+    layout: "/admin",
+    hideInSidebar: true,
+  },
+
   {
     path: "/visa",
     name: "UAE Visa",
