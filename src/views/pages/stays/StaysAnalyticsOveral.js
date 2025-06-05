@@ -88,21 +88,21 @@ const StaystAnalyticalOveral = () => {
 
 
   // Define a common height for the chart drawing areas in the second row
-  const secondRowChartCanvasHeight = "240px"; 
+  const secondRowChartCanvasHeight = "230px"; 
 
   return (
     <div className="content"> 
       <h2 className="title text-white mb-4">Overall</h2>
       <Row>
-        <Col lg="7" md="12" className="mb-4"> 
+        <Col lg="6" md="12" > 
           <ReusableLineChartCard
             cardTitleText="Average Spend daily Past week"
             cardCategoryText="Average Week $ 10,000"
             chartData={averageSpendData}
-            chartHeight="300px" 
+            chartHeight="265px" 
           />
         </Col>
-        <Col lg="5" md="12" className="mb-4"> 
+        <Col lg="6" md="12" > 
           <ReusableBarChartCard
             cardTitleText="Most applied filters"
             chartData={mostAppliedFiltersData}
@@ -113,7 +113,7 @@ const StaystAnalyticalOveral = () => {
 
       {/* Second Row of Charts (Reservation Duration and Funnel Chart) */}
       <Row className="d-flex align-items-stretch">
-        <Col lg="7" md="12" className="mb-4 d-flex"> 
+        <Col lg="6" md="12" className=" d-flex"> 
            <ReusableBarChartCard
             cardTitleText="Reservation Duration"
             chartData={reservationDurationData}
@@ -122,7 +122,7 @@ const StaystAnalyticalOveral = () => {
             chartHeight={secondRowChartCanvasHeight} 
           />
         </Col>
-        <Col lg="5" md="12" className="mb-4 d-flex"> 
+        <Col lg="6" md="12" className=" d-flex"> 
           <Card className="card-chart d-flex flex-column flex-grow-1"> 
             <CardBody className="d-flex flex-column flex-grow-1"> 
               <FunnelRequestChart
