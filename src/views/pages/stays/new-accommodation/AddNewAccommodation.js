@@ -2,7 +2,7 @@ import React from "react";
 import ReactWizard from "react-bootstrap-wizard";
 import { Col } from "reactstrap";
 import Step1 from "./step1/Step1";
-import Step2 from "./Step2.js";
+import Step2 from "./step2/Step2.js";
 import Step3 from "./Step3.js";
 
 var steps = [
