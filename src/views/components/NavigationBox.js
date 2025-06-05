@@ -7,7 +7,7 @@ const NavigationBox = ({ to, title, className, bgColor = 'blue' }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const cardStyle = {
-    width: '375px',
+    minWidth: '300px',
     height: '264px',
     borderRadius: '6px', 
     transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
@@ -16,7 +16,7 @@ const NavigationBox = ({ to, title, className, bgColor = 'blue' }) => {
     textDecoration: 'none', 
   };
 
-  const titleClasses = "h2 font-weight-bold text-white m-0 text-center";
+  const titleClasses = " font-weight-bold text-white m-0 text-center";
 
   return (
     <Link to={to} style={{ textDecoration: 'none' }}>
@@ -34,7 +34,7 @@ const NavigationBox = ({ to, title, className, bgColor = 'blue' }) => {
           className="d-flex flex-column justify-content-center align-items-center h-100"
           style={{ padding: "3rem 1.5rem" }}
         >
-          <h2 className={titleClasses}>{title}</h2>
+          <h3 className={titleClasses}>{title}</h3>
         </CardBody>
       </Card>
     </Link>
