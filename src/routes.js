@@ -27,7 +27,7 @@ import RegularForms from "views/forms/RegularForms.js";
 import Calendar from "views/Calendar.js";
 import Widgets from "views/Widgets.js";
 import Charts from "views/Charts.js";
-import Dashboard from "views/Dashboard.js";
+import Dashboard from "views/pages/dashboard/Dashboard";
 import Buttons from "views/components/Buttons.js";
 import SweetAlert from "views/components/SweetAlert.js";
 import Notifications from "views/components/Notifications.js";
