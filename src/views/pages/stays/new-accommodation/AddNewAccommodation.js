@@ -3,9 +3,9 @@ import ReactWizard from "react-bootstrap-wizard";
 import { Col } from "reactstrap";
 import Step1 from "./step1/Step1";
 import Step2 from "./step2/Step2.js";
-import Step3 from "./Step3.js";
+import Step3 from "./step3/Step3.js";
 
-var steps = [
+const steps = [
   {
     stepName: "About",
     stepIcon: "tim-icons icon-single-02",
@@ -27,7 +27,7 @@ const AddNewAccommodations = () => {
   return (
     <>
       <div className="content">
-        <Col >
+        <Col>
           <ReactWizard
             steps={steps}
             navSteps

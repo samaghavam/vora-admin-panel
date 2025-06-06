@@ -67,9 +67,6 @@ const Step2 = React.forwardRef((props, ref) => {
       if (room.childrenFree === null) {
         roomIsValid = false;
       }
-      if (!room.roomImageFile) {
-        roomIsValid = false;
-      }
       if (room.petsAllowed === null) {
         roomIsValid = false;
       }
