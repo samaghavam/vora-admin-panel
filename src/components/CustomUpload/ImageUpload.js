@@ -23,6 +23,9 @@ import { Button } from "reactstrap";
 import defaultImage from "assets/img/image_placeholder.jpg";
 import defaultAvatar from "assets/img/placeholder.jpg";
 
+// ===================================================================================
+// START: Modified ImageUpload Component
+// ===================================================================================
 const ImageUpload = ({
   avatar = false,
   addBtnColor = "primary",
@@ -31,37 +34,47 @@ const ImageUpload = ({
   changeBtnClasses = "btn-round",
   removeBtnColor = "danger",
   removeBtnClasses = "btn-round",
+  onFileChange, // 1. Accept onFileChange from props
 }) => {
   const [file, setFile] = React.useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = React.useState(
     avatar ? defaultAvatar : defaultImage
   );
   const fileInput = React.useRef(null);
+
   const handleImageChange = (e) => {
     e.preventDefault();
     let reader = new FileReader();
-    let file = e.target.files[0];
-    reader.onloadend = () => {
-      setFile(file);
-      setImagePreviewUrl(reader.result);
-    };
-    reader.readAsDataURL(file);
+    let selectedFile = e.target.files[0];
+    
+    // Ensure a file was selected
+    if (selectedFile) {
+        reader.onloadend = () => {
+            setFile(selectedFile);
+            setImagePreviewUrl(reader.result);
+            // 2. Call the parent's handler with the selected file
+            if (onFileChange) {
+                onFileChange(selectedFile);
+            }
+        };
+        reader.readAsDataURL(selectedFile);
+    }
   };
-  // eslint-disable-next-line
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // file is the file/image uploaded
-    // in this function you can save the image (file) on form submit
-    // you have to call it yourself
-  };
+
   const handleClick = () => {
     fileInput.current.click();
   };
+
   const handleRemove = () => {
     setFile(null);
     setImagePreviewUrl(avatar ? defaultAvatar : defaultImage);
     fileInput.current.value = null;
+    // 3. Notify the parent that the file has been removed
+    if (onFileChange) {
+        onFileChange(null);
+    }
   };
+
   return (
     <div className="fileinput text-center">
       <input type="file" onChange={handleImageChange} ref={fileInput} />
@@ -100,9 +113,14 @@ const ImageUpload = ({
     </div>
   );
 };
+// ===================================================================================
+// END: Modified ImageUpload Component
+// ===================================================================================
+
 
 ImageUpload.propTypes = {
   avatar: PropTypes.bool,
+  onFileChange: PropTypes.func, // 4. Add prop type for the new handler
   removeBtnClasses: PropTypes.string,
   removeBtnColor: PropTypes.oneOf([
     "default",
