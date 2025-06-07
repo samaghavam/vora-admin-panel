@@ -37,6 +37,8 @@ import StaysReservationList from "views/pages/stays/StaysReservationList";
 import StaysAnalytics from "views/pages/stays/StaysAnalytics";
 import StaysAccommodations from "views/pages/stays/StaysAccommodations";
 import AddNewAccommodations from "views/pages/stays/new-accommodation/AddNewAccommodation";
+import Claims from "views/pages/claims/Claims";
+import AdminManagement from "views/pages/claims/AdminManagement";
 
 const routes = [
   {
@@ -115,7 +117,7 @@ const routes = [
     path: "/visa",
     name: "UAE Visa",
     rtlName: "معلومات الرحلة",
-    icon: "tim-icons icon-image-02",
+    icon: "tim-icons icon-credit-card",
     component: <Visa />,
     layout: "/admin",
   },
@@ -131,6 +133,21 @@ const routes = [
     path: "/visa/analytics",
     name: "Visa Analytics", // Name is still useful for breadcrumbs or page titles
     component: <VisaAnalytics />,
+    layout: "/admin",
+    hideInSidebar: true, // Custom flag to hide this from sidebar
+  },
+  {
+    path: "/claims",
+    name: "Claims",
+    rtlName: "درخواست‌ها",
+    icon: "tim-icons icon-bag-16",
+    component: <Claims />,
+    layout: "/admin",
+  },
+  {
+    path: "/claims/admin-management",
+    name: "Admin Managementt", // Name is still useful for breadcrumbs or page titles
+    component: <AdminManagement />,
     layout: "/admin",
     hideInSidebar: true, // Custom flag to hide this from sidebar
   },
