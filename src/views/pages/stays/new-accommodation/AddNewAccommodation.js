@@ -30,62 +30,49 @@ const steps = [
 
 const AddNewAccommodations = () => {
 
-  // This function will be called when the finish button is clicked.
-  // The 'allStates' parameter is an object provided by ReactWizard that contains
-  // the refs to each step, allowing you to call their methods.
   const handleFinish = (allStates) => {
     console.log("Wizard finished. Gathering data from all steps...");
-    console.log(allStates); // You can inspect this object to see the state of the wizard
+    console.log(allStates); // Let's check this again after the fix
 
-    // --- BEST PRACTICE FOR API SUBMISSION ---
-    // 1. Call the `getStepData` method from each step's ref.
-    //    We defined this method in our Step components using useImperativeHandle.
-    // Note: The key for each step in `allStates` is its `stepName`.
+    // ===================================================================================
+    // START: Corrected Code
+    // ===================================================================================
+    // This logic was correct in principle. Now that we've diagnosed the ref issue,
+    // it should work once the `validate` prop is removed.
+
+    // Add safety checks to provide a clear error if it still fails.
+    if (!allStates.About || !allStates.Rooms || !allStates.Highlights) {
+      alert("A step component failed to load correctly. Check the console for errors.");
+      console.error("One of the step refs is still undefined:", allStates);
+      return;
+    }
+
     const step1Data = allStates.About.getStepData();
     const step2Data = allStates.Rooms.getStepData();
     const step3Data = allStates.Highlights.getStepData();
+    // ===================================================================================
+    // END: Corrected Code
+    // ===================================================================================
 
-    // 2. Combine all data into a single payload for the API.
     const finalPayload = {
-      ...step1Data, // Contains { generalInfo, facilities, rules }
-      ...step2Data, // Contains { rooms }
-      ...step3Data, // Contains { highlightFeatures, coverImage }
+      ...step1Data,
+      ...step2Data,
+      ...step3Data,
     };
     
-    // 3. In a real application, you would now create FormData to handle file uploads
-    //    and send the payload to your backend API.
     console.log("Final API Payload:", finalPayload);
-    //
-    // const formData = new FormData();
-    // formData.append('generalInfo', JSON.stringify(finalPayload.generalInfo));
-    // formData.append('facilities', JSON.stringify(finalPayload.facilities));
-    // // Handle rule files
-    // finalPayload.rules.forEach((rule, index) => {
-    //   formData.append(`rule_icon_${index}`, rule.iconFile);
-    // });
-    // // Handle room files
-    // finalPayload.rooms.forEach((room, index) => {
-    //   formData.append(`room_image_${index}`, room.roomImage);
-    // });
-    // // Handle cover image
-    // formData.append('coverImage', finalPayload.coverImage);
-    //
-    // api.post('/accommodations', formData).then(...);
-
-    // 4. For now, show the alert as requested.
     alert("New accommodation added!");
   };
 
   return (
     <>
       <div className="content">
-        <Col className="mr-auto ml-auto"> {/* Added md="10" for better centering on larger screens */}
+        <Col className="mr-auto ml-auto">
           <ReactWizard
             steps={steps}
             navSteps
-            validate
+            // validate // <-- THE 'validate' PROP HAS BEEN REMOVED
             headerTextCenter
-            // THE KEY CHANGE: Added the finishButtonClick prop
             finishButtonClick={handleFinish}
             finishButtonClasses="btn-wd btn-info"
             nextButtonClasses="btn-wd btn-info"
