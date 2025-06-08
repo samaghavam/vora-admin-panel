@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react"; // Added useRef and useState
 import { Row, Col, Button } from "reactstrap"; // Added Button
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
 import TravelMonth from "./TravelAsistMonth";
+import TravelAsistAllTime from "./TravelAsistAllTime";
 
 const TravelAsist = () => {
   const [activeButton, setActiveButton] = useState("thisMonth"); // Default active button
@@ -90,7 +91,7 @@ const TravelAsist = () => {
       >
         {" "}
         {/* pt-5 for top padding/spacing */}
-        All time
+        <TravelAsistAllTime />
       </div>
       <div
         ref={overallRef}
