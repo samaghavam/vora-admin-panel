@@ -41,6 +41,7 @@ import Claims from "views/pages/claims/Claims";
 import AdminManagement from "views/pages/claims/AdminManagement";
 import AiManagement from "views/pages/ai-management/AiManagement";
 import OveralPerformance from "views/pages/ai-management/overalperformance/OveralPerformance";
+import TravelAsist from "views/pages/ai-management/travelAssist/TravelAsist";
 
 const routes = [
   {
@@ -63,6 +64,13 @@ const routes = [
     path: "/ai-management/performance",
     name: "Overal Performance",
     component: <OveralPerformance />,
+    layout: "/admin",
+    hideInSidebar: true,
+  },
+  {
+    path: "/ai-management/assists",
+    name: "Travel Asist",
+    component: <TravelAsist />,
     layout: "/admin",
     hideInSidebar: true,
   },
