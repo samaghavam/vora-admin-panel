@@ -40,6 +40,7 @@ import AddNewAccommodations from "views/pages/stays/new-accommodation/AddNewAcco
 import Claims from "views/pages/claims/Claims";
 import AdminManagement from "views/pages/claims/AdminManagement";
 import AiManagement from "views/pages/ai-management/AiManagement";
+import OveralPerformance from "views/pages/ai-management/overalperformance/OveralPerformance";
 
 const routes = [
   {
@@ -51,12 +52,19 @@ const routes = [
     layout: "/admin",
   },
   {
-    path: "/ai-managements",
+    path: "/ai-management",
     name: "AI Management",
     rtlName: "مدیریت با هوش مصنوعی",
     icon: "tim-icons icon-bulb-63",
     component: <AiManagement />,
     layout: "/admin",
+  },
+  {
+    path: "/ai-management/performance",
+    name: "Overal Performance",
+    component: <OveralPerformance />,
+    layout: "/admin",
+    hideInSidebar: true,
   },
   // Flight Info - Direct link in sidebar
   {
