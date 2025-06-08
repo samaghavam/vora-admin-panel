@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react"; // Added useRef and useState
 import { Row, Col, Button } from "reactstrap"; // Added Button
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
-import TravelMonth from "./TravelAsistMonth";
-import TravelAsistAllTime from "./TravelAsistAllTime";
-import TravelAsistOveral from "./TravelAsistOveral";
+import CostCalculatorMonth from "./CostCalculatorMonth";
+import CostCalculatorAllTime from "./CostCalculatorAllTime";
+import CostCalculatorOveral from "./CostCalculatorOveral";
 
 const CostCalculator = () => {
   const [activeButton, setActiveButton] = useState("thisMonth"); // Default active button
@@ -16,7 +16,7 @@ const CostCalculator = () => {
   const breadcrumbItems = [
     { label: "Home", to: "/admin/dashboard" },
     { label: "AI Management", to: "/admin/ai-management" },
-    { label: "Travel Assist Infograph" },
+    { label: "Cost Calculator Infograph" },
   ];
 
   const scrollToSection = (ref, sectionId) => {
@@ -83,21 +83,21 @@ const CostCalculator = () => {
         id="thisMonthSection"
         className="analytics-section pt-3"
       >
-        <TravelMonth />
+       <CostCalculatorMonth />
       </div>
       <div
         ref={allTimeRef}
         id="allTimeSection"
         className="analytics-section pt-5"
       >
-        <TravelAsistAllTime />
+        <CostCalculatorAllTime />
       </div>
       <div
         ref={overallRef}
         id="overallSection"
         className="analytics-section pt-5"
       >
-        <TravelAsistOveral />
+        <CostCalculatorOveral />
       </div>
     </div>
   );

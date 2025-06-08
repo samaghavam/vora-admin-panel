@@ -43,6 +43,7 @@ import AiManagement from "views/pages/ai-management/AiManagement";
 import OveralPerformance from "views/pages/ai-management/overalperformance/OveralPerformance";
 import TravelAsist from "views/pages/ai-management/travelAssist/TravelAsist";
 import TravelBudget from "views/pages/ai-management/travelBudget/TravelBudget";
+import CostCalculator from "views/pages/ai-management/costCalculator/CostCalculator";
 
 const routes = [
   {
@@ -79,6 +80,13 @@ const routes = [
     path: "/ai-management/travel-on-budget",
     name: "Travel Asist",
     component: <TravelBudget />,
+    layout: "/admin",
+    hideInSidebar: true,
+  },
+  {
+    path: "/ai-management/cost-calculator",
+    name: "Cost Calculator",
+    component: <CostCalculator />,
     layout: "/admin",
     hideInSidebar: true,
   },
