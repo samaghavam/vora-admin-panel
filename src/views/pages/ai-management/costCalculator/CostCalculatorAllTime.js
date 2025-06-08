@@ -19,6 +19,11 @@ const CostCalculatorAllTime = () => {
     { label: "Purchase", value: 22 },
   ];
 
+  const averageAIUsageData2 = {
+    labels: ["Travel Assist", "budget Calculator", "Travel on budget"],
+    datasets: [{ label: "Usage", data: [90, 115, 80], barColor: "#e14ec9" }],
+  };
+
   const averageSpendData = {
     labels: [
       "Saturday",
@@ -240,7 +245,25 @@ const CostCalculatorAllTime = () => {
           />
         </Col>
       </Row>
-      {/* Row 6 - Bar Charts */}
+      {/* Row 6 - Doughnut Charts */}
+      <Row className="mb-4">
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
+          <DoughnutCard title="AI type used" chartDataItems={aiTypeUsedData} />
+        </Col>
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
+          <DoughnutCard
+            title="Most Popular destinations"
+            chartDataItems={popularDestinationsData}
+          />
+        </Col>
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
+          <DoughnutCard
+            title="Most Popular Origins"
+            chartDataItems={popularOriginsData}
+          />
+        </Col>
+      </Row>
+      {/* Row 7 - Bar Charts */}
       <Row>
         <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableBarChartCard
@@ -343,6 +366,22 @@ const CostCalculatorAllTime = () => {
             iconGradient={defaultIconGradient}
             title="Average number of packages made per request"
             value="150"
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col lg="6" md="12" className="mb-4 mb-lg-0">
+          <ReusableBarChartCard
+            cardTitleText="Rounded trip duration"
+            chartData={averageAIUsageData2}
+            chartHeight="300px"
+          />
+        </Col>
+        <Col lg="6" md="12">
+          <ReusableBarChartCard
+            cardTitleText="Average AI Usage"
+            chartData={averageAIUsageData2}
+            chartHeight="300px"
           />
         </Col>
       </Row>
