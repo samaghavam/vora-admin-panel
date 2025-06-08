@@ -3,6 +3,7 @@ import { Row, Col, Button } from "reactstrap"; // Added Button
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
 import TravelMonth from "./TravelAsistMonth";
 import TravelAsistAllTime from "./TravelAsistAllTime";
+import TravelAsistOveral from "./TravelAsistOveral";
 
 const TravelAsist = () => {
   const [activeButton, setActiveButton] = useState("thisMonth"); // Default active button
@@ -89,8 +90,6 @@ const TravelAsist = () => {
         id="allTimeSection"
         className="analytics-section pt-5"
       >
-        {" "}
-        {/* pt-5 for top padding/spacing */}
         <TravelAsistAllTime />
       </div>
       <div
@@ -98,9 +97,7 @@ const TravelAsist = () => {
         id="overallSection"
         className="analytics-section pt-5"
       >
-        {" "}
-        {/* pt-5 for top padding/spacing */}
-        Overal
+        <TravelAsistOveral />
       </div>
     </div>
   );
