@@ -16,7 +16,7 @@ const TravelAsist = () => {
   const breadcrumbItems = [
     { label: "Home", to: "/admin/dashboard" },
     { label: "AI Management", to: "/admin/ai-management" },
-    { label: "Overal Info graphics" },
+    { label: "Travel on budget infography" },
   ];
 
   const scrollToSection = (ref, sectionId) => {
