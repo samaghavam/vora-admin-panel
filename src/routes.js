@@ -45,6 +45,7 @@ import TravelAsist from "views/pages/ai-management/travelAssist/TravelAsist";
 import TravelBudget from "views/pages/ai-management/travelBudget/TravelBudget";
 import CostCalculator from "views/pages/ai-management/costCalculator/CostCalculator";
 import Contents from "views/pages/contents/Contents";
+import Home from "views/pages/contents/home/Home";
 
 const routes = [
   {
@@ -186,6 +187,13 @@ const routes = [
     component: <Contents />,
     layout: "/admin",
   },
+  {
+    path: "/contents/home",
+    name: "Home", // Name is still useful for breadcrumbs or page titles
+    component: <Home />,
+    layout: "/admin",
+    hideInSidebar: true, // Custom flag to hide this from sidebar
+  }, 
   {
     path: "/claims",
     name: "Claims",
