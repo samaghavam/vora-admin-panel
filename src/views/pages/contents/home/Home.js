@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Row, Col, Form, Button, Card, CardBody } from "reactstrap";
-import SweetAlert from 'react-bootstrap-sweetalert';
+import SweetAlert from "react-bootstrap-sweetalert";
 
 // Your existing components
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
@@ -9,15 +9,17 @@ import Section2 from "./Section2";
 import Section3 from "./Section3"; // <-- Import Section3
 import AI2CardDescription from "./AI2CardDescription";
 import AI3CardDescription from "./AI3CArdDescription";
+import Section4 from "./Section4";
 
 const Home = () => {
   // --- REFS FOR CHILD COMPONENTS ---
   const heroSectionRef = useRef(null);
   const section2Ref = useRef(null);
   const section3Ref = useRef(null); // <-- Add ref for Section3
-  const sectionAL2Ref = useRef(null)
-  const sectionAL3Ref = useRef(null)
-  
+  const sectionAL2Ref = useRef(null);
+  const sectionAL3Ref = useRef(null);
+  const section4Ref = useRef(null);
+
   // --- STATE FOR ALERTS ---
   const [alert, setAlert] = useState(null);
 
@@ -48,7 +50,7 @@ const Home = () => {
     );
   };
 
-   const showErrorAlert = (message) => {
+  const showErrorAlert = (message) => {
     setAlert(
       <SweetAlert
         danger
@@ -68,15 +70,18 @@ const Home = () => {
   const mockApiCall = (data) => {
     console.log("Sending combined data to API. FormData details:");
     for (let [key, value] of data.entries()) {
-        console.log(key, value);
+      console.log(key, value);
     }
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const isSuccess = true; 
+        const isSuccess = true;
         if (isSuccess) {
           resolve({ status: 200, message: "Data saved!" });
         } else {
-          reject({ status: 500, message: "Failed to save data on the server." });
+          reject({
+            status: 500,
+            message: "Failed to save data on the server.",
+          });
         }
       }, 1500);
     });
@@ -91,52 +96,65 @@ const Home = () => {
     const isSection3Valid = section3Ref.current.validate(); // <-- Validate Section3
     const isSectionAI2Valid = sectionAL2Ref.current.validate();
     const isSectionAI3Valid = sectionAL3Ref.current.validate();
-    
+    const isSection4Valid = section4Ref.current.validate();
+
     // 2. Proceed only if ALL forms are valid
-    if (isHeroSectionValid && isSection2Valid && isSection3Valid && isSectionAI2Valid && isSectionAI3Valid) {
-        // 3. Get data from ALL components
-        const heroData = heroSectionRef.current.getData();
-        const section2Data = section2Ref.current.getData();
-        const section3Data = section3Ref.current.getData(); // <-- Get Section3 data
-        const sectionAI2Data = sectionAL2Ref.current.getData()
-        const sectionAI3Data = sectionAL3Ref.current.getData()
+    if (
+      isHeroSectionValid &&
+      isSection2Valid &&
+      isSection3Valid &&
+      isSectionAI2Valid &&
+      isSectionAI3Valid
+    ) {
+      // 3. Get data from ALL components
+      const heroData = heroSectionRef.current.getData();
+      const section2Data = section2Ref.current.getData();
+      const section3Data = section3Ref.current.getData(); // <-- Get Section3 data
+      const sectionAI2Data = sectionAL2Ref.current.getData();
+      const sectionAI3Data = sectionAL3Ref.current.getData();
+      const section4Data = section4Ref.current.getData();
 
-        // 4. Combine data into a single FormData object
-        const formData = new FormData();
-        
-        // Append hero data with a prefix
-        Object.keys(heroData).forEach(key => {
-            formData.append(`hero_${key}`, heroData[key]);
-        });
-        
-        // Append section 2 data with a prefix
-         Object.keys(section2Data).forEach(key => {
-            formData.append(`section2_${key}`, section2Data[key]);
-        });
-        
-        // Append section 3 data with a prefix
-         Object.keys(section3Data).forEach(key => {
-            formData.append(`section3_${key}`, section3Data[key]);
-        });
-         // Append sectionAI2 data with a prefix
-         Object.keys(sectionAI2Data).forEach(key => {
-          formData.append(`sectionAL2_${key}`, sectionAI2Data[key]);
-      });
-         // Append sectionAI3 data with a prefix
-         Object.keys(sectionAI3Data).forEach(key => {
-          formData.append(`sectionAL3_${key}`, sectionAI3Data[key]);
+      // 4. Combine data into a single FormData object
+      const formData = new FormData();
+
+      // Append hero data with a prefix
+      Object.keys(heroData).forEach((key) => {
+        formData.append(`hero_${key}`, heroData[key]);
       });
 
-        // 5. Send the combined data to the API
-        try {
-            await mockApiCall(formData);
-            showSuccessAlert();
-        } catch (error) {
-            showErrorAlert(error.message);
-        }
+      // Append section 2 data with a prefix
+      Object.keys(section2Data).forEach((key) => {
+        formData.append(`section2_${key}`, section2Data[key]);
+      });
 
+      // Append section 3 data with a prefix
+      Object.keys(section3Data).forEach((key) => {
+        formData.append(`section3_${key}`, section3Data[key]);
+      });
+      // Append sectionAI2 data with a prefix
+      Object.keys(sectionAI2Data).forEach((key) => {
+        formData.append(`sectionAL2_${key}`, sectionAI2Data[key]);
+      });
+      // Append sectionAI3 data with a prefix
+      Object.keys(sectionAI3Data).forEach((key) => {
+        formData.append(`sectionAL3_${key}`, sectionAI3Data[key]);
+      });
+      // Append section 3 data with a prefix
+      Object.keys(section4Data).forEach((key) =>
+        formData.append(`section4_${key}`, section4Data[key])
+      );
+
+      // 5. Send the combined data to the API
+      try {
+        await mockApiCall(formData);
+        showSuccessAlert();
+      } catch (error) {
+        showErrorAlert(error.message);
+      }
     } else {
-      console.log("Validation failed. Please check the forms for required fields.");
+      console.log(
+        "Validation failed. Please check the forms for required fields."
+      );
     }
   };
 
@@ -158,8 +176,8 @@ const Home = () => {
         <Section2 ref={section2Ref} />
         <Section3 ref={section3Ref} /> {/* <-- Add Section3 component */}
         <AI2CardDescription ref={sectionAL2Ref} />
-        <AI3CardDescription ref={sectionAL3Ref}/>
-
+        <AI3CardDescription ref={sectionAL3Ref} />
+        <Section4 ref={section4Ref}/>
         <Card>
           <CardBody>
             <Row>
