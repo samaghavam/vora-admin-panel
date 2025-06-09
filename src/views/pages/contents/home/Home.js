@@ -11,6 +11,7 @@ import AI2CardDescription from "./AI2CardDescription";
 import AI3CardDescription from "./AI3CArdDescription";
 import Section4 from "./Section4";
 import Section5 from "./Section5";
+import Section6 from "./Section6";
 
 const Home = () => {
   // --- REFS FOR CHILD COMPONENTS ---
@@ -21,6 +22,7 @@ const Home = () => {
   const sectionAL3Ref = useRef(null);
   const section4Ref = useRef(null);
   const section5Ref = useRef(null);
+  const section6Ref = useRef(null);
 
   // --- STATE FOR ALERTS ---
   const [alert, setAlert] = useState(null);
@@ -98,6 +100,7 @@ const Home = () => {
     const isSection3Valid = section3Ref.current.validate(); // <-- Validate Section3
     const isSection4Valid = section4Ref.current.validate();
     const isSection5Valid = section5Ref.current.validate(); // <-- Validate Section3
+    const isSection6Valid = section6Ref.current.validate(); // <-- Validate Section3
     const isSectionAI2Valid = sectionAL2Ref.current.validate();
     const isSectionAI3Valid = sectionAL3Ref.current.validate();
 
@@ -109,7 +112,8 @@ const Home = () => {
       isSectionAI2Valid &&
       isSectionAI3Valid &&
       isSection4Valid &&
-      isSection5Valid
+      isSection5Valid &&
+      isSection6Valid
     ) {
       // 3. Get data from ALL components
       const heroData = heroSectionRef.current.getData();
@@ -118,7 +122,8 @@ const Home = () => {
       const sectionAI2Data = sectionAL2Ref.current.getData();
       const sectionAI3Data = sectionAL3Ref.current.getData();
       const section4Data = section4Ref.current.getData();
-      const section5Data = section4Ref.current.getData();
+      const section5Data = section5Ref.current.getData();
+      const section6Data = section6Ref.current.getData();
 
       // 4. Combine data into a single FormData object
       const formData = new FormData();
@@ -152,6 +157,10 @@ const Home = () => {
       // Append section 5 data with a prefix
       Object.keys(section5Data).forEach((key) =>
         formData.append(`section5_${key}`, section5Data[key])
+      );
+      // Append section 6 data with a prefix
+      Object.keys(section5Data).forEach((key) =>
+        formData.append(`section6_${key}`, section6Data[key])
       );
 
       // 5. Send the combined data to the API
@@ -188,7 +197,8 @@ const Home = () => {
         <AI2CardDescription ref={sectionAL2Ref} />
         <AI3CardDescription ref={sectionAL3Ref} />
         <Section4 ref={section4Ref} />
-        <Section5 ref={section5Ref}/>
+        <Section5 ref={section5Ref} />
+        <Section6 ref={section6Ref}/>
         <Card>
           <CardBody>
             <Row>
