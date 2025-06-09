@@ -185,7 +185,7 @@ const Section6 = forwardRef((props, ref) => {
                   justifyContent: 'center'
                 }}
               >
-                <i className="fa fa-times" style={{ marginRight: '5px' }} />
+                <i className="fa fa-times mr-2" />
                 <span>Remove Question</span>
               </Button>
             </Col>
