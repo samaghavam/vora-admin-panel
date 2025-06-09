@@ -44,6 +44,7 @@ import OveralPerformance from "views/pages/ai-management/overalperformance/Overa
 import TravelAsist from "views/pages/ai-management/travelAssist/TravelAsist";
 import TravelBudget from "views/pages/ai-management/travelBudget/TravelBudget";
 import CostCalculator from "views/pages/ai-management/costCalculator/CostCalculator";
+import Contents from "views/pages/contents/Contents";
 
 const routes = [
   {
@@ -93,7 +94,7 @@ const routes = [
   // Flight Info - Direct link in sidebar
   {
     path: "/flight",
-    name: "Flight Info",
+    name: "Flight",
     rtlName: "معلومات الرحلة",
     icon: "tim-icons icon-send",
     component: <Flight />,
@@ -176,6 +177,14 @@ const routes = [
     component: <VisaAnalytics />,
     layout: "/admin",
     hideInSidebar: true, // Custom flag to hide this from sidebar
+  },
+  {
+    path: "/contents",
+    name: "contents",
+    rtlName: "معلومات الرحلة",
+    icon: "tim-icons icon-single-copy-04",
+    component: <Contents />,
+    layout: "/admin",
   },
   {
     path: "/claims",
