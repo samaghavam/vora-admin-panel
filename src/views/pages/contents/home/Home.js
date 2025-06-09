@@ -1,15 +1,20 @@
 import React, { useRef, useState } from "react";
 import { Row, Col, Form, Button, Card, CardBody } from "reactstrap";
-import SweetAlert from "react-bootstrap-sweetalert";
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 // Your existing components
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
 import HeroSection from "./HeroSection";
-import Section2 from "./Section2"; // <-- Import Section2
+import Section2 from "./Section2";
+import Section3 from "./Section3"; // <-- Import Section3
 
 const Home = () => {
+  // --- REFS FOR CHILD COMPONENTS ---
   const heroSectionRef = useRef(null);
-  const section2Ref = useRef(null); // <-- Add ref for Section2
+  const section2Ref = useRef(null);
+  const section3Ref = useRef(null); // <-- Add ref for Section3
+  
+  // --- STATE FOR ALERTS ---
   const [alert, setAlert] = useState(null);
 
   const breadcrumbItems = [
@@ -18,6 +23,7 @@ const Home = () => {
     { label: "Home" },
   ];
 
+  // --- ALERT HANDLERS ---
   const hideAlert = () => {
     setAlert(null);
   };
@@ -38,7 +44,7 @@ const Home = () => {
     );
   };
 
-  const showErrorAlert = (message) => {
+   const showErrorAlert = (message) => {
     setAlert(
       <SweetAlert
         danger
@@ -54,19 +60,19 @@ const Home = () => {
     );
   };
 
-  // Mock API call function
+  // --- MOCK API & SAVE HANDLER ---
   const mockApiCall = (data) => {
-    console.log("Sending combined data to API:", data);
+    console.log("Sending combined data to API. FormData details:");
+    for (let [key, value] of data.entries()) {
+        console.log(key, value);
+    }
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const isSuccess = true;
+        const isSuccess = true; 
         if (isSuccess) {
           resolve({ status: 200, message: "Data saved!" });
         } else {
-          reject({
-            status: 500,
-            message: "Failed to save data on the server.",
-          });
+          reject({ status: 500, message: "Failed to save data on the server." });
         }
       }, 1500);
     });
@@ -75,47 +81,50 @@ const Home = () => {
   const handleSave = async (event) => {
     event.preventDefault();
 
-    // 1. Validate both child components
+    // 1. Validate ALL child components
     const isHeroSectionValid = heroSectionRef.current.validate();
-    const isSection2Valid = section2Ref.current.validate(); // <-- Validate Section2
-
+    const isSection2Valid = section2Ref.current.validate();
+    const isSection3Valid = section3Ref.current.validate(); // <-- Validate Section3
+    
     // 2. Proceed only if ALL forms are valid
-    if (isHeroSectionValid && isSection2Valid) {
-      // 3. Get data from both components
-      const heroData = heroSectionRef.current.getData();
-      const section2Data = section2Ref.current.getData();
+    if (isHeroSectionValid && isSection2Valid && isSection3Valid) {
+        // 3. Get data from ALL components
+        const heroData = heroSectionRef.current.getData();
+        const section2Data = section2Ref.current.getData();
+        const section3Data = section3Ref.current.getData(); // <-- Get Section3 data
 
-      // 4. Combine data and prepare for API
-      //const combinedData = {
-      //  heroSection: heroData,
-      //section2: section2Data,
-      //};
+        // 4. Combine data into a single FormData object
+        const formData = new FormData();
+        
+        // Append hero data with a prefix
+        Object.keys(heroData).forEach(key => {
+            formData.append(`hero_${key}`, heroData[key]);
+        });
+        
+        // Append section 2 data with a prefix
+         Object.keys(section2Data).forEach(key => {
+            formData.append(`section2_${key}`, section2Data[key]);
+        });
+        
+        // Append section 3 data with a prefix
+         Object.keys(section3Data).forEach(key => {
+            formData.append(`section3_${key}`, section3Data[key]);
+        });
 
-      // When working with files, FormData is recommended
-      const formData = new FormData();
+        // 5. Send the combined data to the API
+        try {
+            await mockApiCall(formData);
+            showSuccessAlert();
+        } catch (error) {
+            showErrorAlert(error.message);
+        }
 
-      // Append hero data (prefixing keys to avoid clashes)
-      Object.keys(heroData).forEach((key) => {
-        formData.append(`hero_${key}`, heroData[key]);
-      });
-
-      // Append section 2 data
-      Object.keys(section2Data).forEach((key) => {
-        formData.append(`section2_${key}`, section2Data[key]);
-      });
-
-      // 5. Send data to API
-      try {
-        await mockApiCall(formData);
-        showSuccessAlert();
-      } catch (error) {
-        showErrorAlert(error.message);
-      }
     } else {
-      console.log("Validation failed. Please check the form fields.");
+      console.log("Validation failed. Please check the forms for required fields.");
     }
   };
 
+  // --- RENDER ---
   return (
     <div className="content">
       {alert}
@@ -130,7 +139,9 @@ const Home = () => {
 
       <Form onSubmit={handleSave}>
         <HeroSection ref={heroSectionRef} />
-        <Section2 ref={section2Ref} /> {/* <-- Add Section2 component */}
+        <Section2 ref={section2Ref} />
+        <Section3 ref={section3Ref} /> {/* <-- Add Section3 component */}
+
         <Card>
           <CardBody>
             <Row>
