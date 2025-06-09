@@ -7,12 +7,14 @@ import SimpleBreadcrumb from "views/components/BreadCrumbs";
 import HeroSection from "./HeroSection";
 import Section2 from "./Section2";
 import Section3 from "./Section3"; // <-- Import Section3
+import AI2CardDescription from "./AI2CardDescription";
 
 const Home = () => {
   // --- REFS FOR CHILD COMPONENTS ---
   const heroSectionRef = useRef(null);
   const section2Ref = useRef(null);
   const section3Ref = useRef(null); // <-- Add ref for Section3
+  const sectionAL2Ref = useRef(null)
   
   // --- STATE FOR ALERTS ---
   const [alert, setAlert] = useState(null);
@@ -85,13 +87,15 @@ const Home = () => {
     const isHeroSectionValid = heroSectionRef.current.validate();
     const isSection2Valid = section2Ref.current.validate();
     const isSection3Valid = section3Ref.current.validate(); // <-- Validate Section3
+    const isSectionAI2Valid = sectionAL2Ref.current.validate();
     
     // 2. Proceed only if ALL forms are valid
-    if (isHeroSectionValid && isSection2Valid && isSection3Valid) {
+    if (isHeroSectionValid && isSection2Valid && isSection3Valid && isSectionAI2Valid) {
         // 3. Get data from ALL components
         const heroData = heroSectionRef.current.getData();
         const section2Data = section2Ref.current.getData();
         const section3Data = section3Ref.current.getData(); // <-- Get Section3 data
+        const sectionAI2Data = sectionAL2Ref.current.getData()
 
         // 4. Combine data into a single FormData object
         const formData = new FormData();
@@ -110,6 +114,10 @@ const Home = () => {
          Object.keys(section3Data).forEach(key => {
             formData.append(`section3_${key}`, section3Data[key]);
         });
+         // Append sectionAI2 data with a prefix
+         Object.keys(sectionAI2Data).forEach(key => {
+          formData.append(`sectionAL2_${key}`, sectionAI2Data[key]);
+      });
 
         // 5. Send the combined data to the API
         try {
@@ -141,6 +149,7 @@ const Home = () => {
         <HeroSection ref={heroSectionRef} />
         <Section2 ref={section2Ref} />
         <Section3 ref={section3Ref} /> {/* <-- Add Section3 component */}
+        <AI2CardDescription ref={sectionAL2Ref} />
 
         <Card>
           <CardBody>
