@@ -22,7 +22,7 @@ const About = () => {
   const breadcrumbItems = [
     { label: "Home", to: "/admin/dashboard" },
     { label: "Content management", to: "/admin/contents" },
-    { label: "Home" },
+    { label: "About us" },
   ];
 
   // --- ALERT HANDLERS ---
