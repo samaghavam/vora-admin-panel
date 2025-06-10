@@ -5,11 +5,16 @@ import SweetAlert from "react-bootstrap-sweetalert";
 // Your existing components
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
 import HeroSection from "./HeroSection";
+import Section2 from "./Section2";
+import Section3 from "./Section3"; // <-- Import Section3
+import Section4 from "./Section4";
 
-const Home = () => {
-  // --- REFS FOR ALL CHILD COMPONENTS ---
+const About = () => {
+  // --- REFS FOR CHILD COMPONENTS ---
   const heroSectionRef = useRef(null);
-
+  const section2Ref = useRef(null);
+  const section3Ref = useRef(null); // <-- Add ref for Section3
+  const section4Ref = useRef(null);
 
   // --- STATE FOR ALERTS ---
   const [alert, setAlert] = useState(null);
@@ -82,21 +87,44 @@ const Home = () => {
     event.preventDefault();
 
     // 1. Validate ALL child components
-    const validationResults = [
-      heroSectionRef.current.validate(),
-
-    ];
-
+    const isHeroSectionValid = heroSectionRef.current.validate();
+    const isSection2Valid = section2Ref.current.validate();
+    const isSection3Valid = section3Ref.current.validate(); // <-- Validate Section3
+    const isSection4Valid = section4Ref.current.validate();
     // 2. Proceed only if ALL forms are valid
-    if (validationResults.every(Boolean)) {
+    if (
+      isHeroSectionValid &&
+      isSection2Valid &&
+      isSection3Valid &&
+      isSection4Valid
+    ) {
       // 3. Get data from ALL components
       const heroData = heroSectionRef.current.getData();
-
+      const section2Data = section2Ref.current.getData();
+      const section3Data = section3Ref.current.getData(); // <-- Get Section3 data
+      const section4Data = section4Ref.current.getData(); // <-- Get Section3 data
 
       // 4. Combine data into a single FormData object
       const formData = new FormData();
-      Object.keys(heroData).forEach((key) => formData.append(`hero_${key}`, heroData[key]));
 
+      // Append hero data with a prefix
+      Object.keys(heroData).forEach((key) => {
+        formData.append(`hero_${key}`, heroData[key]);
+      });
+
+      // Append section 2 data with a prefix
+      Object.keys(section2Data).forEach((key) => {
+        formData.append(`section2_${key}`, section2Data[key]);
+      });
+
+      // Append section 3 data with a prefix
+      Object.keys(section3Data).forEach((key) => {
+        formData.append(`section3_${key}`, section3Data[key]);
+      });
+      // Append section 4 data with a prefix
+      Object.keys(section4Data).forEach((key) =>
+        formData.append(`section4_${key}`, section4Data[key])
+      );
 
       // 5. Send the combined data to the API
       try {
@@ -127,8 +155,9 @@ const Home = () => {
 
       <Form onSubmit={handleSave}>
         <HeroSection ref={heroSectionRef} />
-
-        
+        <Section2 ref={section2Ref} />
+        <Section3 ref={section3Ref} /> {/* <-- Add Section3 component */}
+        <Section4 ref={section4Ref} />
         <Card>
           <CardBody>
             <Row>
@@ -145,4 +174,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default About;

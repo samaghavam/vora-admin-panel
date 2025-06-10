@@ -49,35 +49,64 @@ const HeroSection = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     validate: () => validateFields(),
     getData: () => ({
-      titleH1, titleH1Smaller, description, brandIcon, banner,
-      point1Title, point1SmallTitle, point1Desc,
-      point2Title, point2SmallTitle, point2Desc,
-      point3Title, point3SmallTitle, point3Desc,
+      titleH1,
+      titleH1Smaller,
+      description,
+      brandIcon,
+      banner,
+      point1Title,
+      point1SmallTitle,
+      point1Desc,
+      point2Title,
+      point2SmallTitle,
+      point2Desc,
+      point3Title,
+      point3SmallTitle,
+      point3Desc,
     }),
   }));
 
   // --- VALIDATION & CHANGE HANDLERS ---
   const verifyLength = (value) => {
-    if (typeof value === 'string') return value.trim().length > 0;
+    if (typeof value === "string") return value.trim().length > 0;
     return value !== null;
   };
 
   const validateFields = () => {
     let isValid = true;
     const fieldSetterMap = {
-      titleH1: setTitleH1State, titleH1Smaller: setTitleH1SmallerState,
-      description: setDescriptionState, brandIcon: setBrandIconState, banner: setBannerState,
-      point1Title: setPoint1TitleState, point1SmallTitle: setPoint1SmallTitleState, point1Desc: setPoint1DescState,
-      point2Title: setPoint2TitleState, point2SmallTitle: setPoint2SmallTitleState, point2Desc: setPoint2DescState,
-      point3Title: setPoint3TitleState, point3SmallTitle: setPoint3SmallTitleState, point3Desc: setPoint3DescState,
+      titleH1: setTitleH1State,
+      titleH1Smaller: setTitleH1SmallerState,
+      description: setDescriptionState,
+      brandIcon: setBrandIconState,
+      banner: setBannerState,
+      point1Title: setPoint1TitleState,
+      point1SmallTitle: setPoint1SmallTitleState,
+      point1Desc: setPoint1DescState,
+      point2Title: setPoint2TitleState,
+      point2SmallTitle: setPoint2SmallTitleState,
+      point2Desc: setPoint2DescState,
+      point3Title: setPoint3TitleState,
+      point3SmallTitle: setPoint3SmallTitleState,
+      point3Desc: setPoint3DescState,
     };
     const fields = {
-        titleH1, titleH1Smaller, description, brandIcon, banner,
-        point1Title, point1SmallTitle, point1Desc,
-        point2Title, point2SmallTitle, point2Desc,
-        point3Title, point3SmallTitle, point3Desc,
+      titleH1,
+      titleH1Smaller,
+      description,
+      brandIcon,
+      banner,
+      point1Title,
+      point1SmallTitle,
+      point1Desc,
+      point2Title,
+      point2SmallTitle,
+      point2Desc,
+      point3Title,
+      point3SmallTitle,
+      point3Desc,
     };
-    
+
     for (const [key, value] of Object.entries(fields)) {
       if (!verifyLength(value)) {
         fieldSetterMap[key]("has-danger");
@@ -86,7 +115,7 @@ const HeroSection = forwardRef((props, ref) => {
         fieldSetterMap[key]("has-success");
       }
     }
-    
+
     return isValid;
   };
 
@@ -99,43 +128,257 @@ const HeroSection = forwardRef((props, ref) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle tag="h4">Section 5</CardTitle>
+        <CardTitle tag="h4">Hero Section</CardTitle>
       </CardHeader>
       <CardBody>
         <Row>
-          <Col md="6"><FormGroup className={`has-label ${titleH1State}`}><Label>Title H1</Label><Input type="text" value={titleH1} onChange={(e) => handleInputChange(setTitleH1, setTitleH1State, e.target.value)} />{titleH1State === "has-danger" && <Label className="error">This field is required.</Label>}</FormGroup></Col>
-          <Col md="6"><FormGroup className={`has-label ${titleH1SmallerState}`}><Label>Title H1 - smaller</Label><Input type="text" value={titleH1Smaller} onChange={(e) => handleInputChange(setTitleH1Smaller, setTitleH1SmallerState, e.target.value)} />{titleH1SmallerState === "has-danger" && <Label className="error">This field is required.</Label>}</FormGroup></Col>
+          <Col md="6">
+            <FormGroup className={`has-label ${titleH1State}`}>
+              <Label>Title H1</Label>
+              <Input
+                type="text"
+                value={titleH1}
+                onChange={(e) =>
+                  handleInputChange(setTitleH1, setTitleH1State, e.target.value)
+                }
+              />
+              {titleH1State === "has-danger" && (
+                <Label className="error">This field is required.</Label>
+              )}
+            </FormGroup>
+          </Col>
+          <Col md="6">
+            <FormGroup className={`has-label ${titleH1SmallerState}`}>
+              <Label>Title H1 - smaller</Label>
+              <Input
+                type="text"
+                value={titleH1Smaller}
+                onChange={(e) =>
+                  handleInputChange(
+                    setTitleH1Smaller,
+                    setTitleH1SmallerState,
+                    e.target.value
+                  )
+                }
+              />
+              {titleH1SmallerState === "has-danger" && (
+                <Label className="error">This field is required.</Label>
+              )}
+            </FormGroup>
+          </Col>
         </Row>
-        <FormGroup className={`has-label ${descriptionState}`}><Label>Description</Label><Input type="textarea" value={description} onChange={(e) => handleInputChange(setDescription, setDescriptionState, e.target.value)} />{descriptionState === "has-danger" && <Label className="error">This field is required.</Label>}</FormGroup>
-        <hr/>
+        <FormGroup className={`has-label ${descriptionState}`}>
+          <Label>Description</Label>
+          <Input
+            type="textarea"
+            value={description}
+            onChange={(e) =>
+              handleInputChange(
+                setDescription,
+                setDescriptionState,
+                e.target.value
+              )
+            }
+          />
+          {descriptionState === "has-danger" && (
+            <Label className="error">This field is required.</Label>
+          )}
+        </FormGroup>
+        <hr />
         <CardTitle tag="h5">Images</CardTitle>
         <Row>
-            <Col md="6">
-                <Label>Brand Icon - Icon</Label>
-                <FormGroup className={brandIconState}><ImageUpload onFileChange={(file) => handleInputChange(setBrandIcon, setBrandIconState, file)} />{brandIconState === "has-danger" && <Label className="error d-block text-center">Icon is required.</Label>}</FormGroup>
-            </Col>
-            <Col md="6">
-                <Label>Banner</Label>
-                <FormGroup className={bannerState}><ImageUpload onFileChange={(file) => handleInputChange(setBanner, setBannerState, file)} />{bannerState === "has-danger" && <Label className="error d-block text-center">Banner is required.</Label>}</FormGroup>
-            </Col>
+          <Col md="6">
+            <Label>Brand Icon - Icon</Label>
+            <FormGroup className={brandIconState}>
+              <ImageUpload
+                onFileChange={(file) =>
+                  handleInputChange(setBrandIcon, setBrandIconState, file)
+                }
+              />
+              {brandIconState === "has-danger" && (
+                <Label className="error d-block text-center">
+                  Icon is required.
+                </Label>
+              )}
+            </FormGroup>
+          </Col>
+          <Col md="6">
+            <Label>Banner</Label>
+            <FormGroup className={bannerState}>
+              <ImageUpload
+                onFileChange={(file) =>
+                  handleInputChange(setBanner, setBannerState, file)
+                }
+              />
+              {bannerState === "has-danger" && (
+                <Label className="error d-block text-center">
+                  Banner is required.
+                </Label>
+              )}
+            </FormGroup>
+          </Col>
         </Row>
-        <hr/>
+        <hr />
         <Row>
-            <Col md="4">
-                <FormGroup className={`has-label ${point1TitleState}`}><Label>Title point 1</Label><Input type="text" value={point1Title} onChange={(e) => handleInputChange(setPoint1Title, setPoint1TitleState, e.target.value)} />{point1TitleState === "has-danger" && <Label className="error">This field is required.</Label>}</FormGroup>
-                <FormGroup className={`has-label ${point1SmallTitleState}`}><Label>Small Title point 1</Label><Input type="text" value={point1SmallTitle} onChange={(e) => handleInputChange(setPoint1SmallTitle, setPoint1SmallTitleState, e.target.value)} />{point1SmallTitleState === "has-danger" && <Label className="error">This field is required.</Label>}</FormGroup>
-                <FormGroup className={`has-label ${point1DescState}`}><Label>Title point 1 description</Label><Input type="textarea" value={point1Desc} onChange={(e) => handleInputChange(setPoint1Desc, setPoint1DescState, e.target.value)} />{point1DescState === "has-danger" && <Label className="error">This field is required.</Label>}</FormGroup>
-            </Col>
-            <Col md="4">
-                <FormGroup className={`has-label ${point2TitleState}`}><Label>Title point 2</Label><Input type="text" value={point2Title} onChange={(e) => handleInputChange(setPoint2Title, setPoint2TitleState, e.target.value)} />{point2TitleState === "has-danger" && <Label className="error">This field is required.</Label>}</FormGroup>
-                <FormGroup className={`has-label ${point2SmallTitleState}`}><Label>Small Title point 2</Label><Input type="text" value={point2SmallTitle} onChange={(e) => handleInputChange(setPoint2SmallTitle, setPoint2SmallTitleState, e.target.value)} />{point2SmallTitleState === "has-danger" && <Label className="error">This field is required.</Label>}</FormGroup>
-                <FormGroup className={`has-label ${point2DescState}`}><Label>Title point 2 description</Label><Input type="textarea" value={point2Desc} onChange={(e) => handleInputChange(setPoint2Desc, setPoint2DescState, e.target.value)} />{point2DescState === "has-danger" && <Label className="error">This field is required.</Label>}</FormGroup>
-            </Col>
-            <Col md="4">
-                <FormGroup className={`has-label ${point3TitleState}`}><Label>Title point 3</Label><Input type="text" value={point3Title} onChange={(e) => handleInputChange(setPoint3Title, setPoint3TitleState, e.target.value)} />{point3TitleState === "has-danger" && <Label className="error">This field is required.</Label>}</FormGroup>
-                <FormGroup className={`has-label ${point3SmallTitleState}`}><Label>Small Title point 3</Label><Input type="text" value={point3SmallTitle} onChange={(e) => handleInputChange(setPoint3SmallTitle, setPoint3SmallTitleState, e.target.value)} />{point3SmallTitleState === "has-danger" && <Label className="error">This field is required.</Label>}</FormGroup>
-                <FormGroup className={`has-label ${point3DescState}`}><Label>Title point 3 description</Label><Input type="textarea" value={point3Desc} onChange={(e) => handleInputChange(setPoint3Desc, setPoint3DescState, e.target.value)} />{point3DescState === "has-danger" && <Label className="error">This field is required.</Label>}</FormGroup>
-            </Col>
+          <Col md="4">
+            <FormGroup className={`has-label ${point1TitleState}`}>
+              <Label>Title point 1</Label>
+              <Input
+                type="text"
+                value={point1Title}
+                onChange={(e) =>
+                  handleInputChange(
+                    setPoint1Title,
+                    setPoint1TitleState,
+                    e.target.value
+                  )
+                }
+              />
+              {point1TitleState === "has-danger" && (
+                <Label className="error">This field is required.</Label>
+              )}
+            </FormGroup>
+            <FormGroup className={`has-label ${point1SmallTitleState}`}>
+              <Label>Small Title point 1</Label>
+              <Input
+                type="text"
+                value={point1SmallTitle}
+                onChange={(e) =>
+                  handleInputChange(
+                    setPoint1SmallTitle,
+                    setPoint1SmallTitleState,
+                    e.target.value
+                  )
+                }
+              />
+              {point1SmallTitleState === "has-danger" && (
+                <Label className="error">This field is required.</Label>
+              )}
+            </FormGroup>
+            <FormGroup className={`has-label ${point1DescState}`}>
+              <Label>Title point 1 description</Label>
+              <Input
+                type="textarea"
+                value={point1Desc}
+                onChange={(e) =>
+                  handleInputChange(
+                    setPoint1Desc,
+                    setPoint1DescState,
+                    e.target.value
+                  )
+                }
+              />
+              {point1DescState === "has-danger" && (
+                <Label className="error">This field is required.</Label>
+              )}
+            </FormGroup>
+          </Col>
+          <Col md="4">
+            <FormGroup className={`has-label ${point2TitleState}`}>
+              <Label>Title point 2</Label>
+              <Input
+                type="text"
+                value={point2Title}
+                onChange={(e) =>
+                  handleInputChange(
+                    setPoint2Title,
+                    setPoint2TitleState,
+                    e.target.value
+                  )
+                }
+              />
+              {point2TitleState === "has-danger" && (
+                <Label className="error">This field is required.</Label>
+              )}
+            </FormGroup>
+            <FormGroup className={`has-label ${point2SmallTitleState}`}>
+              <Label>Small Title point 2</Label>
+              <Input
+                type="text"
+                value={point2SmallTitle}
+                onChange={(e) =>
+                  handleInputChange(
+                    setPoint2SmallTitle,
+                    setPoint2SmallTitleState,
+                    e.target.value
+                  )
+                }
+              />
+              {point2SmallTitleState === "has-danger" && (
+                <Label className="error">This field is required.</Label>
+              )}
+            </FormGroup>
+            <FormGroup className={`has-label ${point2DescState}`}>
+              <Label>Title point 2 description</Label>
+              <Input
+                type="textarea"
+                value={point2Desc}
+                onChange={(e) =>
+                  handleInputChange(
+                    setPoint2Desc,
+                    setPoint2DescState,
+                    e.target.value
+                  )
+                }
+              />
+              {point2DescState === "has-danger" && (
+                <Label className="error">This field is required.</Label>
+              )}
+            </FormGroup>
+          </Col>
+          <Col md="4">
+            <FormGroup className={`has-label ${point3TitleState}`}>
+              <Label>Title point 3</Label>
+              <Input
+                type="text"
+                value={point3Title}
+                onChange={(e) =>
+                  handleInputChange(
+                    setPoint3Title,
+                    setPoint3TitleState,
+                    e.target.value
+                  )
+                }
+              />
+              {point3TitleState === "has-danger" && (
+                <Label className="error">This field is required.</Label>
+              )}
+            </FormGroup>
+            <FormGroup className={`has-label ${point3SmallTitleState}`}>
+              <Label>Small Title point 3</Label>
+              <Input
+                type="text"
+                value={point3SmallTitle}
+                onChange={(e) =>
+                  handleInputChange(
+                    setPoint3SmallTitle,
+                    setPoint3SmallTitleState,
+                    e.target.value
+                  )
+                }
+              />
+              {point3SmallTitleState === "has-danger" && (
+                <Label className="error">This field is required.</Label>
+              )}
+            </FormGroup>
+            <FormGroup className={`has-label ${point3DescState}`}>
+              <Label>Title point 3 description</Label>
+              <Input
+                type="textarea"
+                value={point3Desc}
+                onChange={(e) =>
+                  handleInputChange(
+                    setPoint3Desc,
+                    setPoint3DescState,
+                    e.target.value
+                  )
+                }
+              />
+              {point3DescState === "has-danger" && (
+                <Label className="error">This field is required.</Label>
+              )}
+            </FormGroup>
+          </Col>
         </Row>
       </CardBody>
     </Card>
