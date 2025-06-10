@@ -47,6 +47,7 @@ import CostCalculator from "views/pages/ai-management/costCalculator/CostCalcula
 import Contents from "views/pages/contents/Contents";
 import Home from "views/pages/contents/home/Home";
 import About from "views/pages/contents/about/About";
+import Contact from "views/pages/contents/contact/Contact";
 
 const routes = [
   {
@@ -199,6 +200,13 @@ const routes = [
     path: "/contents/about",
     name: "Home", // Name is still useful for breadcrumbs or page titles
     component: <About />,
+    layout: "/admin",
+    hideInSidebar: true, // Custom flag to hide this from sidebar
+  },
+  {
+    path: "/contents/contact-us",
+    name: "Home", // Name is still useful for breadcrumbs or page titles
+    component: <Contact />,
     layout: "/admin",
     hideInSidebar: true, // Custom flag to hide this from sidebar
   },
