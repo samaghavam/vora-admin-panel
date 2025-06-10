@@ -37,6 +37,7 @@
     "react-scripts": "5.0.1",
     "react-select": "5.8.0",
     "react-table": "7.8.0",
+    "reactstrap": "^8.10.1",
     "sass": "1.69.5"
   },
   "devDependencies": {
@@ -45,8 +46,7 @@
     "typescript": "5.5.4"
   },
   "optionalDependencies": {
-    "eslint-plugin-flowtype": "8.0.3",
-    "reactstrap": "8.10.1"
+    "eslint-plugin-flowtype": "8.0.3"
   },
   "eslintConfig": {
     "extends": "react-app"

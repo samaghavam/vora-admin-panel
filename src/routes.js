@@ -26,7 +26,7 @@ import User from "views/pages/User.js";
 import Login from "views/pages/Login.js";
 import Rtl from "views/pages/Rtl.js";
 import Lock from "views/pages/Lock.js";
-import Flight from "views/pages/flight/Flight"; 
+import Flight from "views/pages/flight/Flight";
 import ReservationList from "views/pages/flight/ReservationList.js";
 import FlightAnalytics from "views/pages/flight/FlightAnalytics.js";
 import Visa from "views/pages/visa/Visa";
@@ -46,6 +46,7 @@ import TravelBudget from "views/pages/ai-management/travelBudget/TravelBudget";
 import CostCalculator from "views/pages/ai-management/costCalculator/CostCalculator";
 import Contents from "views/pages/contents/Contents";
 import Home from "views/pages/contents/home/Home";
+import About from "views/pages/contents/about/About";
 
 const routes = [
   {
@@ -193,7 +194,14 @@ const routes = [
     component: <Home />,
     layout: "/admin",
     hideInSidebar: true, // Custom flag to hide this from sidebar
-  }, 
+  },
+  {
+    path: "/contents/about",
+    name: "Home", // Name is still useful for breadcrumbs or page titles
+    component: <About />,
+    layout: "/admin",
+    hideInSidebar: true, // Custom flag to hide this from sidebar
+  },
   {
     path: "/claims",
     name: "Claims",
@@ -209,7 +217,7 @@ const routes = [
     layout: "/admin",
     hideInSidebar: true, // Custom flag to hide this from sidebar
   },
-  
+
   // ALL OTHER ROUTES FOLLOW
   {
     collapse: true,
