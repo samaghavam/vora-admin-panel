@@ -48,6 +48,7 @@ import Contents from "views/pages/contents/Contents";
 import Home from "views/pages/contents/home/Home";
 import About from "views/pages/contents/about/About";
 import Contact from "views/pages/contents/contact/Contact";
+import CardContent from "views/pages/contents/card/Card";
 
 const routes = [
   {
@@ -207,6 +208,13 @@ const routes = [
     path: "/contents/contact-us",
     name: "Home", // Name is still useful for breadcrumbs or page titles
     component: <Contact />,
+    layout: "/admin",
+    hideInSidebar: true, // Custom flag to hide this from sidebar
+  },
+  {
+    path: "/contents/ai-description",
+    name: "Home", // Name is still useful for breadcrumbs or page titles
+    component: <CardContent />,
     layout: "/admin",
     hideInSidebar: true, // Custom flag to hide this from sidebar
   },
