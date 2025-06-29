@@ -1,12 +1,11 @@
-import React from "react"; // Added useRef and useState
-import { Row, Col, Card, CardHeader, CardTitle, CardBody } from "reactstrap"; // Added Button
+import React from "react"; 
+import { Row, Col, Card, CardHeader, CardTitle, CardBody } from "reactstrap"; 
 import ReusableDoughnutChart from "views/components/DoughnutChart";
 import FunnelRequestChart from "views/components/FunnelRequestChart";
 import InfoStatCard from "views/components/InfoStateCard";
 import ReusableLineChartCard from "views/components/LineChartCard";
 import ReusableBarChartCard from "views/components/ReusableBarChartCard";
 const TravelBudgetAllTime = () => {
-  // --- Data based on the attached photo ---
   const iconForStatCards = "icon-chat-33";
   const defaultIconGradient =
     "linear-gradient(135deg, #FF607D 0%, #FF8A65 100%)";
@@ -151,7 +150,7 @@ const TravelBudgetAllTime = () => {
             title="Funnel request rate"
             funnelDataItems={funnelRequestRateData}
             chartCanvasHeight="210px"
-            chartBackgroundColor="#27293D" // Assuming this is the desired card background from your theme
+            chartBackgroundColor="#27293D" 
           />
         </Col>
         <Col lg="6" md="12">

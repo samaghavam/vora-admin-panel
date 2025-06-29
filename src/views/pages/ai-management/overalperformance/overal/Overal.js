@@ -155,7 +155,7 @@ const Overal = () => {
             title="Funnel request rate"
             funnelDataItems={funnelRequestRateData}
             chartCanvasHeight="210px"
-            chartBackgroundColor="#27293D" // Assuming this is the desired card background from your theme
+            chartBackgroundColor="#27293D" 
           />
         </Col>
         <Col lg="6" md="12">

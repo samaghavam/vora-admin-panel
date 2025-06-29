@@ -45,7 +45,6 @@ const HeroSection = forwardRef((props, ref) => {
   const [point3SmallTitleState, setPoint3SmallTitleState] = useState("");
   const [point3DescState, setPoint3DescState] = useState("");
 
-  // --- IMPERATIVE HANDLE ---
   useImperativeHandle(ref, () => ({
     validate: () => validateFields(),
     getData: () => ({
@@ -66,7 +65,6 @@ const HeroSection = forwardRef((props, ref) => {
     }),
   }));
 
-  // --- VALIDATION & CHANGE HANDLERS ---
   const verifyLength = (value) => {
     if (typeof value === "string") return value.trim().length > 0;
     return value !== null;
@@ -124,7 +122,6 @@ const HeroSection = forwardRef((props, ref) => {
     stateSetter("");
   };
 
-  // --- RENDER ---
   return (
     <Card>
       <CardHeader>

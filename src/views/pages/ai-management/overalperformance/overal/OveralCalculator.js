@@ -8,7 +8,7 @@ const OveralCalculator = () => {
 
   const aiBookingPercentageData = [
     { label: "Used", value: 78, color: "rgba(75, 192, 192, 1)" },
-    { label: "Booked", value: 22, color: "#d93a54" }, // A reddish color
+    { label: "Booked", value: 22, color: "#d93a54" }, 
   ];
 
   const travelGroupPercentagesData = [
@@ -27,14 +27,12 @@ const OveralCalculator = () => {
 
   const noPackagesFoundData = [
     { label: "All usage", value: 78, color: "rgba(75, 192, 192, 1)" },
-    { label: "No package to show", value: 22, color: "#d93a54" }, // A reddish color
+    { label: "No package to show", value: 22, color: "#d93a54" }, 
   ];
 
   const iconForStatCards = "icon-chat-33";
   const defaultIconGradient =
     "linear-gradient(135deg, #FF607D 0%, #FF8A65 100%)";
-
-  // Helper component for consistent Doughnut chart card styling
   const DoughnutCard = ({ title, chartDataItems }) => (
     <Card className="card-chart h-100">
       <CardHeader>
@@ -55,11 +53,8 @@ const OveralCalculator = () => {
   return (
     <div>
       <Row className="justify-content-center">
-        {/* Using a single column for the vertical layout */}
         <Col>
           <h4 className="title text-white mb-4 text-center">Cost Calculator</h4>
-
-          {/* Each component is placed in its own row within the main column */}
           <Row className="mb-2">
             <Col>
               <DoughnutCard
@@ -137,7 +132,7 @@ const OveralCalculator = () => {
               <FunnelRequestChart
                 title="Funnel request rate"
                 funnelDataItems={funnelRequestRateData}
-                chartBackgroundColor="#27293D" // Assuming this is the desired card background from your theme
+                chartBackgroundColor="#27293D" 
               />
             </Col>
           </Row>

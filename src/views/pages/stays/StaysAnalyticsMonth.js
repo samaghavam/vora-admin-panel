@@ -1,9 +1,7 @@
 import React from "react";
 import { Row, Col, Card, CardBody } from "reactstrap";
-
-// Assuming these components are located in your project's '../../components/' directory
 import ReusableDoughnutChart from "../../components/DoughnutChart";
-import InfoStatCard from "../../components/InfoStateCard"; // Using the import name from your provided code
+import InfoStatCard from "../../components/InfoStateCard"; 
 
 const StaysAnalyticMonth = () => {
   const searchBookedData = [
@@ -16,17 +14,12 @@ const StaysAnalyticMonth = () => {
     { label: "Children", value: 42, color: "rgba(82, 204, 103, 1)" },
     { label: "Infants", value: 62, color: "rgba(255, 255, 255, 1)" },
   ];
-
-
-  // Common props for InfoStatCards from the image
-  const iconForStatCards = "icon-chat-33"; // Chat bubble icon from image
+  const iconForStatCards = "icon-chat-33"; 
   const defaultIconGradient =
-    "linear-gradient(135deg, #FF607D 0%, #FF8A65 100%)"; // Pink/Orange gradient from image
+    "linear-gradient(135deg, #FF607D 0%, #FF8A65 100%)"; 
 
   return (
     <div className="content">
-      {" "}
-      {/* Added a generic className for potential global styling */}
       <h3 className="title text-white ">This month</h3>
       <Row>
         <Col lg="4" md="12">

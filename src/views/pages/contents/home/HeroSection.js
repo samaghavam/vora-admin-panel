@@ -12,10 +12,8 @@ import {
   Input,
 } from "reactstrap";
 
-// Assuming ImageUpload component is in this path
 
 const HeroSection = forwardRef((props, ref) => {
-  // State for text inputs
   const [heroTitle, setHeroTitle] = useState("");
   const [heroSubtext, setHeroSubtext] = useState("");
   const [story1Text, setStory1Text] = useState("");
@@ -44,7 +42,6 @@ const HeroSection = forwardRef((props, ref) => {
       const isValid = validateFields();
       return isValid;
     },
-    // Function to get form data
     getData: () => ({
       heroTitle,
       heroSubtext,
@@ -60,15 +57,14 @@ const HeroSection = forwardRef((props, ref) => {
   // Simple validation check for non-empty value
   const verifyLength = (value) => {
     if (value) {
-        if(typeof value === 'string') {
-            return value.trim().length > 0;
-        }
-        return true;
+      if (typeof value === "string") {
+        return value.trim().length > 0;
+      }
+      return true;
     }
     return false;
   };
 
-  // Main validation function
   const validateFields = () => {
     let isValid = true;
 
@@ -92,7 +88,7 @@ const HeroSection = forwardRef((props, ref) => {
     } else {
       setStory1TextState("has-success");
     }
-     if (!verifyLength(story1Image)) {
+    if (!verifyLength(story1Image)) {
       setStory1ImageState("has-danger");
       isValid = false;
     } else {
@@ -106,7 +102,7 @@ const HeroSection = forwardRef((props, ref) => {
       setStory2TextState("has-success");
     }
 
-     if (!verifyLength(story2Image)) {
+    if (!verifyLength(story2Image)) {
       setStory2ImageState("has-danger");
       isValid = false;
     } else {
@@ -142,10 +138,10 @@ const HeroSection = forwardRef((props, ref) => {
             type="text"
             value={heroTitle}
             onChange={(e) => {
-                setHeroTitle(e.target.value);
-                if (heroTitleState === "has-danger") {
-                    setHeroTitleState("");
-                }
+              setHeroTitle(e.target.value);
+              if (heroTitleState === "has-danger") {
+                setHeroTitleState("");
+              }
             }}
           />
           {heroTitleState === "has-danger" && (
@@ -159,13 +155,13 @@ const HeroSection = forwardRef((props, ref) => {
             type="text"
             value={heroSubtext}
             onChange={(e) => {
-                setHeroSubtext(e.target.value);
-                 if (heroSubtextState === "has-danger") {
-                    setHeroSubtextState("");
-                }
+              setHeroSubtext(e.target.value);
+              if (heroSubtextState === "has-danger") {
+                setHeroSubtextState("");
+              }
             }}
           />
-           {heroSubtextState === "has-danger" && (
+          {heroSubtextState === "has-danger" && (
             <Label className="error">This field is required.</Label>
           )}
         </FormGroup>
@@ -174,27 +170,31 @@ const HeroSection = forwardRef((props, ref) => {
         <CardTitle tag="h5">Story Images</CardTitle>
         <Row>
           <Col md="4">
-             <FormGroup className={story1ImageState}>
-                <ImageUpload onFileChange={(file) => {
-                    setStory1Image(file)
-                    if (story1ImageState === "has-danger") {
-                        setStory1ImageState("");
-                    }
-                }} />
-                 {story1ImageState === "has-danger" && (
-                    <Label className="error d-block text-center">Image is required.</Label>
-                )}
-             </FormGroup>
+            <FormGroup className={story1ImageState}>
+              <ImageUpload
+                onFileChange={(file) => {
+                  setStory1Image(file);
+                  if (story1ImageState === "has-danger") {
+                    setStory1ImageState("");
+                  }
+                }}
+              />
+              {story1ImageState === "has-danger" && (
+                <Label className="error d-block text-center">
+                  Image is required.
+                </Label>
+              )}
+            </FormGroup>
             <FormGroup className={`has-label ${story1TextState}`}>
               <Label>Story 1 text</Label>
               <Input
                 type="text"
                 value={story1Text}
                 onChange={(e) => {
-                    setStory1Text(e.target.value);
-                    if (story1TextState === "has-danger") {
-                        setStory1TextState("");
-                    }
+                  setStory1Text(e.target.value);
+                  if (story1TextState === "has-danger") {
+                    setStory1TextState("");
+                  }
                 }}
               />
               {story1TextState === "has-danger" && (
@@ -203,27 +203,31 @@ const HeroSection = forwardRef((props, ref) => {
             </FormGroup>
           </Col>
           <Col md="4">
-             <FormGroup className={story2ImageState}>
-                <ImageUpload onFileChange={(file) => {
-                    setStory2Image(file)
-                    if (story2ImageState === "has-danger") {
-                        setStory2ImageState("");
-                    }
-                }} />
-                {story2ImageState === "has-danger" && (
-                    <Label className="error d-block text-center">Image is required.</Label>
-                )}
-             </FormGroup>
+            <FormGroup className={story2ImageState}>
+              <ImageUpload
+                onFileChange={(file) => {
+                  setStory2Image(file);
+                  if (story2ImageState === "has-danger") {
+                    setStory2ImageState("");
+                  }
+                }}
+              />
+              {story2ImageState === "has-danger" && (
+                <Label className="error d-block text-center">
+                  Image is required.
+                </Label>
+              )}
+            </FormGroup>
             <FormGroup className={`has-label ${story2TextState}`}>
               <Label>Story 2 text</Label>
               <Input
                 type="text"
                 value={story2Text}
                 onChange={(e) => {
-                    setStory2Text(e.target.value)
-                     if (story2TextState === "has-danger") {
-                        setStory2TextState("");
-                    }
+                  setStory2Text(e.target.value);
+                  if (story2TextState === "has-danger") {
+                    setStory2TextState("");
+                  }
                 }}
               />
               {story2TextState === "has-danger" && (
@@ -232,27 +236,31 @@ const HeroSection = forwardRef((props, ref) => {
             </FormGroup>
           </Col>
           <Col md="4">
-             <FormGroup className={story3ImageState}>
-                <ImageUpload onFileChange={(file) => {
-                    setStory3Image(file);
-                     if (story3ImageState === "has-danger") {
-                        setStory3ImageState("");
-                    }
-                }} />
-                 {story3ImageState === "has-danger" && (
-                    <Label className="error d-block text-center">Image is required.</Label>
-                )}
-             </FormGroup>
+            <FormGroup className={story3ImageState}>
+              <ImageUpload
+                onFileChange={(file) => {
+                  setStory3Image(file);
+                  if (story3ImageState === "has-danger") {
+                    setStory3ImageState("");
+                  }
+                }}
+              />
+              {story3ImageState === "has-danger" && (
+                <Label className="error d-block text-center">
+                  Image is required.
+                </Label>
+              )}
+            </FormGroup>
             <FormGroup className={`has-label ${story3TextState}`}>
               <Label>Story 3 text</Label>
               <Input
                 type="text"
                 value={story3Text}
                 onChange={(e) => {
-                    setStory3Text(e.target.value);
-                     if (story3TextState === "has-danger") {
-                        setStory3TextState("");
-                    }
+                  setStory3Text(e.target.value);
+                  if (story3TextState === "has-danger") {
+                    setStory3TextState("");
+                  }
                 }}
               />
               {story3TextState === "has-danger" && (

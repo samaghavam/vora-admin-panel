@@ -1,12 +1,9 @@
 import React from 'react';
-import { Row, Col, Card, CardBody, CardTitle, CardHeader } from 'reactstrap'; // Added CardTitle
-
-// Assuming these paths are correct relative to where FlightInfographics will be located
-// You provided these components in the previous request or current one.
+import { Row, Col, Card, CardBody, CardTitle, CardHeader } from 'reactstrap'; 
 import ReusableLineChartCard from '../../components/LineChartCard';
 import ReusableBarChartCard from '../../components/ReusableBarChartCard';
 import ReusableDoughnutChart from '../../components/DoughnutChart';
-import FunnelRequestChart from '../../components/FunnelRequestChart'; // Your new funnel chart
+import FunnelRequestChart from '../../components/FunnelRequestChart'; 
 
 const FlightInfographics = () => {
   // --- ROW 1 DATA ---
@@ -15,8 +12,8 @@ const FlightInfographics = () => {
     datasets: [
       {
         label: "Spendings",
-        data: [85, 102, 70, 68, 105, 128, 82], // Approximate values from image
-        borderColor: "#e14ec9", // Pinkish purple
+        data: [85, 102, 70, 68, 105, 128, 82], 
+        borderColor: "#e14ec9", 
         pointBackgroundColor: "#e14ec9",
         pointBorderColor: "#fff",
         tension: 0.4,
@@ -30,8 +27,8 @@ const FlightInfographics = () => {
     datasets: [
       {
         label: "Times Applied",
-        data: [90, 105, 70, 80, 120, 65], // Approximate values
-        barColor: "#e14ec9", // Matching line chart color
+        data: [90, 105, 70, 80, 120, 65], 
+        barColor: "#e14ec9", 
       },
     ],
   };
@@ -42,8 +39,8 @@ const FlightInfographics = () => {
     datasets: [
       {
         label: "Trips",
-        data: [70, 90, 65, 75, 120, 80], // Approximate values
-        barColor: "#e14ec9", // Consistent color
+        data: [70, 90, 65, 75, 120, 80], 
+        barColor: "#e14ec9", 
       },
     ],
   };
@@ -57,7 +54,6 @@ const FlightInfographics = () => {
   ];
 
   // --- ROW 3 DATA (Doughnut Charts) ---
-  // Colors approximated from image: orange, green, blue, red, purple
   const popularDestinationsData = [
     { label: "USA", value: 78, color: "rgba(255, 159, 64, 1)" },
     { label: "Germany", value: 22, color: "rgba(75, 192, 192, 1)" },
@@ -65,8 +61,7 @@ const FlightInfographics = () => {
     { label: "United Kingdom", value: 22, color: "rgba(255, 99, 132, 1)" },
     { label: "Canada", value: 22, color: "rgba(153, 102, 255, 1)" },
   ];
-  // Assuming popular origins and fares use similar data structure and colors
-  const popularOriginsData = [...popularDestinationsData]; // Placeholder, replace with actual
+  const popularOriginsData = [...popularDestinationsData]; 
   const popularFaresData = [
     { label: "Economy", value: 78, color: "rgba(255, 159, 64, 1)" },
     { label: "Economy Plus", value: 22, color: "rgba(75, 192, 192, 1)" },
@@ -95,9 +90,9 @@ const FlightInfographics = () => {
 
   // --- ROW 5 DATA (Doughnut Chart) ---
   const travelGroupData = [
-    { label: "Adults", value: 78, color: "rgba(75, 192, 192, 1)" }, // Teal
-    { label: "Children", value: 22, color: "rgba(255, 159, 64, 1)" }, // Orange
-    { label: "Infants", value: 22, color: "rgba(153, 102, 255, 1)" }, // Purple
+    { label: "Adults", value: 78, color: "rgba(75, 192, 192, 1)" }, 
+    { label: "Children", value: 22, color: "rgba(255, 159, 64, 1)" }, 
+    { label: "Infants", value: 22, color: "rgba(153, 102, 255, 1)" }, 
   ];
 
   // Helper component to wrap Doughnut charts in Cards for consistent styling
@@ -109,9 +104,9 @@ const FlightInfographics = () => {
       <CardBody className="d-flex flex-column justify-content-center align-items-center">
         <ReusableDoughnutChart
           chartDataItems={chartDataItems}
-          chartHeight="160px" // Adjust as needed
-          chartWidth="100%"   // Adjust as needed, 100% of its container
-          title="" // Title is now in CardHeader
+          chartHeight="160px" 
+          chartWidth="100%"   
+          title="" 
         />
       </CardBody>
     </Card>
@@ -124,7 +119,7 @@ const FlightInfographics = () => {
 
       {/* --- ROW 1: Line Chart & Bar Chart --- */}
       <Row className="mb-4">
-        <Col lg="7" md="12" className="mb-4 mb-lg-0">
+        <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableLineChartCard
             cardTitleText="Average Spend daily Past week"
             cardCategoryText={averageSpendCategory}
@@ -132,7 +127,7 @@ const FlightInfographics = () => {
             chartHeight="300px"
           />
         </Col>
-        <Col lg="5" md="12">
+        <Col lg="6" md="12">
           <ReusableBarChartCard
             cardTitleText="Most applied filters"
             chartData={appliedFiltersData}
@@ -143,25 +138,22 @@ const FlightInfographics = () => {
 
       {/* --- ROW 2: Bar Chart & Funnel Chart --- */}
       <Row className="mb-4">
-        <Col lg="7" md="12" className="mb-4 mb-lg-0">
+        <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableBarChartCard
             cardTitleText="Rounded Trips Duration Average"
             chartData={roundedTripsDurationData}
-            chartHeight="300px" // Make height consistent with Funnel chart
+            chartHeight="300px" 
           />
         </Col>
-        <Col lg="5" md="12">
-           {/* FunnelRequestChart is already styled as a card */}
+        <Col lg="6" md="12">
           <FunnelRequestChart
             title="Funnel request rate"
             funnelDataItems={funnelRequestDataItems}
-            chartCanvasHeight="260px" // Adjust to match other card body heights, Funnel title takes some space
-            // chartBackgroundColor will be default #27293D from FunnelRequestChart
+            chartCanvasHeight="260px" 
           />
         </Col>
       </Row>
 
-      {/* --- ROW 3: Doughnut Charts --- */}
       <Row className="mb-4">
         <Col lg="4" md="6" sm="12" >
           <DoughnutCard title="Most Popular destinations" chartDataItems={popularDestinationsData} />
@@ -169,12 +161,11 @@ const FlightInfographics = () => {
         <Col lg="4" md="6" sm="12">
           <DoughnutCard title="Most Popular Origins" chartDataItems={popularOriginsData} />
         </Col>
-        <Col lg="4" md="12" sm="12"> {/* Changed md to 12 to stack on medium if 3rd one is alone*/}
+        <Col lg="4" md="12" sm="12"> 
           <DoughnutCard title="Most Popular Fares" chartDataItems={popularFaresData} />
         </Col>
       </Row>
 
-      {/* --- ROW 4: Doughnut Charts --- */}
       <Row className="mb-4">
         <Col lg="4" md="6" sm="12">
           <DoughnutCard title="Most Popular Airlines" chartDataItems={popularAirlinesData} />
@@ -187,12 +178,10 @@ const FlightInfographics = () => {
         </Col>
       </Row>
 
-      {/* --- ROW 5: Doughnut Chart --- */}
       <Row className="mb-4">
-        <Col lg="4" md="6" sm="12" className="mb-4"> {/* Keeping lg=4 for alignment, can be md=12 if it should span */}
+        <Col lg="4" md="6" sm="12" className="mb-4"> 
           <DoughnutCard title="Travel Group percentages" chartDataItems={travelGroupData} />
         </Col>
-        {/* Empty cols if you want to keep this lg-4 centered or to one side */}
         <Col lg="8" md="6" sm="12"></Col>
       </Row>
 

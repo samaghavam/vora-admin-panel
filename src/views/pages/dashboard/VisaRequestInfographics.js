@@ -15,7 +15,6 @@ const VisaRequestInfographics = () => {
       barColor: "rgba(255, 99, 132, 0.8)" 
     }],
   };
-  // Custom options for the "Visa Request channel" bar chart to match Y-axis from image
   const visaChannelChartOptions = {
     scales: {
       y: {
@@ -43,16 +42,16 @@ const VisaRequestInfographics = () => {
 
   // --- ROW 2 DATA ---
   const visaTypeData = [ 
-    { label: "Tourism", value: 78, color: "rgba(75, 192, 192, 1)" }, // Teal/Green from image
-    { label: "Other", value: 22, color: "rgba(54, 162, 235, 1)" },   // Blue from image
+    { label: "Tourism", value: 78, color: "rgba(75, 192, 192, 1)" }, 
+    { label: "Other", value: 22, color: "rgba(54, 162, 235, 1)" },   
   ];
 
   // InfoStatCard Data
-  const iconForStatCards = "icon-chat-33"; // From image (chat bubble)
-  const defaultIconGradient = "linear-gradient(135deg, #ff607d 0%, #ff8a65 100%)"; // Pink/Orange gradient
+  const iconForStatCards = "icon-chat-33"; 
+  const defaultIconGradient = "linear-gradient(135deg, #ff607d 0%, #ff8a65 100%)"; 
 
   return (
-    <div className="content"> {/* Use className for global styling if needed */}
+    <div className="content"> 
       <h2 className="title text-white mb-4">Visa request infographics</h2>
 
       {/* Row 1: Bar Chart & Line Chart */}

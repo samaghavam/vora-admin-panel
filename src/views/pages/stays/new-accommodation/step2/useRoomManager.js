@@ -2,7 +2,7 @@ import React from "react";
 
 const useRoomManager = () => {
   const getNewRoomObject = () => ({
-    id: Date.now() + Math.random(), // More robust unique ID for keys
+    id: Date.now() + Math.random(), 
     roomName: "", pricePerNight: "", capacity: "",
     childrenFree: null, petsAllowed: null, breakfastServed: null,
     prepayment: null, freeCancellation: null,
@@ -49,7 +49,7 @@ const useRoomManager = () => {
 
   return {
     rooms,
-    setRooms, // Exposing setRooms for validation state updates
+    setRooms, 
     addNewRoom,
     removeRoom,
     handleRoomChange,

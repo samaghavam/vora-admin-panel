@@ -1,15 +1,8 @@
-/*!
-=========================================================
-* Admin Layout - LocalStorage Theme & Sticky Navbar
-=========================================================
-*/
 import React from "react";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
 import NotificationAlert from "react-notification-alert";
-
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js"; // Your modified FixedPlugin
 
@@ -19,7 +12,7 @@ import voraLogo from "assets/img/vora.svg";
 var ps;
 
 const Admin = (props) => {
-  const [activeColor, setActiveColor] = React.useState("primary"); // Sidebar color fixed to primary
+  const [activeColor ] = React.useState("primary"); // Sidebar color fixed to primary
   const [sidebarOpened, setSidebarOpened] = React.useState(false);
   const mainPanelRef = React.useRef(null);
   const notificationAlertRef = React.useRef(null);
@@ -154,9 +147,8 @@ const Admin = (props) => {
           {getRoutes(routes)}
           <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
         </Routes>
-        {location.pathname.indexOf("full-screen-map") === -1 ? <Footer fluid /> : null}
       </div>
-      <FixedPlugin /> {/* FixedPlugin now manages its own theme state with localStorage */}
+      <FixedPlugin /> 
     </div>
   );
 };

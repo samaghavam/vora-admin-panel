@@ -8,14 +8,9 @@ import {
   Row,
   Col,
   Button,
-  // Assuming UncontrolledAlert is available if you want to replace alert()
-  // For now, sticking with alert() as per original code.
 } from "reactstrap";
-
-// Assuming ReactTable is correctly imported from your project structure
 import ReactTable from "components/ReactTable/ReactTable.js";
 
-// New dataTable with accommodation reservation structure and example data
 const accommodationDataTable = [
   ["Airi Satou", "Grand Hyatt Tokyo", "2025-11-01", "2025-11-05", 2, "ACC001"],
   ["Angelica Ramos", "The Ritz London", "2025-12-10", "2025-12-15", 1, "ACC002"],
@@ -42,11 +37,9 @@ const AccommodationTable = () => {
         reservationNumber: prop[5],
         actions: (
           <div className="actions-right">
-            {/* View button */}
             <Button
               onClick={() => {
                 let obj = data.find((o) => o.id === key);
-                // Replace alert with a modal or better UI element in a real app
                 alert(
                   "You've clicked VIEW button on \n{ \nName: " +
                   obj.name +
@@ -66,7 +59,7 @@ const AccommodationTable = () => {
               color="info"
               size="sm"
               className={classNames("btn-icon btn-link like", {
-                "btn-neutral": key < 5, // Example conditional styling
+                "btn-neutral": key < 5, 
               })}
               title="View"
             >
@@ -104,7 +97,6 @@ const AccommodationTable = () => {
             {/* Remove button */}
             <Button
               onClick={() => {
-                // Simple confirmation, replace with a modal in real app
                 if (window.confirm("Are you sure you want to delete this reservation?")) {
                     setData(currentData => currentData.filter(item => item.id !== key));
                 }
@@ -127,11 +119,11 @@ const AccommodationTable = () => {
   return (
     <>
       <div className="content">
-        <Row className="mt-5"> {/* mt-5 for spacing, adjust as needed */}
+        <Row className="mt-5"> 
           <Col xs={12} md={12}>
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Accommodation Reservations</CardTitle> {/* Updated Card Title */}
+                <CardTitle tag="h4">Accommodation Reservations</CardTitle> 
               </CardHeader>
               <CardBody>
                 <ReactTable
@@ -144,39 +136,36 @@ const AccommodationTable = () => {
                       accessor: "name",
                     },
                     {
-                      Header: "ACCOMMODATION NAME", // Matched from image
+                      Header: "ACCOMMODATION NAME", 
                       accessor: "accommodationName",
                     },
                     {
-                      Header: "CHECK IN DATE", // Matched from image
+                      Header: "CHECK IN DATE", 
                       accessor: "checkInDate",
                     },
                     {
-                      Header: "CHECK OUT DATE", // Matched from image
+                      Header: "CHECK OUT DATE", 
                       accessor: "checkOutDate",
                     },
                     {
-                      Header: "RESERVED ROOMS", // Matched from image
+                      Header: "RESERVED ROOMS", 
                       accessor: "reservedRooms",
-                      // Optional: customize cell rendering for numbers
-                      // Cell: ({ value }) => <div style={{ textAlign: "center" }}>{value}</div> 
                     },
                     {
-                      Header: "RESERVATION NUMBER", // Matched from image
+                      Header: "RESERVATION NUMBER", 
                       accessor: "reservationNumber",
                     },
                     {
-                      Header: "ACTIONS", // Matched from image
+                      Header: "ACTIONS", 
                       accessor: "actions",
                       sortable: false,
                       filterable: false,
-                      // width: 120 // Optional: fixed width for actions column
                     },
                   ]}
                   defaultPageSize={10}
                   showPaginationTop
                   showPaginationBottom={false}
-                  className="-striped -highlight" // Default react-table classes
+                  className="-striped -highlight" 
                 />
               </CardBody>
             </Card>

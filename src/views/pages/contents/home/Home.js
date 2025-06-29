@@ -1,12 +1,10 @@
 import React, { useRef, useState } from "react";
 import { Row, Col, Form, Button, Card, CardBody } from "reactstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
-
-// Your existing components
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
 import HeroSection from "./HeroSection";
 import Section2 from "./Section2";
-import Section3 from "./Section3"; // <-- Import Section3
+import Section3 from "./Section3"; 
 import AI2CardDescription from "./AI2CardDescription";
 import AI3CardDescription from "./AI3CArdDescription";
 import Section4 from "./Section4";
@@ -14,17 +12,15 @@ import Section5 from "./Section5";
 import Section6 from "./Section6";
 
 const Home = () => {
-  // --- REFS FOR CHILD COMPONENTS ---
   const heroSectionRef = useRef(null);
   const section2Ref = useRef(null);
-  const section3Ref = useRef(null); // <-- Add ref for Section3
+  const section3Ref = useRef(null); 
   const sectionAL2Ref = useRef(null);
   const sectionAL3Ref = useRef(null);
   const section4Ref = useRef(null);
   const section5Ref = useRef(null);
   const section6Ref = useRef(null);
 
-  // --- STATE FOR ALERTS ---
   const [alert, setAlert] = useState(null);
 
   const breadcrumbItems = [
@@ -33,7 +29,6 @@ const Home = () => {
     { label: "Home" },
   ];
 
-  // --- ALERT HANDLERS ---
   const hideAlert = () => {
     setAlert(null);
   };
@@ -97,10 +92,10 @@ const Home = () => {
     // 1. Validate ALL child components
     const isHeroSectionValid = heroSectionRef.current.validate();
     const isSection2Valid = section2Ref.current.validate();
-    const isSection3Valid = section3Ref.current.validate(); // <-- Validate Section3
+    const isSection3Valid = section3Ref.current.validate(); 
     const isSection4Valid = section4Ref.current.validate();
-    const isSection5Valid = section5Ref.current.validate(); // <-- Validate Section3
-    const isSection6Valid = section6Ref.current.validate(); // <-- Validate Section3
+    const isSection5Valid = section5Ref.current.validate(); 
+    const isSection6Valid = section6Ref.current.validate(); 
     const isSectionAI2Valid = sectionAL2Ref.current.validate();
     const isSectionAI3Valid = sectionAL3Ref.current.validate();
 
@@ -118,7 +113,7 @@ const Home = () => {
       // 3. Get data from ALL components
       const heroData = heroSectionRef.current.getData();
       const section2Data = section2Ref.current.getData();
-      const section3Data = section3Ref.current.getData(); // <-- Get Section3 data
+      const section3Data = section3Ref.current.getData(); 
       const sectionAI2Data = sectionAL2Ref.current.getData();
       const sectionAI3Data = sectionAL3Ref.current.getData();
       const section4Data = section4Ref.current.getData();
@@ -177,7 +172,6 @@ const Home = () => {
     }
   };
 
-  // --- RENDER ---
   return (
     <div className="content">
       {alert}
@@ -193,7 +187,7 @@ const Home = () => {
       <Form onSubmit={handleSave}>
         <HeroSection ref={heroSectionRef} />
         <Section2 ref={section2Ref} />
-        <Section3 ref={section3Ref} /> {/* <-- Add Section3 component */}
+        <Section3 ref={section3Ref} /> 
         <AI2CardDescription ref={sectionAL2Ref} />
         <AI3CardDescription ref={sectionAL3Ref} />
         <Section4 ref={section4Ref} />

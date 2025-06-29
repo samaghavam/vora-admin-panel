@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
-import SimpleBreadcrumb from "../../components/BreadCrumbs";import AdminTable from "./AdminTable";
+import SimpleBreadcrumb from "../../components/BreadCrumbs";
+import AdminTable from "./AdminTable";
 const AdminManagement = () => {
   const breadcrumbItems = [
     { label: "Home", to: "/admin/dashboard" },
@@ -21,5 +22,5 @@ const AdminManagement = () => {
       <AdminTable />
     </div>
   );
-}
-export default AdminManagement
+};
+export default AdminManagement;

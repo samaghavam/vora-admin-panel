@@ -13,7 +13,6 @@ import {
 } from "reactstrap";
 
 const HeroSection = forwardRef((props, ref) => {
-  // --- STATE MANAGEMENT ---
   const [titleH1, setTitleH1] = useState("");
   const [titleH1Smaller, setTitleH1Smaller] = useState("");
   const [description, setDescription] = useState("");
@@ -28,8 +27,6 @@ const HeroSection = forwardRef((props, ref) => {
   const [point3Title, setPoint3Title] = useState("");
   const [point3SmallTitle, setPoint3SmallTitle] = useState("");
   const [point3Desc, setPoint3Desc] = useState("");
-
-  // Validation states
   const [titleH1State, setTitleH1State] = useState("");
   const [titleH1SmallerState, setTitleH1SmallerState] = useState("");
   const [descriptionState, setDescriptionState] = useState("");
@@ -45,7 +42,6 @@ const HeroSection = forwardRef((props, ref) => {
   const [point3SmallTitleState, setPoint3SmallTitleState] = useState("");
   const [point3DescState, setPoint3DescState] = useState("");
 
-  // --- IMPERATIVE HANDLE ---
   useImperativeHandle(ref, () => ({
     validate: () => validateFields(),
     getData: () => ({
@@ -66,7 +62,6 @@ const HeroSection = forwardRef((props, ref) => {
     }),
   }));
 
-  // --- VALIDATION & CHANGE HANDLERS ---
   const verifyLength = (value) => {
     if (typeof value === "string") return value.trim().length > 0;
     return value !== null;
@@ -124,7 +119,6 @@ const HeroSection = forwardRef((props, ref) => {
     stateSetter("");
   };
 
-  // --- RENDER ---
   return (
     <Card>
       <CardHeader>

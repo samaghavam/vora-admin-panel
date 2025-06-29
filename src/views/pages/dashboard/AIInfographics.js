@@ -1,7 +1,5 @@
 import React from 'react';
 import { Row, Col, Card, CardHeader, CardBody, CardTitle } from 'reactstrap';
-
-// Assuming these chart components are located in your project's '../../components/' directory
 import ReusableLineChartCard from '../../components/LineChartCard';
 import ReusableBarChartCard from '../../components/ReusableBarChartCard';
 import ReusableDoughnutChart from '../../components/DoughnutChart';
@@ -13,7 +11,7 @@ const AIInfographics = () => {
   const funnelRequestRateData = [
     { label: "Start operation", value: 78 },
     { label: "All steps gone", value: 64 },
-    { label: "Add to card", value: 52 }, // Corrected from "Add to cart" based on careful image review
+    { label: "Add to card", value: 52 }, 
     { label: "Process page", value: 32 },
     { label: "Purchase", value: 12 },
   ];
@@ -27,18 +25,15 @@ const AIInfographics = () => {
   // --- ROW 2 DATA ---
   const roundedTripDurationData = {
     labels: ["2 days and less", "3-4 days", "5-6 days", "7-8 days", "9-10 days", "11 days and more"],
-    datasets: [{ label: "Trips", data: [70, 90, 65, 75, 120, 80], barColor: "#e14ec9" }], // Assuming consistent barColor
+    datasets: [{ label: "Trips", data: [70, 90, 65, 75, 120, 80], barColor: "#e14ec9" }], 
   };
 
   const averagePackageIntroducedData = {
     labels: ["Travel Assist", "budget Calculator", "travel on budget"],
-    datasets: [{ label: "Packages", data: [90, 115, 80], barColor: "#e14ec9" }], // Assuming consistent barColor
+    datasets: [{ label: "Packages", data: [90, 115, 80], barColor: "#e14ec9" }], 
   };
   
-  // --- DOUGHNUT CHART COLORS (approximated) ---
-  // Blue, Green, Orange - common palette in image
   const colorSet1 = ["rgba(54, 162, 235, 1)", "rgba(75, 192, 192, 1)", "rgba(255, 159, 64, 1)"];
-  // Orange, Green, Blue, Red, Purple - for 5-item charts
   const colorSet5Items = [
     "rgba(255, 159, 64, 1)", // Orange
     "rgba(75, 192, 192, 1)", // Teal/Green
@@ -46,7 +41,7 @@ const AIInfographics = () => {
     "rgba(255, 99, 132, 1)",  // Red
     "rgba(153, 102, 255, 1)" // Purple
   ];
-   const colorSet4Items = [ // For Transport and Accommodation Type
+   const colorSet4Items = [ 
     "rgba(255, 159, 64, 1)", // Orange
     "rgba(75, 192, 192, 1)", // Teal/Green
     "rgba(54, 162, 235, 1)",  // Blue
@@ -68,7 +63,7 @@ const AIInfographics = () => {
     { label: "United Kingdom", value: 22, color: colorSet5Items[3] },
     { label: "Canada", value: 22, color: colorSet5Items[4] },
   ];
-  const popularOriginsData = [...popularDestinationsData]; // Image shows identical data
+  const popularOriginsData = [...popularDestinationsData]; 
 
   // --- ROW 4 DATA (Doughnut Charts) ---
   const travelGroupPercentagesData = [

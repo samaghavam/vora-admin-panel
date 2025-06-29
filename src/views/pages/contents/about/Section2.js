@@ -27,7 +27,6 @@ const Section2 = forwardRef((props, ref) => {
   const [image3Title, setImage3Title] = useState("");
   const [image3SmallText, setImage3SmallText] = useState("");
 
-  // Validation States
   const [titleH1State, setTitleH1State] = useState("");
   const [titleH1SmallerState, setTitleH1SmallerState] = useState("");
   const [subtextH2State, setSubtextH2State] = useState("");
@@ -41,7 +40,6 @@ const Section2 = forwardRef((props, ref) => {
   const [image3TitleState, setImage3TitleState] = useState("");
   const [image3SmallTextState, setImage3SmallTextState] = useState("");
 
-  // --- IMPERATIVE HANDLE ---
   useImperativeHandle(ref, () => ({
     validate: () => validateFields(),
     getData: () => ({
@@ -60,7 +58,6 @@ const Section2 = forwardRef((props, ref) => {
     }),
   }));
 
-  // --- VALIDATION & CHANGE HANDLERS ---
   const verifyLength = (value) => {
     if (typeof value === "string") return value.trim().length > 0;
     return value !== null;
@@ -114,7 +111,6 @@ const Section2 = forwardRef((props, ref) => {
     stateSetter("");
   };
 
-  // --- RENDER ---
   return (
     <Card>
       <CardHeader>

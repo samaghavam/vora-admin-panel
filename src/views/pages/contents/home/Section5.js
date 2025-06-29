@@ -12,7 +12,6 @@ import {
 } from "reactstrap";
 
 const Section5 = forwardRef((props, ref) => {
-  // --- STATE MANAGEMENT ---
   // Text Inputs
   const [titleH1, setTitleH1] = useState("");
   const [titleH1Smaller, setTitleH1Smaller] = useState("");
@@ -70,7 +69,6 @@ const Section5 = forwardRef((props, ref) => {
     stateSetter("");
   };
 
-  // --- RENDER ---
   return (
     <Card>
       <CardHeader>

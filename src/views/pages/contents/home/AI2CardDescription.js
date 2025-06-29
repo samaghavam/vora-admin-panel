@@ -13,8 +13,6 @@ import {
 } from "reactstrap";
 
 const AI2CardDescription = forwardRef((props, ref) => {
-  // --- STATE MANAGEMENT ---
-  // Text Inputs
   const [aiName, setAiName] = useState("");
   const [aiDescription, setAiDescription] = useState("");
   const [point1Title, setPoint1Title] = useState("");
@@ -23,14 +21,10 @@ const AI2CardDescription = forwardRef((props, ref) => {
   const [point2Desc, setPoint2Desc] = useState("");
   const [point3Title, setPoint3Title] = useState("");
   const [point3Desc, setPoint3Desc] = useState("");
-
-  // File Inputs
   const [aiCardBg, setAiCardBg] = useState(null);
   const [point1Icon, setPoint1Icon] = useState(null);
   const [point2Icon, setPoint2Icon] = useState(null);
   const [point3Icon, setPoint3Icon] = useState(null);
-
-  // Validation States
   const [aiNameState, setAiNameState] = useState("");
   const [aiDescriptionState, setAiDescriptionState] = useState("");
   const [point1TitleState, setPoint1TitleState] = useState("");
@@ -44,7 +38,6 @@ const AI2CardDescription = forwardRef((props, ref) => {
   const [point2IconState, setPoint2IconState] = useState("");
   const [point3IconState, setPoint3IconState] = useState("");
 
-  // --- IMPERATIVE HANDLE ---
   useImperativeHandle(ref, () => ({
     validate: () => validateFields(),
     getData: () => ({
@@ -63,7 +56,6 @@ const AI2CardDescription = forwardRef((props, ref) => {
     }),
   }));
 
-  // --- VALIDATION & CHANGE HANDLERS ---
   const verifyLength = (value) => {
     if (typeof value === 'string') return value.trim().length > 0;
     return value !== null;
@@ -97,7 +89,6 @@ const AI2CardDescription = forwardRef((props, ref) => {
     stateSetter("");
   };
 
-  // --- RENDER ---
   return (
     <Card>
       <CardHeader>

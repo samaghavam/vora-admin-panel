@@ -11,14 +11,13 @@ const Step1 = React.forwardRef((props, ref) => {
     address: "",
     description: "",
     facilities: (() => { 
-      const initialFacilities = {}; // Corrected: removed underscore and const keyword mismatch
-      for (let i = 1; i <= 48; i++) initialFacilities[`facility${i}`] = false; // Corrected: used correct variable name
-      return initialFacilities; // Corrected: used correct variable name
+      const initialFacilities = {}; 
+      for (let i = 1; i <= 48; i++) initialFacilities[`facility${i}`] = false; 
+      return initialFacilities; 
     })(),
     rules: [{ ruleName: "", ruleIconFile: null, ruleIconPreview: null, ruleDescription: "", checkInTime: "", checkOutTime: "" }],
   });
 
-  // Centralized state for validation statuses
   const [validationStates, setValidationStates] = React.useState({
     accommodationNameState: "",
     starsState: "",
@@ -29,7 +28,6 @@ const Step1 = React.forwardRef((props, ref) => {
   const fileInputRef = React.useRef(null);
   const [currentRuleIndexForUpload, setCurrentRuleIndexForUpload] = React.useState(null);
 
-  // --- Handlers passed to sub-components or used for rules ---
   const handleFacilityChange = (event) => {
     setFormData(prev => ({
       ...prev,
@@ -95,10 +93,8 @@ const Step1 = React.forwardRef((props, ref) => {
     if (!formData.description) { newStates.descriptionState = "has-danger"; valid = false; } 
     else { newStates.descriptionState = "has-success"; }
     
-    // Basic validation for first rule's check-in/out for demonstration
-    // Ideally, this logic would be more robust or within the RulesSection
-    if (formData.rules[0] && !formData.rules[0].checkInTime) { valid = false; /* Set specific rule state here */ }
-    if (formData.rules[0] && !formData.rules[0].checkOutTime) { valid = false; /* Set specific rule state here */ }
+    if (formData.rules[0] && !formData.rules[0].checkInTime) { valid = false;  }
+    if (formData.rules[0] && !formData.rules[0].checkOutTime) { valid = false;  }
 
 
     setValidationStates(newStates);

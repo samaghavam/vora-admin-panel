@@ -29,8 +29,6 @@ const Section3 = forwardRef((props, ref) => {
   const [image4, setImage4] = useState(null);
   const [image4Title, setImage4Title] = useState("");
   const [image4SmallText, setImage4SmallText] = useState("");
-
-  // Validation States
   const [titleH1State, setTitleH1State] = useState("");
   const [titleH1SmallerState, setTitleH1SmallerState] = useState("");
   const [subtextH2State, setSubtextH2State] = useState("");
@@ -48,7 +46,6 @@ const Section3 = forwardRef((props, ref) => {
   const [image4SmallTextState, setImage4SmallTextState] = useState("");
 
 
-  // --- IMPERATIVE HANDLE ---
   useImperativeHandle(ref, () => ({
     validate: () => validateFields(),
     getData: () => ({
@@ -60,7 +57,6 @@ const Section3 = forwardRef((props, ref) => {
     }),
   }));
 
-  // --- VALIDATION & CHANGE HANDLERS ---
   const verifyLength = (value) => {
     if (typeof value === 'string') return value.trim().length > 0;
     return value !== null;

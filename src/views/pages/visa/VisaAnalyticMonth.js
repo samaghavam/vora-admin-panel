@@ -1,43 +1,31 @@
 import React from 'react';
 import { Row, Col, Card, CardBody } from 'reactstrap';
-// Assuming these paths are correct relative to where VisaAnalyticMonth will be located
 import ReusableDoughnutChart from '../../components/DoughnutChart';
 import InfoStatCard from '../../components/InfoStateCard';
 import ReusableBarChartCard from '../../components/ReusableBarChartCard';
 import ReusableLineChartCard from '../../components/LineChartCard';
 
 const VisaAnalyticMonth = () => {
-  // console.log("VisaAnalyticMonth component rendering");
-
-  // Data for Bar Chart: Visa Request channel
-  // Based on the uploaded image "Screenshot 2025-06-04 at 5.15.28 pm.png"
   const visaChannelData = {
     labels: ["Airplane ticket", "Accommodation", "Direct"],
     datasets: [
       {
         label: "Requests",
-        data: [80, 100, 70], // Approximate values from image
-        barColor: "#e14ec9", // Example pinkish color, similar to image
-        // Other dataset properties like backgroundColor, borderColor, borderWidth can be set here
-        // if your ReusableBarChartCard expects them or if you want to override defaults.
+        data: [80, 100, 70], 
+        barColor: "#e14ec9", 
       },
     ],
   };
-
-  // Data for Line Chart: Daily spendings on visa requests
-  // Based on the uploaded image
   const dailySpendingsData = {
     labels: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     datasets: [
       {
         label: "Spendings",
-        data: [85, 102, 70, 68, 105, 128, 82], // Approximate values from image trend
-        borderColor: "#e14ec9", // Example pinkish color
+        data: [85, 102, 70, 68, 105, 128, 82], 
+        borderColor: "#e14ec9", 
         pointBackgroundColor: "#e14ec9",
         pointBorderColor: "#fff",
-        tension: 0.4, // Smooth curve
-        // fill: true, // if you want area fill, ensure ReusableLineChartCard handles it
-        // backgroundColor: /* gradient or color for fill */,
+        tension: 0.4, 
       },
     ],
   };

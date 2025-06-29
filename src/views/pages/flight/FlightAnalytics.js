@@ -1,14 +1,13 @@
-import React, { useRef, useState } from "react"; // Added useRef and useState
-import { Row, Col, Button } from "reactstrap"; // Added Button
+import React, { useRef, useState } from "react"; 
+import { Row, Col, Button } from "reactstrap"; 
 import SimpleBreadcrumb from "../../components/BreadCrumbs"; 
 import FlightAnalyticMonth from "./FlightAnalyticMonth";
 import FlightAnalyticAllTime from "./FlightAnalyticAllTime";
 import FlightAnalyticalOveral from "./FlightAnalyticalOveral";
 
 const FlightAnalytics = () => {
-  const [activeButton, setActiveButton] = useState("thisMonth"); // Default active button
+  const [activeButton, setActiveButton] = useState("thisMonth"); 
 
-  // Refs for each section
   const thisMonthRef = useRef(null);
   const allTimeRef = useRef(null);
   const overallRef = useRef(null);
@@ -22,7 +21,7 @@ const FlightAnalytics = () => {
   const scrollToSection = (ref, sectionId) => {
     if (ref && ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveButton(sectionId); // Update active button state
+      setActiveButton(sectionId); 
     } else {
       console.warn(`Ref for section "${sectionId}" not found.`);
     }
@@ -30,7 +29,6 @@ const FlightAnalytics = () => {
 
   return (
     <div className="content">
-      {/* Breadcrumb Row */}
       <Row>
         <Col md="12">
           <SimpleBreadcrumb
@@ -40,15 +38,14 @@ const FlightAnalytics = () => {
         </Col>
       </Row>
 
-      {/* Navigation Buttons Row */}
-      <Row className="text-center"> {/* Centering the buttons */}
+      <Row className="text-center"> 
         <Col xs="auto" className="px-1">
           <Button
             className="btn-round py-3"
-            color={activeButton === "thisMonth" ? "primary" : "info"} // 'info' or 'default' for inactive, 'primary' for active
-            outline={activeButton !== "thisMonth"} // Make inactive buttons outlined if desired
+            color={activeButton === "thisMonth" ? "primary" : "info"} 
+            outline={activeButton !== "thisMonth"} 
             onClick={() => scrollToSection(thisMonthRef, "thisMonth")}
-            style={{ minWidth: '120px' }} // Ensure buttons have some minimum width
+            style={{ minWidth: '120px' }} 
           >
             This month
           </Button>
@@ -79,10 +76,10 @@ const FlightAnalytics = () => {
       <div ref={thisMonthRef} id="thisMonthSection" className="analytics-section pt-3">
         <FlightAnalyticMonth />
       </div>
-      <div ref={allTimeRef} id="allTimeSection" className="analytics-section pt-5"> {/* pt-5 for top padding/spacing */}
+      <div ref={allTimeRef} id="allTimeSection" className="analytics-section pt-5"> 
         <FlightAnalyticAllTime />
       </div>
-      <div ref={overallRef} id="overallSection" className="analytics-section pt-5"> {/* pt-5 for top padding/spacing */}
+      <div ref={overallRef} id="overallSection" className="analytics-section pt-5"> 
         <FlightAnalyticalOveral />
       </div>
     </div>

@@ -1,15 +1,11 @@
 import React from 'react';
 import { Row, Col, Card, CardHeader, CardBody, CardTitle } from 'reactstrap';
-
-// Assuming these chart components are located in your project's '../../components/' directory
 import ReusableLineChartCard from '../../components/LineChartCard';
 import ReusableBarChartCard from '../../components/ReusableBarChartCard';
 import ReusableDoughnutChart from '../../components/DoughnutChart';
 import FunnelRequestChart from '../../components/FunnelRequestChart';
 
-// AccommodationInfographics Component
 const AccommodationInfographics = () => {
-  // Data based on "Screenshot 2025-06-05 at 11.26.57 am.jpg"
   const averageSpendData = {
     labels: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     datasets: [{ label: "Spendings", data: [85, 102, 70, 68, 105, 128, 82], borderColor: "#e14ec9", pointBackgroundColor: "#e14ec9", pointBorderColor: "#fff", tension: 0.4 }],
@@ -17,7 +13,7 @@ const AccommodationInfographics = () => {
   const averageSpendCategory = "Average Week $ 10,000";
 
   const appliedFiltersData = {
-    labels: ["Date", "Price", "Duration", "Cities", "Layover"], // "Cities" as per image (instead of "Class"), "Layover" if applicable
+    labels: ["Date", "Price", "Duration", "Cities", "Layover"], 
     datasets: [{ label: "Times Applied", data: [90, 105, 70, 80, 120], barColor: "#e14ec9" }],
   };
 
@@ -32,7 +28,6 @@ const AccommodationInfographics = () => {
     { label: "Purchase", value: 22 },
   ];
 
-  // Doughnut chart data (colors approximated: blue, green, orange, red, purple)
   const accommodationTypeData = [
     { label: "Hotel", value: 78, color: "rgba(54, 162, 235, 1)" },
     { label: "Accommodation", value: 22, color: "rgba(75, 192, 192, 1)" },
@@ -46,7 +41,7 @@ const AccommodationInfographics = () => {
     { label: "5 rooms and more", value: 22, color: "rgba(153, 102, 255, 1)" },
   ];
 
-  const uaeVisaRequestData = [ // This chart seems out of place for accommodation but present in image
+  const uaeVisaRequestData = [ 
     { label: "Total bookings to UAE", value: 78, color: "rgba(75, 192, 192, 1)" },
     { label: "Visa Requested", value: 22, color: "rgba(255, 206, 86, 1)" },
   ];
@@ -73,25 +68,22 @@ const AccommodationInfographics = () => {
     { label: "Accommodation name", value: 22, color: "rgba(153, 102, 255, 1)" },
   ];
 
-  // Helper component for consistent Doughnut chart card styling
-  // This is defined locally as it's a layout helper for this specific infographics component
   const DoughnutCard = ({ title, chartDataItems }) => (
-    <Card className="card-chart h-100"> {/* h-100 from reactstrap or custom CSS for full height */}
+    <Card className="card-chart h-100"> 
       <CardHeader>
         <CardTitle tag="h5" className="text-muted mb-0" style={{fontSize:'0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>{title}</CardTitle>
       </CardHeader>
       <CardBody className="p-2 d-flex flex-column justify-content-center align-items-center">
         <ReusableDoughnutChart
-          // title="" // Title is in CardHeader
           chartDataItems={chartDataItems}
           chartHeight="120px" 
-          chartWidth="110px" // Ensure this width is appropriate for the ReusableDoughnutChart's internal layout
+          chartWidth="110px" 
         />
       </CardBody>
     </Card>
   );
   
-  const chartRowStyle = { marginBottom: '1.5rem' }; // Consistent spacing for rows
+  const chartRowStyle = { marginBottom: '1.5rem' }; 
 
   return (
     <div className="content" >
@@ -99,7 +91,7 @@ const AccommodationInfographics = () => {
 
       {/* Row 1 */}
       <Row style={chartRowStyle}>
-        <Col lg="7" md="12" className="mb-4 mb-lg-0">
+        <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableLineChartCard 
             cardTitleText="Average Spend daily Past week" 
             cardCategoryText={averageSpendCategory} 
@@ -107,7 +99,7 @@ const AccommodationInfographics = () => {
             chartHeight="280px" 
           />
         </Col>
-        <Col lg="5" md="12">
+        <Col lg="6" md="12">
           <ReusableBarChartCard 
             cardTitleText="Most applied filters" 
             chartData={appliedFiltersData} 
@@ -118,20 +110,19 @@ const AccommodationInfographics = () => {
 
       {/* Row 2 */}
       <Row style={chartRowStyle}>
-        <Col lg="7" md="12" className="mb-4 mb-lg-0">
+        <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableBarChartCard 
             cardTitleText="Reservation Duration" 
             chartData={reservationDurationData} 
             chartHeight="300px" 
           />
         </Col>
-        <Col lg="5" md="12">
+        <Col lg="6" md="12">
           <FunnelRequestChart 
             title="Funnel request rate" 
             funnelDataItems={funnelRequestDataItems} 
-            chartCanvasHeight="260px" // Adjust if FunnelRequestChart's title takes up more/less space
-                                        // This height is for the canvas area itself
-            chartBackgroundColor="#27293D" // Matches card background used elsewhere
+            chartCanvasHeight="260px" 
+            chartBackgroundColor="#27293D" 
           />
         </Col>
       </Row>
@@ -144,13 +135,13 @@ const AccommodationInfographics = () => {
         <Col lg="4" md="6" sm="12" className="mb-4">
             <DoughnutCard title="Ratio of reserved rooms per booking" chartDataItems={reservedRoomsData} />
         </Col>
-        <Col lg="4" md="6" sm="12" className="mb-4"> {/* Ensures 3 per row on md, stacks on sm */}
+        <Col lg="4" md="6" sm="12" className="mb-4"> 
             <DoughnutCard title="UAE visa request ratio" chartDataItems={uaeVisaRequestData} />
         </Col>
       </Row>
 
       {/* Row 4 - Doughnut Charts */}
-      <Row> {/* Last row might not need bottom margin if page ends */}
+      <Row> 
         <Col lg="4" md="6" sm="12" className="mb-4">
             <DoughnutCard title="Most Popular destinations" chartDataItems={popularDestinationsData} />
         </Col>

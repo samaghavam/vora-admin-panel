@@ -7,12 +7,8 @@ import FunnelRequestChart from "../../../../components/FunnelRequestChart";
 import OveralPerformanceMonthAsist from "./OveralPerformanceMonthAsist";
 import OveralPerformanceMonthBudget from "./OveralPerformanceMonthBudge";
 import OveralPerformanceMonthCalculator from "./OveralPerformanceMonthCalculator";
-// Note: InfoStatCard is not used in this layout as per the screenshot
 
 const OveralPerformanceMonth = () => {
-  // --- Data based on the attached photo ---
-
-  // Row 1 Data
   const funnelRequestRateData = [
     { label: "Start operation", value: 78 },
     { label: "All steps gone", value: 62 },
@@ -158,7 +154,7 @@ const OveralPerformanceMonth = () => {
             title="Funnel request rate"
             funnelDataItems={funnelRequestRateData}
             chartCanvasHeight="210px"
-            chartBackgroundColor="#27293D" // Assuming this is the desired card background from your theme
+            chartBackgroundColor="#27293D" 
           />
         </Col>
         <Col lg="6" md="12">

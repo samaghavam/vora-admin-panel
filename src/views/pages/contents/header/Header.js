@@ -2,24 +2,17 @@ import React, { useRef, useState } from "react";
 import { Row, Col, Form, Button, Card, CardBody } from "reactstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
-import HeroSection from "./HeroSection";
-import Section2 from "./Section2";
-import Section3 from "./Section3"; 
-import Section4 from "./Section4";
+import HeaderImage from "./HeaderImage";
+import HeaderTitle from "./HeaderTitle";
 
-const About = () => {
-  const heroSectionRef = useRef(null);
-  const section2Ref = useRef(null);
-  const section3Ref = useRef(null); 
-  const section4Ref = useRef(null);
-
-  // --- STATE FOR ALERTS ---
+const HeaderContent = () => {
+  const headerImageRef = useRef(null);
+  const headerTitleRef = useRef(null)
   const [alert, setAlert] = useState(null);
-
   const breadcrumbItems = [
     { label: "Home", to: "/admin/dashboard" },
     { label: "Content management", to: "/admin/contents" },
-    { label: "About us" },
+    { label: "Card" },
   ];
 
   const hideAlert = () => {
@@ -58,7 +51,6 @@ const About = () => {
     );
   };
 
-  // --- MOCK API & SAVE HANDLER ---
   const mockApiCall = (data) => {
     console.log("Sending combined data to API. FormData details:");
     for (let [key, value] of data.entries()) {
@@ -82,47 +74,21 @@ const About = () => {
   const handleSave = async (event) => {
     event.preventDefault();
 
-    // 1. Validate ALL child components
-    const isHeroSectionValid = heroSectionRef.current.validate();
-    const isSection2Valid = section2Ref.current.validate();
-    const isSection3Valid = section3Ref.current.validate(); 
-    const isSection4Valid = section4Ref.current.validate();
-    // 2. Proceed only if ALL forms are valid
-    if (
-      isHeroSectionValid &&
-      isSection2Valid &&
-      isSection3Valid &&
-      isSection4Valid
-    ) {
-      // 3. Get data from ALL components
-      const heroData = heroSectionRef.current.getData();
-      const section2Data = section2Ref.current.getData();
-      const section3Data = section3Ref.current.getData(); 
-      const section4Data = section4Ref.current.getData(); 
+    const isHeaderImageValid = headerImageRef.current.validate();
+    const isHeaderTitleValid = headerTitleRef.current.validate();
+    if (isHeaderImageValid && isHeaderTitleValid) {
+      const headerImageData = headerImageRef.current.getData();
+      const headerTitleData = headerTitleRef.current.getData()
 
-      // 4. Combine data into a single FormData object
       const formData = new FormData();
 
-      // Append hero data with a prefix
-      Object.keys(heroData).forEach((key) => {
-        formData.append(`hero_${key}`, heroData[key]);
+      Object.keys(headerImageData).forEach((key) => {
+        formData.append(`faq_${key}`, headerImageData[key]);
       });
 
-      // Append section 2 data with a prefix
-      Object.keys(section2Data).forEach((key) => {
-        formData.append(`section2_${key}`, section2Data[key]);
+      Object.keys(headerTitleData).forEach((key) => {
+        formData.append(`faq_${key}`, headerTitleData[key]);
       });
-
-      // Append section 3 data with a prefix
-      Object.keys(section3Data).forEach((key) => {
-        formData.append(`section3_${key}`, section3Data[key]);
-      });
-      // Append section 4 data with a prefix
-      Object.keys(section4Data).forEach((key) =>
-        formData.append(`section4_${key}`, section4Data[key])
-      );
-
-      // 5. Send the combined data to the API
       try {
         await mockApiCall(formData);
         showSuccessAlert();
@@ -136,7 +102,6 @@ const About = () => {
     }
   };
 
-  // --- RENDER ---
   return (
     <div className="content">
       {alert}
@@ -150,10 +115,8 @@ const About = () => {
       </Row>
 
       <Form onSubmit={handleSave}>
-        <HeroSection ref={heroSectionRef} />
-        <Section2 ref={section2Ref} />
-        <Section3 ref={section3Ref} /> 
-        <Section4 ref={section4Ref} />
+      <HeaderImage ref={headerImageRef}/>
+      <HeaderTitle ref={headerTitleRef}/>
         <Card>
           <CardBody>
             <Row>
@@ -170,4 +133,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default HeaderContent;

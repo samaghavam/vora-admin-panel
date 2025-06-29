@@ -11,7 +11,6 @@ import {
 import ImageUpload from "components/CustomUpload/ImageUpload.js";
 
 const Step3 = React.forwardRef((props, ref) => {
-  // State for all form data in Step3
   const [step3Data, setStep3Data] = React.useState({
     highlightFeatures: (() => {
       const initialFeatures = {};
@@ -76,7 +75,7 @@ const Step3 = React.forwardRef((props, ref) => {
 
   // Handler to remove an extra feature row by its unique id
   const handleRemoveExtraFeature = (id) => {
-    if (step3Data.extraFeatures.length <= 1) return; // Prevent removing the last one
+    if (step3Data.extraFeatures.length <= 1) return; 
     setStep3Data((prev) => ({
       ...prev,
       extraFeatures: prev.extraFeatures.filter((feature) => feature.id !== id),

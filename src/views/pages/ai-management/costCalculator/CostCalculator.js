@@ -1,12 +1,12 @@
-import React, { useRef, useState } from "react"; // Added useRef and useState
-import { Row, Col, Button } from "reactstrap"; // Added Button
+import React, { useRef, useState } from "react"; 
+import { Row, Col, Button } from "reactstrap"; 
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
 import CostCalculatorMonth from "./CostCalculatorMonth";
 import CostCalculatorAllTime from "./CostCalculatorAllTime";
 import CostCalculatorOveral from "./CostCalculatorOveral";
 
 const CostCalculator = () => {
-  const [activeButton, setActiveButton] = useState("thisMonth"); // Default active button
+  const [activeButton, setActiveButton] = useState("thisMonth"); 
 
   // Refs for each section
   const thisMonthRef = useRef(null);
@@ -47,10 +47,10 @@ const CostCalculator = () => {
         <Col xs="auto" className="px-1">
           <Button
             className="btn-round py-3"
-            color={activeButton === "thisMonth" ? "primary" : "info"} // 'info' or 'default' for inactive, 'primary' for active
-            outline={activeButton !== "thisMonth"} // Make inactive buttons outlined if desired
+            color={activeButton === "thisMonth" ? "primary" : "info"} 
+            outline={activeButton !== "thisMonth"} 
             onClick={() => scrollToSection(thisMonthRef, "thisMonth")}
-            style={{ minWidth: "120px" }} // Ensure buttons have some minimum width
+            style={{ minWidth: "120px" }} 
           >
             This month
           </Button>

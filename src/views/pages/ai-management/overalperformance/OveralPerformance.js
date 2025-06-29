@@ -1,12 +1,12 @@
-import React, { useRef, useState } from "react"; // Added useRef and useState
-import { Row, Col, Button } from "reactstrap"; // Added Button
+import React, { useRef, useState } from "react"; 
+import { Row, Col, Button } from "reactstrap"; 
 import OveralPerformanceMonth from "./month/OveralPerformanceMonth";
 import OveralPerformanceAllTime from "./AllTime/OveralPerformanceAllTime";
 import Overal from "./overal/Overal";
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
 
 const OveralPerformance = () => {
-  const [activeButton, setActiveButton] = useState("thisMonth"); // Default active button
+  const [activeButton, setActiveButton] = useState("thisMonth"); 
 
   // Refs for each section
   const thisMonthRef = useRef(null);
@@ -22,7 +22,7 @@ const OveralPerformance = () => {
   const scrollToSection = (ref, sectionId) => {
     if (ref && ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveButton(sectionId); // Update active button state
+      setActiveButton(sectionId); 
     } else {
       console.warn(`Ref for section "${sectionId}" not found.`);
     }
@@ -41,14 +41,14 @@ const OveralPerformance = () => {
       </Row>
 
       {/* Navigation Buttons Row */}
-      <Row className="text-center"> {/* Centering the buttons */}
+      <Row className="text-center"> 
         <Col xs="auto" className="px-1">
           <Button
             className="btn-round py-3"
-            color={activeButton === "thisMonth" ? "primary" : "info"} // 'info' or 'default' for inactive, 'primary' for active
-            outline={activeButton !== "thisMonth"} // Make inactive buttons outlined if desired
+            color={activeButton === "thisMonth" ? "primary" : "info"} 
+            outline={activeButton !== "thisMonth"} 
             onClick={() => scrollToSection(thisMonthRef, "thisMonth")}
-            style={{ minWidth: '120px' }} // Ensure buttons have some minimum width
+            style={{ minWidth: '120px' }} 
           >
             This month
           </Button>
@@ -79,10 +79,10 @@ const OveralPerformance = () => {
       <div ref={thisMonthRef} id="thisMonthSection" className="analytics-section pt-3">
         <OveralPerformanceMonth />
       </div>
-      <div ref={allTimeRef} id="allTimeSection" className="analytics-section pt-5"> {/* pt-5 for top padding/spacing */}
+      <div ref={allTimeRef} id="allTimeSection" className="analytics-section pt-5"> 
         <OveralPerformanceAllTime />
       </div>
-      <div ref={overallRef} id="overallSection" className="analytics-section pt-5"> {/* pt-5 for top padding/spacing */}
+      <div ref={overallRef} id="overallSection" className="analytics-section pt-5"> 
         <Overal />
       </div>
     </div>

@@ -8,12 +8,11 @@ import {
   Row,
   Col,
   Button,
-  Badge // Added for styling the 'State'
+  Badge 
 } from "reactstrap";
 
 import ReactTable from "components/ReactTable/ReactTable.js";
 
-// New sample data structure for Visa Requests
 const visaRequestSampleData = [
   ["Airi Satou", "P1234567", "2030-10-15", "Tourism", "Flight-direct-stay", "In progress"],
   ["Angelica Ramos", "P7654321", "2028-11-01", "Business", "Hotel-Only", "Approved"],
@@ -56,8 +55,7 @@ const VisaRequestListTable = () => {
         passportExpirationDate: prop[2],
         kindOfVisaRequest: prop[3],
         requestFunnel: prop[4],
-        state: prop[5], // The actual state string
-        // Custom renderer for the 'State' column to show badges
+        state: prop[5], 
         stateDisplay: (
           <Badge color={getStateBadgeColor(prop[5])} pill>
             {prop[5]}
@@ -83,7 +81,7 @@ const VisaRequestListTable = () => {
               color="info"
               size="sm"
               className={classNames("btn-icon btn-link", {
-                "btn-neutral": key < 3, // Example: different style for first few
+                "btn-neutral": key < 3, 
               })}
               title="View"
             >
@@ -97,7 +95,6 @@ const VisaRequestListTable = () => {
                     "Edit details for: \n" +
                     `Person Name: ${obj.personName}\n` +
                     `Passport Number: ${obj.passportNumber}`
-                    // Add other fields as needed for edit confirmation
                   );
                 }
               }}
@@ -112,8 +109,6 @@ const VisaRequestListTable = () => {
             </Button>{" "}
             <Button
               onClick={() => {
-                // Confirm before deleting
-                // In a real app, use a modal for confirmation instead of window.confirm
                 if (window.confirm("Are you sure you want to delete this request?")) {
                     setData(currentData => currentData.filter(item => item.id !== key));
                 }
@@ -140,7 +135,7 @@ const VisaRequestListTable = () => {
           <Col xs={12} md={12}>
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Visa Request List</CardTitle> {/* Updated Card Title */}
+                <CardTitle tag="h4">Visa Request List</CardTitle> 
               </CardHeader>
               <CardBody>
                 <ReactTable
@@ -170,17 +165,14 @@ const VisaRequestListTable = () => {
                     },
                     {
                       Header: "State",
-                      accessor: "stateDisplay", // Use the custom renderer for badges
-                      // If you need to filter/sort by the actual state string:
-                      // filterMethod: (filter, row) => row.state.startsWith(filter.value),
-                      // sortMethod: (a, b) => { if (a.state < b.state) return -1; if (a.state > b.state) return 1; return 0; }
+                      accessor: "stateDisplay", 
                     },
                     {
                       Header: "Actions",
                       accessor: "actions",
                       sortable: false,
                       filterable: false,
-                      width: 100 // Adjust width for actions column if needed
+                      width: 100 
                     },
                   ]}
                   defaultPageSize={10}

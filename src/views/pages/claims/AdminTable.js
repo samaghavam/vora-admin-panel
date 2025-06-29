@@ -9,11 +9,8 @@ import {
   Col,
   Button,
 } from "reactstrap";
-
-// Assuming ReactTable is correctly imported from your project structure
 import ReactTable from "components/ReactTable/ReactTable.js";
 
-// New dataTable with admin management structure
 const adminDataTable = [
   ["Airi Satou", "2024-10-15", "Active", "Super Admin", "Full Access", "+1-202-555-0104"],
   ["Angelica Ramos", "2024-11-01", "Inactive", "Content Manager", "Read, Write", "+1-310-555-0188"],
@@ -40,11 +37,9 @@ const AdminTable = () => {
         phoneNumber: prop[5],
         actions: (
           <div className="actions-right">
-            {/* View button */}
             <Button
               onClick={() => {
                 let obj = data.find((o) => o.id === key);
-                // In a real app, this would open a modal or navigate to a details page
                 alert(
                   "You've clicked VIEW button on:\n" +
                   `Admin Name: ${obj.adminName}\n` +
@@ -66,7 +61,6 @@ const AdminTable = () => {
             <Button
               onClick={() => {
                 let obj = data.find((o) => o.id === key);
-                // In a real app, this would open an edit modal or page
                 alert(
                   "You've clicked EDIT button on:\n" +
                   `Admin Name: ${obj.adminName}`
@@ -102,7 +96,7 @@ const AdminTable = () => {
   return (
     <>
       <div className="content">
-        <Row> {/* Removed mt-5 to match image */}
+        <Row> 
           <Col xs={12} md={12}>
             <Card>
               <CardHeader>

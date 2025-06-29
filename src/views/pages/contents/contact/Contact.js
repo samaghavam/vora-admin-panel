@@ -1,31 +1,24 @@
 import React, { useRef, useState } from "react";
 import { Row, Col, Form, Button, Card, CardBody } from "reactstrap";
 import SweetAlert from "react-bootstrap-sweetalert";
-
-// Your existing components
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
 import HeroSection from "./HeroSection";
 import Section2 from "./Section2";
-import Section3 from "./Section3"; // <-- Import Section3
+import Section3 from "./Section3"; 
 import Section4 from "./Section4";
 
 const Contact = () => {
-  // --- REFS FOR CHILD COMPONENTS ---
   const heroSectionRef = useRef(null);
   const section2Ref = useRef(null);
-  const section3Ref = useRef(null); // <-- Add ref for Section3
+  const section3Ref = useRef(null); 
   const section4Ref = useRef(null);
-
-  // --- STATE FOR ALERTS ---
   const [alert, setAlert] = useState(null);
-
   const breadcrumbItems = [
     { label: "Home", to: "/admin/dashboard" },
     { label: "Content management", to: "/admin/contents" },
     { label: "Contact us" },
   ];
 
-  // --- ALERT HANDLERS ---
   const hideAlert = () => {
     setAlert(null);
   };
@@ -62,7 +55,6 @@ const Contact = () => {
     );
   };
 
-  // --- MOCK API & SAVE HANDLER ---
   const mockApiCall = (data) => {
     console.log("Sending combined data to API. FormData details:");
     for (let [key, value] of data.entries()) {
@@ -89,7 +81,7 @@ const Contact = () => {
     // 1. Validate ALL child components
     const isHeroSectionValid = heroSectionRef.current.validate();
     const isSection2Valid = section2Ref.current.validate();
-    const isSection3Valid = section3Ref.current.validate(); // <-- Validate Section3
+    const isSection3Valid = section3Ref.current.validate(); 
     const isSection4Valid = section4Ref.current.validate();
     // 2. Proceed only if ALL forms are valid
     if (
@@ -101,8 +93,8 @@ const Contact = () => {
       // 3. Get data from ALL components
       const heroData = heroSectionRef.current.getData();
       const section2Data = section2Ref.current.getData();
-      const section3Data = section3Ref.current.getData(); // <-- Get Section3 data
-      const section4Data = section4Ref.current.getData(); // <-- Get Section3 data
+      const section3Data = section3Ref.current.getData(); 
+      const section4Data = section4Ref.current.getData(); 
 
       // 4. Combine data into a single FormData object
       const formData = new FormData();
@@ -140,7 +132,6 @@ const Contact = () => {
     }
   };
 
-  // --- RENDER ---
   return (
     <div className="content">
       {alert}
@@ -156,7 +147,7 @@ const Contact = () => {
       <Form onSubmit={handleSave}>
         <HeroSection ref={heroSectionRef} />
         <Section2 ref={section2Ref} />
-        <Section3 ref={section3Ref} /> {/* <-- Add Section3 component */}
+        <Section3 ref={section3Ref} /> 
         <Section4 ref={section4Ref} />
         <Card>
           <CardBody>

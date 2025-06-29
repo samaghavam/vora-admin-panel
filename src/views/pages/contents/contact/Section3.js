@@ -13,20 +13,15 @@ import {
 } from "reactstrap";
 
 const Section4 = forwardRef((props, ref) => {
-  // --- STATE MANAGEMENT ---
   const [titleH1, setTitleH1] = useState("");
   const [titleH1Smaller, setTitleH1Smaller] = useState("");
   const [subtextH2, setSubtextH2] = useState("");
   const [location, setLocation] = useState("");
-
-  // Validation States
   const [titleH1State, setTitleH1State] = useState("");
   const [titleH1SmallerState, setTitleH1SmallerState] = useState("");
   const [subtextH2State, setSubtextH2State] = useState("");
   const [locationState, setLocationState] = useState("");
 
-
-  // --- IMPERATIVE HANDLE ---
   useImperativeHandle(ref, () => ({
     validate: () => validateFields(),
     getData: () => ({
@@ -37,7 +32,6 @@ const Section4 = forwardRef((props, ref) => {
     }),
   }));
 
-  // --- VALIDATION & CHANGE HANDLERS ---
   const verifyLength = (value) => {
     if (typeof value === 'string') return value.trim().length > 0;
     return value !== null;
@@ -58,7 +52,6 @@ const Section4 = forwardRef((props, ref) => {
     stateSetter("");
   };
 
-  // --- RENDER ---
   return (
     <Card>
       <CardHeader>

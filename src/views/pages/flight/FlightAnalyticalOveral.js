@@ -112,13 +112,12 @@ const FlightAnalyticalOveral = () => {
   ];
 
   // Define a common height for the chart drawing areas in the second row
-  const secondRowChartCanvasHeight = "240px"; // You can adjust this value
+  const secondRowChartCanvasHeight = "240px"; 
 
   return (
     <div className="content"> 
       <h2 className="title text-white mb-4">Overall</h2>
 
-      {/* First Row of Charts (Line Chart and Bar Chart) */}
       <Row>
         <Col lg="7" md="12" className="mb-4"> 
           <ReusableLineChartCard
@@ -136,8 +135,6 @@ const FlightAnalyticalOveral = () => {
           />
         </Col>
       </Row>
-
-      {/* Second Row of Charts (Reservation Duration and Funnel Chart) */}
       <Row className="d-flex align-items-stretch">
         <Col lg="7" md="12" className="mb-4 d-flex"> 
            <ReusableBarChartCard
@@ -161,8 +158,6 @@ const FlightAnalyticalOveral = () => {
           </Card>
         </Col>
       </Row>
-
-      {/* Third Row of Charts (3 Doughnut Charts) */}
       <Row>
         <Col lg="4" md="6" sm="12" className="mb-4">
           <Card className="card-chart">
@@ -201,8 +196,6 @@ const FlightAnalyticalOveral = () => {
           </Card>
         </Col>
       </Row>
-      
-      {/* Fourth Row of Charts (3 Doughnut Charts) */}
       <Row>
         <Col lg="4" md="6" sm="12" className="mb-4">
           <Card className="card-chart">

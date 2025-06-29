@@ -1,17 +1,13 @@
 import React from "react";
 import { Row, Col, Card, CardHeader, CardBody, CardTitle } from "reactstrap";
-
-// Assuming these chart components are located in your project's code base as specified
 import ReusableDoughnutChart from "../../../../components/DoughnutChart";
 import FunnelRequestChart from "../../../../components/FunnelRequestChart";
 import InfoStatCard from "../../../../components/InfoStateCard";
 
 const OveralPerformanceMonthAsist = () => {
-  // --- Data based on the "Travel Assist" screenshot ---
-
   const aiBookingPercentageData = [
     { label: "Used", value: 78, color: "rgba(75, 192, 192, 1)" },
-    { label: "Booked", value: 22, color: "#d93a54" }, // A reddish color
+    { label: "Booked", value: 22, color: "#d93a54" }, 
   ];
 
   const travelGroupPercentagesData = [
@@ -30,7 +26,6 @@ const OveralPerformanceMonthAsist = () => {
 
   const noPackagesFoundData = [
     { label: "All usage", value: 78, color: "rgba(75, 192, 192, 1)" },
-    { label: "No package to show", value: 22, color: "#d93a54" }, // A reddish color
   ];
 
   const iconForStatCards = "icon-chat-33";
@@ -49,7 +44,6 @@ const OveralPerformanceMonthAsist = () => {
         <ReusableDoughnutChart
           chartDataItems={chartDataItems}
           chartHeight="180px"
-          //chartWidth="100%"
         />
       </CardBody>
     </Card>
@@ -58,11 +52,8 @@ const OveralPerformanceMonthAsist = () => {
   return (
     <div>
       <Row className="justify-content-center">
-        {/* Using a single column for the vertical layout */}
         <Col>
           <h4 className="title text-white mb-4 text-center">Travel Assist</h4>
-
-          {/* Each component is placed in its own row within the main column */}
           <Row className="mb-2">
             <Col>
               <DoughnutCard
@@ -140,7 +131,7 @@ const OveralPerformanceMonthAsist = () => {
               <FunnelRequestChart
                 title="Funnel request rate"
                 funnelDataItems={funnelRequestRateData}
-                chartBackgroundColor="#27293D" // Assuming this is the desired card background from your theme
+                chartBackgroundColor="#27293D" 
               />
             </Col>
           </Row>

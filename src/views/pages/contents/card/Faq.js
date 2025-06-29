@@ -13,11 +13,8 @@ import {
 } from "reactstrap";
 
 const Faq = forwardRef((props, ref) => {
-  // --- STATE MANAGEMENT ---
   const [titleH1, setTitleH1] = useState("");
   const [titleH1Smaller, setTitleH1Smaller] = useState("");
-  
-  // Initialize with 4 questions to match the screenshot
   const [faqs, setFaqs] = useState([
     { id: 1, question: "", answer: "", questionState: "", answerState: "" },
     { id: 2, question: "", answer: "", questionState: "", answerState: "" },
@@ -25,11 +22,8 @@ const Faq = forwardRef((props, ref) => {
     { id: 4, question: "", answer: "", questionState: "", answerState: "" },
   ]);
 
-  // Validation States
   const [titleH1State, setTitleH1State] = useState("");
   const [titleH1SmallerState, setTitleH1SmallerState] = useState("");
-
-  // --- DYNAMIC FAQ HANDLERS ---
   const addNewQuestion = () => {
     setFaqs([
       ...faqs,
@@ -38,7 +32,6 @@ const Faq = forwardRef((props, ref) => {
   };
 
   const removeQuestion = (idToRemove) => {
-    // This will not remove the first question as its button is never rendered
     setFaqs(faqs.filter((faq) => faq.id !== idToRemove));
   };
 
@@ -52,7 +45,6 @@ const Faq = forwardRef((props, ref) => {
     setFaqs(newFaqs);
   };
 
-  // --- IMPERATIVE HANDLE ---
   useImperativeHandle(ref, () => ({
     validate: () => validateFields(),
     getData: () => ({
@@ -92,7 +84,6 @@ const Faq = forwardRef((props, ref) => {
     stateSetter("");
   };
 
-  // --- RENDER ---
   return (
     <Card>
       <CardHeader>
@@ -118,7 +109,6 @@ const Faq = forwardRef((props, ref) => {
         <hr />
 
         {faqs.map((faq, index) => {
-          // First question has a different layout and no remove button
           if (index === 0) {
             return (
               <Row key={faq.id} className="mb-3">
@@ -139,7 +129,6 @@ const Faq = forwardRef((props, ref) => {
               </Row>
             );
           }
-          // Subsequent questions have the remove button
           return (
             <Row key={faq.id} className="align-items-center mb-3">
               <Col md="5">

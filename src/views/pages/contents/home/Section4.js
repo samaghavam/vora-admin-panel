@@ -13,7 +13,6 @@ import {
 } from "reactstrap";
 
 const Section4 = forwardRef((props, ref) => {
-  // --- STATE MANAGEMENT ---
   // Text Inputs
   const [titleH1, setTitleH1] = useState("");
   const [titleH1Smaller, setTitleH1Smaller] = useState("");
@@ -90,14 +89,12 @@ const Section4 = forwardRef((props, ref) => {
     stateSetter("");
   };
 
-  // --- RENDER ---
   return (
     <Card>
       <CardHeader>
         <CardTitle tag="h4">Section 4 - Branding</CardTitle>
       </CardHeader>
       <CardBody>
-        {/* Top Titles */}
         <Row>
           <Col md="6">
             <FormGroup className={`has-label ${titleH1State}`}>
@@ -120,8 +117,6 @@ const Section4 = forwardRef((props, ref) => {
           {subtextH2State === "has-danger" && <Label className="error">This field is required.</Label>}
         </FormGroup>
         <hr />
-
-        {/* Points Section */}
         <Row>
           <Col md="4">
             <FormGroup className={`has-label ${point1TitleState}`}>
@@ -161,8 +156,6 @@ const Section4 = forwardRef((props, ref) => {
           </Col>
         </Row>
         <hr />
-
-        {/* Images Section */}
         <CardTitle tag="h5">Images</CardTitle>
         <Row>
             <Col md="6">
