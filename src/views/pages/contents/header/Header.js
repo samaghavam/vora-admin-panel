@@ -12,7 +12,7 @@ const HeaderContent = () => {
   const breadcrumbItems = [
     { label: "Home", to: "/admin/dashboard" },
     { label: "Content management", to: "/admin/contents" },
-    { label: "Card" },
+    { label: "Header" },
   ];
 
   const hideAlert = () => {
