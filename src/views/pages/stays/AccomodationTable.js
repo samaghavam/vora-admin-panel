@@ -11,22 +11,22 @@ import {
 import SweetAlert from "react-bootstrap-sweetalert";
 
 import ReactTable from "components/ReactTable/ReactTable.js";
-import EditModal from "components/editModal/EditModal";
 import ViewModal from "components/viewModal/ViewModal";
+import EditModalAccomodation from "components/editModal/EditModalAccomodation";
+import ViewModalAccomodation from "components/viewModal/ViewAccomodationModal";
 
-// Example flight data
+// **1. DATA UPDATED:** New example data for visa requests
 const dataTable = [
-  ["Airi Satou", "Grand Hyatt Tokyo", "2025-11-01", "2025-11-05", 2, "ACC001"],
-  ["Angelica Ramos", "The Ritz London", "2025-12-10", "2025-12-15", 1, "ACC002"],
-  ["Ashton Cox", "Fairmont San Francisco", "2026-01-20", "2026-01-25", 3, "ACC003"],
-  ["Bradley Greer", "The Beverly Hills Hotel", "2025-10-05", "2025-10-10", 1, "ACC004"],
-  ["Brenden Wagner", "Park Hyatt Sydney", "2026-02-15", "2026-02-20", 2, "ACC005"],
-  ["Brielle Williamson", "Le Bristol Paris", "2025-11-25", "2025-11-30", 1, "ACC006"],
-  ["Caesar Vance", "Hotel de Russie, Rome", "2025-09-10", "2025-09-15", 2, "ACC007"],
-  ["Cedric Kelly", "Burj Al Arab Jumeirah", "2026-03-01", "2026-03-07", 1, "ACC008"],
-  ["Charde Marshall", "The Peninsula Hong Kong", "2025-12-20", "2025-12-27", 2, "ACC009"],
-  ["Colleen Hurst", "Aman Tokyo", "2026-04-05", "2026-04-12", 1, "ACC010"],
-
+  ["Airi Satou", "P12345678", "2030-05-15", "Tourism", "Flight - direct - stay", "In progress"],
+  ["Angelica Ramos", "P87654321", "2028-11-20", "Business", "Flight - direct - stay", "Completed"],
+  ["Ashton Cox", "P55566677", "2029-01-10", "Tourism", "Flight - direct - stay", "In progress"],
+  ["Bradley Greer", "P11122233", "2027-08-01", "Student", "Flight - direct - stay", "Rejected"],
+  ["Brenden Wagner", "P44455566", "2031-03-25", "Tourism", "Flight - direct - stay", "In progress"],
+  ["Brielle Williamson", "P77788899", "2026-12-01", "Business", "Flight - direct - stay", "In progress"],
+  ["Caesar Vance", "P33322211", "2029-07-18", "Tourism", "Flight - direct - stay", "Completed"],
+  ["Cedric Kelly", "P99988877", "2030-02-14", "Student", "Flight - direct - stay", "In progress"],
+  ["Charde Marshall", "P66677788", "2028-06-30", "Tourism", "Flight - direct - stay", "In progress"],
+  ["Colleen Hurst", "P22233344", "2027-10-05", "Business", "Flight - direct - stay", "Completed"],
 ];
 
 const ReservationTable = () => {
@@ -42,29 +42,26 @@ const ReservationTable = () => {
   const [viewModalOpen, setViewModalOpen] = React.useState(false);
   const [viewingItem, setViewingItem] = React.useState(null);
 
-  // Modal field configuration (used by both modals)
-  const ticketFields = [
-    { key: 'name', label: 'Name' },
-    { key: 'from', label: 'From' },
-    { key: 'destination', label: 'Destination' },
-    { key: 'airline', label: 'Airline' },
-    { key: 'date', label: 'Flight Date' },
-    { key: 'fair', label: 'Fair' },
-    { key: 'airplane', label: 'Airplane' },
-    { key: 'flightDuration', label: 'Flight duration' },
-    { key: 'reservationNumber', label: 'Flight Number' },
+  // **2. FIELDS UPDATED:** New modal field configuration
+  const visaRequestFields = [
+    { key: 'personName', label: 'Person name' },
+    { key: 'passportNumber', label: 'Passport Number' },
+    { key: 'passportExpiration', label: 'Passport expiration date', type: 'date' },
+    { key: 'visaType', label: 'Kind of visa request' },
+    { key: 'requestFunnel', label: 'Request funnel' },
     { key: 'state', label: 'State' }
   ];
   
-  // Format initial data
+  // **3. DATA MAPPING UPDATED:** Format initial data based on the new structure
   React.useEffect(() => {
     const formattedData = dataTable.map((prop, key) => ({
       id: key,
-      name: prop[0], from: prop[1], destination: prop[2], airline: prop[3], date: prop[4], reservationNumber: prop[5],
-      fair: key % 3 === 0 ? 'Business' : 'Economy',
-      airplane: key % 2 === 0 ? 'Boeing 777' : 'Airbus A350',
-      flightDuration: `${Math.floor(Math.random() * 5) + 10}h ${Math.floor(Math.random() * 60)}m`,
-      state: 'Upcoming',
+      personName: prop[0],
+      passportNumber: prop[1],
+      passportExpiration: prop[2],
+      visaType: prop[3],
+      requestFunnel: prop[4],
+      state: prop[5],
     }));
     setData(formattedData);
   }, []);
@@ -92,13 +89,11 @@ const ReservationTable = () => {
         onCancel={() => setAlert(null)}
         confirmBtnBsStyle="danger" cancelBtnBsStyle="secondary" confirmBtnText="Yes, delete it!" cancelBtnText="Cancel" showCancel
       >
-        You will not be able to recover this reservation!
+        You will not be able to recover this item!
       </SweetAlert>
     );
   };
   
-  // **THE FIX IS HERE:** This function now correctly opens the View Modal.
-  // The previous version incorrectly used alert(), causing the error.
   const handleViewClick = (row) => {
     setViewingItem(row);
     setViewModalOpen(true);
@@ -125,10 +120,14 @@ const ReservationTable = () => {
                     )
                   }))}
                   filterable resizable={false}
+                  // **4. COLUMNS UPDATED:** New column definitions for the table
                   columns={[
-                    { Header: "NAME", accessor: "name" }, { Header: "From", accessor: "from" },
-                    { Header: "Destination", accessor: "destination" }, { Header: "Airline", accessor: "airline" },
-                    { Header: "Date", accessor: "date" }, { Header: "Reservation number", accessor: "reservationNumber" },
+                    { Header: "Person name", accessor: "personName" },
+                    { Header: "Passport Number", accessor: "passportNumber" },
+                    { Header: "Passport expiration date", accessor: "passportExpiration" },
+                    { Header: "Kind of visa request", accessor: "visaType" },
+                    { Header: "Request funnel", accessor: "requestFunnel" },
+                    { Header: "State", accessor: "state" },
                     { Header: "Actions", accessor: "actions", sortable: false, filterable: false },
                   ]}
                   defaultPageSize={10} showPaginationTop showPaginationBottom={false} className="-striped -highlight"
@@ -139,22 +138,21 @@ const ReservationTable = () => {
         </Row>
       </div>
 
-      <EditModal
+      <EditModalAccomodation
         isOpen={editModalOpen}
         onClose={() => setEditModalOpen(false)}
-        title="Edit Ticket Details"
-        fields={ticketFields}
+        title="Edit Visa Request"
+        fields={visaRequestFields}
         data={draftItem}
         onSave={handleSave}
         onInputChange={handleModalInputChange}
       />
       
-      {/* Render the new ViewModal */}
-      <ViewModal
+      <ViewModalAccomodation
         isOpen={viewModalOpen}
         onClose={() => setViewModalOpen(false)}
-        title="Ticket Details"
-        fields={ticketFields}
+        title="View Visa Request"
+        fields={visaRequestFields}
         data={viewingItem}
       />
 
