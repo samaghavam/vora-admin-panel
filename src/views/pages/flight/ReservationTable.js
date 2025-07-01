@@ -12,6 +12,82 @@ import {
 
 import ReactTable from "components/ReactTable/ReactTable.js";
 
+// Reusable Edit Modal Component
+const EditModal = ({ isOpen, onClose, title, fields, data, onSave }) => {
+  const [formData, setFormData] = React.useState(data || {});
+
+  React.useEffect(() => {
+    if (data) {
+      setFormData(data);
+    }
+  }, [data]);
+
+  const handleInputChange = (fieldKey, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [fieldKey]: value
+    }));
+  };
+
+  const handleSave = () => {
+    onSave(formData);
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+          <button 
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 transition-colors text-xl"
+          >
+            ×
+          </button>
+        </div>
+        
+        <div className="space-y-4">
+          {fields.map((field) => (
+            <div key={field.key}>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {field.label}
+              </label>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-500 flex-1">{field.placeholder}</span>
+                <input
+                  type={field.type || 'text'}
+                  value={formData[field.key] || ''}
+                  onChange={(e) => handleInputChange(field.key, e.target.value)}
+                  className="ml-4 p-2 border border-gray-300 rounded-md text-sm w-48"
+                  placeholder={field.placeholder}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="flex justify-end gap-3 mt-6">
+          <button 
+            onClick={onClose}
+            className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+          >
+            Cancel
+          </button>
+          <button 
+            onClick={handleSave}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // Updated dataTable with new structure and example flight data
 const dataTable = [
   [
@@ -97,6 +173,23 @@ const dataTable = [
 ];
 
 const ReservationTable = () => {
+  const [editModalOpen, setEditModalOpen] = React.useState(false);
+  const [editingItem, setEditingItem] = React.useState(null);
+
+  // Modal field configuration for ticket details
+  const ticketFields = [
+    { key: 'name', label: 'Name', placeholder: 'Name of the person who have reserved' },
+    { key: 'from', label: 'From', placeholder: 'From City - (Airport)' },
+    { key: 'destination', label: 'Destination', placeholder: 'Destination - (Airport)' },
+    { key: 'airline', label: 'Airline', placeholder: 'Airline Name' },
+    { key: 'date', label: 'Flight Date', placeholder: '2025/08/11', type: 'date' },
+    { key: 'fair', label: 'Fair', placeholder: 'Flight Class' },
+    { key: 'airplane', label: 'Airplane', placeholder: 'Airplane Type' },
+    { key: 'flightDuration', label: 'Flight duration', placeholder: 'Flight duration' },
+    { key: 'reservationNumber', label: 'Flight Number', placeholder: 'Flight Number' },
+    { key: 'state', label: 'State', placeholder: 'Upcoming' }
+  ];
+
   const [data, setData] = React.useState(
     dataTable.map((prop, key) => {
       return {
@@ -107,6 +200,11 @@ const ReservationTable = () => {
         airline: prop[3],
         date: prop[4],
         reservationNumber: prop[5],
+        // Add additional fields for the modal
+        fair: key % 3 === 0 ? 'Business' : key % 2 === 0 ? 'Economy' : 'Premium Economy',
+        airplane: key % 2 === 0 ? 'Boeing 777' : 'Airbus A350',
+        flightDuration: `${Math.floor(Math.random() * 5) + 10}h ${Math.floor(Math.random() * 60)}m`,
+        state: 'Upcoming',
         actions: (
           <div className="actions-right">
             <Button
@@ -130,38 +228,23 @@ const ReservationTable = () => {
               }}
               color="info"
               size="sm"
-              className={classNames("btn-icon btn-link like", {
-                "btn-neutral": key < 5,
-              })}
+              className="btn-icon btn-link like"
               title="View" 
+              style={{ color: 'white' }}
             >
               <i className="tim-icons icon-zoom-split" />{" "}
             </Button>{" "}
             <Button
               onClick={() => {
                 let obj = data.find((o) => o.id === key);
-                alert(
-                  "You've clicked EDIT button on \n{ \nName: " +
-                    obj.name +
-                    ", \nFrom: " +
-                    obj.from +
-                    ", \nDestination: " +
-                    obj.destination +
-                    ", \nAirline: " +
-                    obj.airline +
-                    ", \nDate: " +
-                    obj.date +
-                    ", \nReservation Number: " +
-                    obj.reservationNumber +
-                    "\n}."
-                );
+                setEditingItem(obj);
+                setEditModalOpen(true);
               }}
               color="warning"
               size="sm"
-              className={classNames("btn-icon btn-link edit", {
-                "btn-neutral": key < 5,
-              })}
+              className="btn-icon btn-link edit"
               title="Edit"
+              style={{ color: 'white' }}
             >
               <i className="tim-icons icon-pencil" />
             </Button>{" "}
@@ -174,10 +257,9 @@ const ReservationTable = () => {
               }}
               color="danger"
               size="sm"
-              className={classNames("btn-icon btn-link remove", {
-                "btn-neutral": key < 5,
-              })}
+              className="btn-icon btn-link remove"
               title="Remove"
+              style={{ color: 'white' }}
             >
               <i className="tim-icons icon-simple-remove" />
             </Button>{" "}
@@ -186,6 +268,13 @@ const ReservationTable = () => {
       };
     })
   );
+
+  const handleSave = (updatedData) => {
+    setData(prev => prev.map(item => 
+      item.id === editingItem.id ? { ...item, ...updatedData } : item
+    ));
+    setEditingItem(null);
+  };
 
   return (
     <>
@@ -244,6 +333,54 @@ const ReservationTable = () => {
           </Col>
         </Row>
       </div>
+
+      {/* Edit Modal */}
+      <EditModal
+        isOpen={editModalOpen}
+        onClose={() => {
+          setEditModalOpen(false);
+          setEditingItem(null);
+        }}
+        title="Ticket details"
+        fields={ticketFields}
+        data={editingItem}
+        onSave={handleSave}
+      />
+
+      {/* CSS to ensure all text is white */}
+      <style jsx>{`
+        .ReactTable .rt-tbody .rt-tr .rt-td,
+        .ReactTable .rt-thead .rt-th,
+        .ReactTable .rt-tbody .rt-tr,
+        .ReactTable .rt-thead .rt-tr {
+          color: white !important;
+        }
+        
+        .ReactTable .rt-tbody .rt-tr:hover .rt-td {
+          color: white !important;
+        }
+        
+        .ReactTable input {
+          color: white !important;
+          background-color: transparent !important;
+        }
+        
+        .ReactTable input::placeholder {
+          color: rgba(255, 255, 255, 0.6) !important;
+        }
+        
+        .btn-icon i {
+          color: white !important;
+        }
+        
+        .btn-link {
+          color: white !important;
+        }
+        
+        .btn-link:hover {
+          color: white !important;
+        }
+      `}</style>
     </>
   );
 };
