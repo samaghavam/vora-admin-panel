@@ -42,25 +42,25 @@ const createGradientFill = (canvas, mainColorHex) => {
   }
 
   const gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-  gradientStroke.addColorStop(1, `rgba(${mainR},${mainG},${mainB},0.2)`); // More transparent at the top
-  gradientStroke.addColorStop(0.4, `rgba(${mainR},${mainG},${mainB},0.0)`); // Fully transparent in the middle
-  gradientStroke.addColorStop(0, `rgba(${mainR},${mainG},${mainB},0.1)`); // Slightly visible at the bottom
+  gradientStroke.addColorStop(1, `rgba(${mainR},${mainG},${mainB},0.2)`);
+  gradientStroke.addColorStop(0.4, `rgba(${mainR},${mainG},${mainB},0.0)`);
+  gradientStroke.addColorStop(0, `rgba(${mainR},${mainG},${mainB},0.1)`);
 
   return gradientStroke;
 };
 
 
 const ReusableLineChartCard = ({
-  cardTitleText,      // e.g., "Average Spend daily Past week"
-  cardCategoryText,   // e.g., "Average Week $ 10,000"
-  chartData,          // { labels: [...], datasets: [{ data: [...], label: '...', ... }] }
-  chartHeight = "250px", // Default height for the chart area
-  lineColor = "#e14ec9", // Default purple line color from "Chart 1.png"
+  cardTitleText,     // e.g., "Average Spend daily Past week"
+  cardCategoryText,  // e.g., "Average Week $ 10,000"
+  chartData,         // { labels: [...], datasets: [{ data: [...], label: '...', ... }] }
+  // chartHeight prop is no longer needed for consistent height
+  lineColor = "#e14ec9",
   pointBorderColor = "#fff",
   pointBackgroundColor = "#e14ec9",
   pointHoverBackgroundColor = "#e14ec9",
   pointHoverBorderColor = "#fff",
-  customOptions = {} // Allow overriding default chart options
+  customOptions = {}
 }) => {
 
   const preparedChartData = (canvas) => {
@@ -107,14 +107,14 @@ const ReusableLineChartCard = ({
       y: {
         grid: {
           drawBorder: false,
-          color: "rgba(225,78,202,0.1)", // Light purple grid lines
+          color: "rgba(225,78,202,0.1)",
           zeroLineColor: "transparent",
         },
         ticks: {
-          suggestedMin: 60, // As per "Chart 1.png"
-          suggestedMax: 130, // As per "Chart 1.png"
+          suggestedMin: 60,
+          suggestedMax: 130,
           padding: 10,
-          color: "#9e9e9e", // Light grey ticks
+          color: "#9e9e9e",
           font: {
             size: 10,
           },
@@ -123,12 +123,12 @@ const ReusableLineChartCard = ({
       x: {
         grid: {
           drawBorder: false,
-          color: "rgba(225,78,202,0.0)", // Almost transparent for X grid lines
+          color: "rgba(225,78,202,0.0)",
           zeroLineColor: "transparent",
         },
         ticks: {
           padding: 10,
-          color: "#9e9e9e", // Light grey ticks
+          color: "#9e9e9e",
           font: {
             size: 11,
           },
@@ -140,7 +140,9 @@ const ReusableLineChartCard = ({
   const options = { ...defaultChartOptions, ...customOptions };
 
   return (
-    <Card className="card-chart">
+    // **THE FIX IS HERE:**
+    // 1. Added `h-100` to make the card fill its parent's height.
+    <Card className="card-chart h-100">
       <CardHeader>
         <Row>
           <Col className="text-left" sm="8">
@@ -155,8 +157,10 @@ const ReusableLineChartCard = ({
           </Col>
         </Row>
       </CardHeader>
-      <CardBody>
-        <div className="chart-area" style={{ height: chartHeight }}>
+      {/* 2. Made CardBody a flex container to allow the chart to grow. */}
+      <CardBody className="d-flex flex-column">
+        {/* 3. The chart-area now grows to fill the available space. */}
+        <div className="chart-area flex-grow-1" style={{ position: 'relative' }}>
           <Line data={preparedChartData} options={options} />
         </div>
       </CardBody>

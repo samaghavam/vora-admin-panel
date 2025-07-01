@@ -44,35 +44,33 @@ const createBarGradient = (canvas, mainColorHex) => {
     mainR = 253; mainG = 93; mainB = 147; // Default to #FD5D93
   }
 
-  // Create a more transparent gradient for the fill
   const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height); 
-  // Start with a lower opacity and end with an even lower one for a subtle fill
-  gradient.addColorStop(0, `rgba(${mainR},${mainG},${mainB},0.45)`); // More transparent top
-  gradient.addColorStop(1, `rgba(${mainR},${mainG},${mainB},0.1)`);  // Even more transparent bottom
+  gradient.addColorStop(0, `rgba(${mainR},${mainG},${mainB},0.45)`);
+  gradient.addColorStop(1, `rgba(${mainR},${mainG},${mainB},0.1)`); 
 
   return gradient;
 };
 
 
 const ReusableBarChartCard = ({
-  cardTitleText,      
-  chartData,          
-  chartHeight = "250px",
+  cardTitleText,     
+  chartData,         
+  // The fixed chartHeight prop is no longer needed for consistent height
+  // chartHeight = "250px",
   defaultBarColor = "#FD5D93", 
   customOptions = {}
 }) => {
 
   const preparedChartData = (canvas) => {
     const datasetsWithGradient = chartData.datasets.map(dataset => {
-      const barBaseColor = dataset.barColor || defaultBarColor; // Use a new prop or default for solid border
+      const barBaseColor = dataset.barColor || defaultBarColor;
       return {
         ...dataset,
-        backgroundColor: createBarGradient(canvas, barBaseColor), // More transparent gradient fill
-        borderColor: barBaseColor, // Solid border color
-        borderWidth: dataset.borderWidth === undefined ? 1.5 : dataset.borderWidth, // Make border visible
-        hoverBackgroundColor: `rgba(${parseInt(barBaseColor.slice(1,3),16)},${parseInt(barBaseColor.slice(3,5),16)},${parseInt(barBaseColor.slice(5,7),16)},0.6)`, // Slightly more opaque solid color on hover
+        backgroundColor: createBarGradient(canvas, barBaseColor),
+        borderColor: barBaseColor, 
+        borderWidth: dataset.borderWidth === undefined ? 1.5 : dataset.borderWidth,
+        hoverBackgroundColor: `rgba(${parseInt(barBaseColor.slice(1,3),16)},${parseInt(barBaseColor.slice(3,5),16)},${parseInt(barBaseColor.slice(5,7),16)},0.6)`,
         hoverBorderColor: barBaseColor,
-        // borderRadius: 5, // Optional: slight rounding of bar tops
       };
     });
 
@@ -104,7 +102,7 @@ const ReusableBarChartCard = ({
       y: {
         grid: {
           drawBorder: false,
-          color: "rgba(225,78,202,0.05)", // Very faint grid lines, adjust alpha as needed
+          color: "rgba(225,78,202,0.05)",
           zeroLineColor: "transparent",
         },
         ticks: {
@@ -137,12 +135,16 @@ const ReusableBarChartCard = ({
   const options = { ...defaultChartOptions, ...customOptions };
 
   return (
-    <Card className="card-chart"> 
+    // **THE FIX IS HERE:**
+    // 1. Added `h-100` to make the card fill its parent's height.
+    <Card className="card-chart h-100"> 
       <CardHeader>
         <CardTitle tag="h4" className="text-white">{cardTitleText}</CardTitle>
       </CardHeader>
-      <CardBody>
-        <div className="chart-area" style={{ height: chartHeight }}>
+      {/* 2. Made CardBody a flex container to allow the chart to grow. */}
+      <CardBody className="d-flex flex-column">
+        {/* 3. The chart-area now grows to fill the available space. */}
+        <div className="chart-area flex-grow-1" style={{ position: 'relative' }}>
           <Bar data={preparedChartData} options={options} />
         </div>
       </CardBody>
