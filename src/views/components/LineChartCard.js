@@ -76,7 +76,7 @@ const ReusableLineChartCard = ({
       pointRadius: dataset.pointRadius === undefined ? 4 : dataset.pointRadius,
       pointHoverRadius: dataset.pointHoverRadius === undefined ? 5 : dataset.pointHoverRadius,
       borderWidth: dataset.borderWidth === undefined ? 2 : dataset.borderWidth,
-      tension: dataset.tension === undefined ? 0.4 : dataset.tension, // Makes the line curved
+      tension: dataset.tension === undefined ? 0.4 : dataset.tension, 
     }));
 
     return {
@@ -116,7 +116,7 @@ const ReusableLineChartCard = ({
           padding: 10,
           color: "#9e9e9e", // Light grey ticks
           font: {
-            size: 11,
+            size: 10,
           },
         },
       },
@@ -144,7 +144,7 @@ const ReusableLineChartCard = ({
       <CardHeader>
         <Row>
           <Col className="text-left" sm="8">
-            <CardTitle tag="h3" className="text-white">{cardTitleText}</CardTitle>
+            <CardTitle tag="h4" className="text-white">{cardTitleText}</CardTitle>
           </Col>
           <Col sm="4">
             <div className="text-right">

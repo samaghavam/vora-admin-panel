@@ -1,5 +1,4 @@
 import React from 'react';
-// PropTypes import removed
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -40,7 +39,7 @@ const hexToRgba = (hex, alpha) => {
 const FunnelRequestChart = ({ 
   title, 
   funnelDataItems, 
-  chartTitleClass = 'text-light mb-3 h5', 
+  chartTitleClass = 'text-light ', 
   chartBackgroundColor = '#27293D',
   chartCanvasHeight = null // New prop for specific canvas height
 }) => {
@@ -133,7 +132,6 @@ const FunnelRequestChart = ({
   // Calculate dynamic height for the chart canvas if no specific height is provided
   const barSpacing = 15; 
   const calculatedCanvasHeight = `${(sortedFunnelData.length * (25 + barSpacing)) - barSpacing + 10}px`;
-  // Use the passed chartCanvasHeight if available, otherwise use the calculated height
   const finalCanvasHeight = chartCanvasHeight || calculatedCanvasHeight;
 
   return (
@@ -143,7 +141,7 @@ const FunnelRequestChart = ({
         <div className="w-60" style={{ position: 'relative', height: finalCanvasHeight, minWidth: '120px' }}>
           <Bar data={chartJsData} options={chartJsOptions} />
         </div>
-        <div className="w-40 ml-3 d-flex flex-column justify-content-center"> {/* Legend */}
+        <div className="w-40 ml-3 d-flex flex-column justify-content-center"> 
           <ul className="list-unstyled p-0 m-0">
             {sortedFunnelData.map((item, index) => (
               <li 

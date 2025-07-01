@@ -47,52 +47,51 @@ const FlightInfographics = () => {
 
   const funnelRequestDataItems = [
     { label: "Total search", value: 78 },
-    { label: "Select ticket", value: 27 },
-    { label: "Buying Process", value: 22 },
+    { label: "Select ticket", value: 57 },
+    { label: "Buying Process", value: 42 },
     { label: "Payment page", value: 22 },
-    { label: "Purchase", value: 22 },
+    { label: "Purchase", value: 10 },
   ];
 
   // --- ROW 3 DATA (Doughnut Charts) ---
   const popularDestinationsData = [
-    { label: "USA", value: 78, color: "rgba(255, 159, 64, 1)" },
-    { label: "Germany", value: 22, color: "rgba(75, 192, 192, 1)" },
-    { label: "Australia", value: 22, color: "rgba(54, 162, 235, 1)" },
-    { label: "United Kingdom", value: 22, color: "rgba(255, 99, 132, 1)" },
-    { label: "Canada", value: 22, color: "rgba(153, 102, 255, 1)" },
+    { label: "USA", value: 50, color: "#FF9F40" },
+    { label: "Germany", value: 15, color: "#4BC0C0" },
+    { label: "Australia", value: 15, color: "#36A2EB" },
+    { label: "United Kingdom", value: 10, color: "#FF6384" },
+    { label: "Canada", value: 10, color: "#9966FF" },
   ];
   const popularOriginsData = [...popularDestinationsData]; 
   const popularFaresData = [
-    { label: "Economy", value: 78, color: "rgba(255, 159, 64, 1)" },
-    { label: "Economy Plus", value: 22, color: "rgba(75, 192, 192, 1)" },
-    { label: "Economy Pro", value: 22, color: "rgba(54, 162, 235, 1)" },
-    { label: "Business", value: 22, color: "rgba(255, 99, 132, 1)" },
-    { label: "Business Plus", value: 22, color: "rgba(153, 102, 255, 1)" },
+    { label: "Economy", value: 50, color: "#FF9F40" },
+    { label: "Economy Plus", value: 15, color: "#4BC0C0" },
+    { label: "Economy Pro", value: 15, color: "#36A2EB" },
+    { label: "Business", value: 10, color: "#FF6384" },
+    { label: "Business Plus", value: 10, color: "#9966FF" },
   ];
-
 
   // --- ROW 4 DATA (Doughnut Charts) ---
   const popularAirlinesData = [
-    { label: "American airlines", value: 78, color: "rgba(255, 159, 64, 1)" },
-    { label: "Fly Emirates", value: 22, color: "rgba(75, 192, 192, 1)" },
-    { label: "Turkish Airline", value: 22, color: "rgba(54, 162, 235, 1)" },
-    { label: "Air France", value: 22, color: "rgba(255, 99, 132, 1)" },
-    { label: "Qatar Airline", value: 22, color: "rgba(153, 102, 255, 1)" },
+    { label: "American airlines", value: 50, color: "#FF9F40" },
+    { label: "Fly Emirates", value: 15, color: "#4BC0C0" },
+    { label: "Turkish Airline", value: 15, color: "#36A2EB" },
+    { label: "Air France", value: 10, color: "#FF6384" },
+    { label: "Qatar Airline", value: 10, color: "#9966FF" },
   ];
   const travelTypeData = [
-    { label: "One way", value: 78, color: "rgba(54, 162, 235, 1)" }, // Blue
-    { label: "Rounded", value: 22, color: "rgba(75, 192, 192, 1)" }, // Teal/Green
+    { label: "One way", value: 78, color: "#36A2EB" }, // Blue
+    { label: "Rounded", value: 22, color: "#4BC0C0" }, // Teal/Green
   ];
   const uaeVisaRequestData = [
-    { label: "Total flights to UAE", value: 78, color: "rgba(75, 192, 192, 1)" }, // Teal/Green
-    { label: "Visa Requested", value: 22, color: "rgba(255, 206, 86, 1)" }, // Yellow/Orange
+    { label: "Total flights to UAE", value: 78, color: "#4BC0C0" }, // Teal/Green
+    { label: "Visa Requested", value: 22, color: "#FFCE56" }, // Yellow/Orange
   ];
 
   // --- ROW 5 DATA (Doughnut Chart) ---
   const travelGroupData = [
-    { label: "Adults", value: 78, color: "rgba(75, 192, 192, 1)" }, 
-    { label: "Children", value: 22, color: "rgba(255, 159, 64, 1)" }, 
-    { label: "Infants", value: 22, color: "rgba(153, 102, 255, 1)" }, 
+    { label: "Adults", value: 56, color: "#4BC0C0" }, 
+    { label: "Children", value: 22, color: "#FF9F40" }, 
+    { label: "Infants", value: 22, color: "#36A2EB" }, 
   ];
 
   // Helper component to wrap Doughnut charts in Cards for consistent styling
@@ -101,24 +100,41 @@ const FlightInfographics = () => {
       <CardHeader>
         <CardTitle tag="h5" className="text-muted mb-0">{title}</CardTitle> 
       </CardHeader>
-      <CardBody className="d-flex flex-column justify-content-center align-items-center">
-        <ReusableDoughnutChart
-          chartDataItems={chartDataItems}
-          chartHeight="160px" 
-          chartWidth="100%"   
-          title="" 
-        />
+      <CardBody className="d-flex flex-column justify-content-center align-items-center p-3">
+        <div className="w-100 d-flex justify-content-center align-items-center" style={{ minHeight: '200px' }}>
+          <ReusableDoughnutChart
+            chartDataItems={chartDataItems}
+            chartHeight="150px" 
+            chartWidth="150px"   
+            title="" 
+          />
+        </div>
       </CardBody>
     </Card>
   );
 
+  // Wrapper component for consistent card height in row 2
+  const FunnelCard = ({ title, funnelDataItems }) => (
+    <Card className="card-chart h-100">
+      <CardHeader>
+        <CardTitle tag="h4" className="text-white">{title}</CardTitle>
+      </CardHeader>
+      <CardBody className="p-0">
+        <FunnelRequestChart
+          title=""
+          funnelDataItems={funnelDataItems}
+          chartCanvasHeight="240px"
+        />
+      </CardBody>
+    </Card>
+  );
 
   return (
     <div className='content'>
       <h2 className="title text-white mb-4">Flight Infographics</h2>
 
       {/* --- ROW 1: Line Chart & Bar Chart --- */}
-      <Row className="mb-4">
+      <Row className="mb-4 mb-lg-0">
         <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableLineChartCard
             cardTitleText="Average Spend daily Past week"
@@ -142,14 +158,13 @@ const FlightInfographics = () => {
           <ReusableBarChartCard
             cardTitleText="Rounded Trips Duration Average"
             chartData={roundedTripsDurationData}
-            chartHeight="300px" 
+            chartHeight="290px" 
           />
         </Col>
-        <Col lg="6" md="12">
-          <FunnelRequestChart
+        <Col lg="6" md="12" className="mb-4 mb-lg-0">
+          <FunnelCard
             title="Funnel request rate"
             funnelDataItems={funnelRequestDataItems}
-            chartCanvasHeight="260px" 
           />
         </Col>
       </Row>
