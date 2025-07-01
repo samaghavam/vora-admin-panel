@@ -118,7 +118,7 @@ const AIInfographics = () => {
             chartBackgroundColor="#27293D"
           />
         </Col>
-        <Col lg="6" md="12">
+        <Col lg="6" md="12"className='mb-4'>
           <ReusableLineChartCard 
             cardTitleText="Average Spend daily Past week" 
             cardCategoryText={averageSpendCategory} 
@@ -129,7 +129,7 @@ const AIInfographics = () => {
       </Row>
 
       {/* Row 2 */}
-      <Row >
+      <Row className='mb-4'>
         <Col lg="6" md="12">
           <ReusableBarChartCard 
             cardTitleText="Rounded trip duration" 

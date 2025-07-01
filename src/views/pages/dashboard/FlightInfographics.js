@@ -134,7 +134,7 @@ const FlightInfographics = () => {
       <h2 className="title text-white mb-4">Flight Infographics</h2>
 
       {/* --- ROW 1: Line Chart & Bar Chart --- */}
-      <Row className="mb-4 mb-lg-0">
+      <Row className="mb-4">
         <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableLineChartCard
             cardTitleText="Average Spend daily Past week"

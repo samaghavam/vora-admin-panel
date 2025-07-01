@@ -62,9 +62,9 @@ const AccommodationInfographics = () => {
 
   const popularAccommodationData = [
     { label: "Accommodation-name", value: 78, color: "rgba(255, 159, 64, 1)" }, 
-    { label: "Accommodation name", value: 22, color: "rgba(75, 192, 192, 1)" },
-    { label: "Accommodation name", value: 22, color: "rgba(54, 162, 235, 1)" }, 
-    { label: "Accommodation name", value: 22, color: "rgba(255, 99, 132, 1)" },
+    { label: "Accommodation name", value: 62, color: "rgba(75, 192, 192, 1)" },
+    { label: "Accommodation name", value: 42, color: "rgba(54, 162, 235, 1)" }, 
+    { label: "Accommodation name", value: 32, color: "rgba(255, 99, 132, 1)" },
     { label: "Accommodation name", value: 22, color: "rgba(153, 102, 255, 1)" },
   ];
 
