@@ -35,10 +35,10 @@ const AccommodationInfographics = () => {
 
   const reservedRoomsData = [
     { label: "1 room", value: 78, color: "rgba(54, 162, 235, 1)" }, 
-    { label: "2 rooms", value: 22, color: "rgba(75, 192, 192, 1)" },
-    { label: "3 rooms", value: 22, color: "rgba(255, 159, 64, 1)" }, 
+    { label: "2 rooms", value: 52, color: "rgba(75, 192, 192, 1)" },
+    { label: "3 rooms", value: 42, color: "rgba(255, 159, 64, 1)" }, 
     { label: "4 rooms", value: 22, color: "rgba(255, 99, 132, 1)" },
-    { label: "5 rooms and more", value: 22, color: "rgba(153, 102, 255, 1)" },
+    { label: "5 rooms and more", value: 12, color: "rgba(153, 102, 255, 1)" },
   ];
 
   const uaeVisaRequestData = [ 
