@@ -11,7 +11,6 @@ import {
 import SweetAlert from "react-bootstrap-sweetalert";
 
 import ReactTable from "components/ReactTable/ReactTable.js";
-import ViewModal from "components/viewModal/ViewModal";
 import EditModalAccomodation from "components/editModal/EditModalAccomodation";
 import ViewModalAccomodation from "components/viewModal/ViewAccomodationModal";
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Card, CardBody } from 'reactstrap';
+import { Row, Col, Card, CardBody, CardTitle, CardHeader } from 'reactstrap'; 
 import ReusableLineChartCard from '../../components/LineChartCard';
 import ReusableBarChartCard from '../../components/ReusableBarChartCard';
 import ReusableDoughnutChart from '../../components/DoughnutChart';
@@ -111,55 +111,56 @@ const FlightAnalyticalOveral = () => {
     { label: "Accommodation name", value: 10, color: "#fd5d93" },
   ];
 
-  // Define a common height for the chart drawing areas in the second row
-  const secondRowChartCanvasHeight = "240px"; 
-
   return (
     <div className="content"> 
       <h2 className="title text-white mb-4">Overall</h2>
 
-      <Row>
-        <Col lg="7" md="12" className="mb-4"> 
+      {/* **THE FIX IS HERE:** Using `d-flex` on the columns and removing fixed heights */}
+      <Row className="mb-4">
+        <Col lg="6" md="12" className="mb-4 mb-lg-0 d-flex"> 
           <ReusableLineChartCard
             cardTitleText="Average Spend daily Past week"
             cardCategoryText="Average Week $ 10,000"
             chartData={averageSpendData}
-            chartHeight="300px" 
           />
         </Col>
-        <Col lg="5" md="12" className="mb-4"> 
+        <Col lg="6" md="12" className="d-flex"> 
           <ReusableBarChartCard
             cardTitleText="Most applied filters"
             chartData={mostAppliedFiltersData}
-            chartHeight="300px" 
           />
         </Col>
       </Row>
-      <Row className="d-flex align-items-stretch">
-        <Col lg="7" md="12" className="mb-4 d-flex"> 
+
+      {/* **THE FIX IS HERE:** Both columns now have a consistent structure */}
+      <Row className="mb-4">
+        <Col lg="6" md="12" className="mb-4 mb-lg-0 d-flex"> 
            <ReusableBarChartCard
             cardTitleText="Reservation Duration"
             chartData={reservationDurationData}
             defaultBarColor="#1f8ef1" 
             customOptions={reservationDurationOptions}
-            chartHeight={secondRowChartCanvasHeight} 
           />
         </Col>
-        <Col lg="5" md="12" className="mb-4 d-flex"> 
-          <Card className="card-chart d-flex flex-column flex-grow-1"> 
-            <CardBody className="d-flex flex-column flex-grow-1"> 
+        <Col lg="6" md="12" className="d-flex"> 
+          {/* A consistent Card wrapper is now used for the Funnel Chart */}
+          <Card className="card-chart h-100"> 
+            <CardHeader>
+              <CardTitle tag="h4" className="text-white">Funnel request rate</CardTitle>
+            </CardHeader>
+            <CardBody className="d-flex flex-column"> 
               <FunnelRequestChart
-                title="Funnel request rate"
+                title="" // Title is now handled by the CardHeader
                 funnelDataItems={funnelRequestData}
-                chartCanvasHeight={secondRowChartCanvasHeight} 
-                chartBackgroundColor="transparent" 
               />
             </CardBody>
           </Card>
         </Col>
       </Row>
+      
+      {/* The rest of the component remains the same */}
       <Row>
-        <Col lg="4" md="6" sm="12" className="mb-4">
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
           <Card className="card-chart">
             <CardBody>
               <ReusableDoughnutChart
@@ -171,7 +172,7 @@ const FlightAnalyticalOveral = () => {
             </CardBody>
           </Card>
         </Col>
-        <Col lg="4" md="6" sm="12" className="mb-4">
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
           <Card className="card-chart">
             <CardBody>
               <ReusableDoughnutChart
@@ -183,7 +184,7 @@ const FlightAnalyticalOveral = () => {
             </CardBody>
           </Card>
         </Col>
-        <Col lg="4" md="6" sm="12" className="mb-4">
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
           <Card className="card-chart">
             <CardBody>
               <ReusableDoughnutChart
@@ -197,7 +198,7 @@ const FlightAnalyticalOveral = () => {
         </Col>
       </Row>
       <Row>
-        <Col lg="4" md="6" sm="12" className="mb-4">
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
           <Card className="card-chart">
             <CardBody>
               <ReusableDoughnutChart
@@ -209,7 +210,7 @@ const FlightAnalyticalOveral = () => {
             </CardBody>
           </Card>
         </Col>
-        <Col lg="4" md="6" sm="12" className="mb-4">
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
           <Card className="card-chart">
             <CardBody>
               <ReusableDoughnutChart
@@ -221,7 +222,7 @@ const FlightAnalyticalOveral = () => {
             </CardBody>
           </Card>
         </Col>
-        <Col lg="4" md="6" sm="12" className="mb-4">
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
           <Card className="card-chart">
             <CardBody>
               <ReusableDoughnutChart
