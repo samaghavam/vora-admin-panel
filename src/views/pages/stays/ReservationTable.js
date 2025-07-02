@@ -14,7 +14,7 @@ import ReactTable from "components/ReactTable/ReactTable.js";
 import EditModal from "components/editModal/EditModal";
 import ViewModal from "components/viewModal/ViewModal";
 
-// Example flight data
+// **1. DATA UPDATED:** New example data for accommodation reservations
 const dataTable = [
   ["Airi Satou", "Grand Hyatt Tokyo", "2025-11-01", "2025-11-05", 2, "ACC001"],
   ["Angelica Ramos", "The Ritz London", "2025-12-10", "2025-12-15", 1, "ACC002"],
@@ -26,7 +26,6 @@ const dataTable = [
   ["Cedric Kelly", "Burj Al Arab Jumeirah", "2026-03-01", "2026-03-07", 1, "ACC008"],
   ["Charde Marshall", "The Peninsula Hong Kong", "2025-12-20", "2025-12-27", 2, "ACC009"],
   ["Colleen Hurst", "Aman Tokyo", "2026-04-05", "2026-04-12", 1, "ACC010"],
-
 ];
 
 const ReservationTable = () => {
@@ -42,29 +41,26 @@ const ReservationTable = () => {
   const [viewModalOpen, setViewModalOpen] = React.useState(false);
   const [viewingItem, setViewingItem] = React.useState(null);
 
-  // Modal field configuration (used by both modals)
-  const ticketFields = [
-    { key: 'name', label: 'Name' },
-    { key: 'from', label: 'From' },
-    { key: 'destination', label: 'Destination' },
-    { key: 'airline', label: 'Airline' },
-    { key: 'date', label: 'Flight Date' },
-    { key: 'fair', label: 'Fair' },
-    { key: 'airplane', label: 'Airplane' },
-    { key: 'flightDuration', label: 'Flight duration' },
-    { key: 'reservationNumber', label: 'Flight Number' },
-    { key: 'state', label: 'State' }
+  // **2. FIELDS UPDATED:** New modal field configuration for accommodation
+  const reservationFields = [
+    { key: 'name', label: 'Name of user' },
+    { key: 'accommodationName', label: 'Accommodation name' },
+    { key: 'checkInDate', label: 'Check in date', type: 'date' },
+    { key: 'checkOutDate', label: 'Check out date', type: 'date' },
+    { key: 'reservedRooms', label: 'Number of reserved rooms', type: 'number' },
+    { key: 'reservationNumber', label: 'Reservation ID' },
   ];
   
-  // Format initial data
+  // **3. DATA MAPPING UPDATED:** Format initial data based on the new structure
   React.useEffect(() => {
     const formattedData = dataTable.map((prop, key) => ({
       id: key,
-      name: prop[0], from: prop[1], destination: prop[2], airline: prop[3], date: prop[4], reservationNumber: prop[5],
-      fair: key % 3 === 0 ? 'Business' : 'Economy',
-      airplane: key % 2 === 0 ? 'Boeing 777' : 'Airbus A350',
-      flightDuration: `${Math.floor(Math.random() * 5) + 10}h ${Math.floor(Math.random() * 60)}m`,
-      state: 'Upcoming',
+      name: prop[0],
+      accommodationName: prop[1],
+      checkInDate: prop[2],
+      checkOutDate: prop[3],
+      reservedRooms: prop[4],
+      reservationNumber: prop[5],
     }));
     setData(formattedData);
   }, []);
@@ -92,13 +88,11 @@ const ReservationTable = () => {
         onCancel={() => setAlert(null)}
         confirmBtnBsStyle="danger" cancelBtnBsStyle="secondary" confirmBtnText="Yes, delete it!" cancelBtnText="Cancel" showCancel
       >
-        You will not be able to recover this reservation!
+        You will not be able to recover this item!
       </SweetAlert>
     );
   };
   
-  // **THE FIX IS HERE:** This function now correctly opens the View Modal.
-  // The previous version incorrectly used alert(), causing the error.
   const handleViewClick = (row) => {
     setViewingItem(row);
     setViewModalOpen(true);
@@ -125,10 +119,14 @@ const ReservationTable = () => {
                     )
                   }))}
                   filterable resizable={false}
+                  // **4. COLUMNS UPDATED:** New column definitions for the table
                   columns={[
-                    { Header: "NAME", accessor: "name" }, { Header: "From", accessor: "from" },
-                    { Header: "Destination", accessor: "destination" }, { Header: "Airline", accessor: "airline" },
-                    { Header: "Date", accessor: "date" }, { Header: "Reservation number", accessor: "reservationNumber" },
+                    { Header: "NAME", accessor: "name" },
+                    { Header: "Accommodation name", accessor: "accommodationName" },
+                    { Header: "Check in date", accessor: "checkInDate" },
+                    { Header: "Check out date", accessor: "checkOutDate" },
+                    { Header: "Reserved rooms", accessor: "reservedRooms" },
+                    { Header: "Reservation number", accessor: "reservationNumber" },
                     { Header: "Actions", accessor: "actions", sortable: false, filterable: false },
                   ]}
                   defaultPageSize={10} showPaginationTop showPaginationBottom={false} className="-striped -highlight"
@@ -142,19 +140,18 @@ const ReservationTable = () => {
       <EditModal
         isOpen={editModalOpen}
         onClose={() => setEditModalOpen(false)}
-        title="Edit Ticket Details"
-        fields={ticketFields}
+        title="Edit Accommodation Reservation"
+        fields={reservationFields}
         data={draftItem}
         onSave={handleSave}
         onInputChange={handleModalInputChange}
       />
       
-      {/* Render the new ViewModal */}
       <ViewModal
         isOpen={viewModalOpen}
         onClose={() => setViewModalOpen(false)}
-        title="Ticket Details"
-        fields={ticketFields}
+        title="View Accommodation Reservation"
+        fields={reservationFields}
         data={viewingItem}
       />
 
