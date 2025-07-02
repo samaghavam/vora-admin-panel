@@ -11,21 +11,21 @@ import {
 import SweetAlert from "react-bootstrap-sweetalert";
 
 import ReactTable from "components/ReactTable/ReactTable.js";
-import EditModalAccomodation from "components/editModal/EditModalAccomodation";
 import ViewModalAccomodation from "components/viewModal/ViewAccomodationModal";
+import EditModalAccomodation from "components/editModal/EditModalAccomodation";
 
-// **1. DATA UPDATED:** New example data for visa requests
+// **1. DATA UPDATED:** New example data for accommodation management
 const dataTable = [
-  ["Airi Satou", "P12345678", "2030-05-15", "Tourism", "Flight - direct - stay", "In progress"],
-  ["Angelica Ramos", "P87654321", "2028-11-20", "Business", "Flight - direct - stay", "Completed"],
-  ["Ashton Cox", "P55566677", "2029-01-10", "Tourism", "Flight - direct - stay", "In progress"],
-  ["Bradley Greer", "P11122233", "2027-08-01", "Student", "Flight - direct - stay", "Rejected"],
-  ["Brenden Wagner", "P44455566", "2031-03-25", "Tourism", "Flight - direct - stay", "In progress"],
-  ["Brielle Williamson", "P77788899", "2026-12-01", "Business", "Flight - direct - stay", "In progress"],
-  ["Caesar Vance", "P33322211", "2029-07-18", "Tourism", "Flight - direct - stay", "Completed"],
-  ["Cedric Kelly", "P99988877", "2030-02-14", "Student", "Flight - direct - stay", "In progress"],
-  ["Charde Marshall", "P66677788", "2028-06-30", "Tourism", "Flight - direct - stay", "In progress"],
-  ["Colleen Hurst", "P22233344", "2027-10-05", "Business", "Flight - direct - stay", "Completed"],
+  ["Hyatt Regency", "Dubai, UAE", "Has Rooms", "Added by API", 50, 120],
+  ["Marriott Marquis", "New York, USA", "Has Rooms", "Added by API", 100, 250],
+  ["The Shangri-La", "Paris, France", "No Rooms", "Manual", 0, 50],
+  ["Hilton Garden Inn", "London, UK", "Has Rooms", "Added by API", 75, 150],
+  ["Four Seasons", "Tokyo, Japan", "Has Rooms", "Added by API", 60, 180],
+  ["The Peninsula", "Hong Kong", "No Rooms", "Manual", 0, 70],
+  ["Raffles Hotel", "Singapore", "Has Rooms", "Added by API", 80, 200],
+  ["Burj Al Arab", "Dubai, UAE", "Has Rooms", "Added by API", 120, 300],
+  ["The Plaza", "New York, USA", "Has Rooms", "Manual", 40, 100],
+  ["Claridge's", "London, UK", "Has Rooms", "Added by API", 90, 220],
 ];
 
 const ReservationTable = () => {
@@ -41,26 +41,26 @@ const ReservationTable = () => {
   const [viewModalOpen, setViewModalOpen] = React.useState(false);
   const [viewingItem, setViewingItem] = React.useState(null);
 
-  // **2. FIELDS UPDATED:** New modal field configuration
-  const visaRequestFields = [
-    { key: 'personName', label: 'Person name' },
-    { key: 'passportNumber', label: 'Passport Number' },
-    { key: 'passportExpiration', label: 'Passport expiration date', type: 'date' },
-    { key: 'visaType', label: 'Kind of visa request' },
-    { key: 'requestFunnel', label: 'Request funnel' },
-    { key: 'state', label: 'State' }
+  // **2. FIELDS UPDATED:** New modal field configuration for accommodation
+  const accommodationFields = [
+    { key: 'accommodationName', label: 'Accommodation name' },
+    { key: 'location', label: 'Location' },
+    { key: 'state', label: 'State' },
+    { key: 'kind', label: 'Kind' },
+    { key: 'numberOfRooms', label: 'Number of rooms', type: 'number' },
+    { key: 'numberOfReserves', label: 'Number of reserves', type: 'number' },
   ];
   
   // **3. DATA MAPPING UPDATED:** Format initial data based on the new structure
   React.useEffect(() => {
     const formattedData = dataTable.map((prop, key) => ({
       id: key,
-      personName: prop[0],
-      passportNumber: prop[1],
-      passportExpiration: prop[2],
-      visaType: prop[3],
-      requestFunnel: prop[4],
-      state: prop[5],
+      accommodationName: prop[0],
+      location: prop[1],
+      state: prop[2],
+      kind: prop[3],
+      numberOfRooms: prop[4],
+      numberOfReserves: prop[5],
     }));
     setData(formattedData);
   }, []);
@@ -121,12 +121,12 @@ const ReservationTable = () => {
                   filterable resizable={false}
                   // **4. COLUMNS UPDATED:** New column definitions for the table
                   columns={[
-                    { Header: "Person name", accessor: "personName" },
-                    { Header: "Passport Number", accessor: "passportNumber" },
-                    { Header: "Passport expiration date", accessor: "passportExpiration" },
-                    { Header: "Kind of visa request", accessor: "visaType" },
-                    { Header: "Request funnel", accessor: "requestFunnel" },
+                    { Header: "Accommodation name", accessor: "accommodationName" },
+                    { Header: "Location", accessor: "location" },
                     { Header: "State", accessor: "state" },
+                    { Header: "Kind", accessor: "kind" },
+                    { Header: "Number of rooms", accessor: "numberOfRooms" },
+                    { Header: "Number of reserves", accessor: "numberOfReserves" },
                     { Header: "Actions", accessor: "actions", sortable: false, filterable: false },
                   ]}
                   defaultPageSize={10} showPaginationTop showPaginationBottom={false} className="-striped -highlight"
@@ -140,8 +140,8 @@ const ReservationTable = () => {
       <EditModalAccomodation
         isOpen={editModalOpen}
         onClose={() => setEditModalOpen(false)}
-        title="Edit Visa Request"
-        fields={visaRequestFields}
+        title="Edit Accommodation"
+        fields={accommodationFields}
         data={draftItem}
         onSave={handleSave}
         onInputChange={handleModalInputChange}
@@ -150,8 +150,8 @@ const ReservationTable = () => {
       <ViewModalAccomodation
         isOpen={viewModalOpen}
         onClose={() => setViewModalOpen(false)}
-        title="View Visa Request"
-        fields={visaRequestFields}
+        title="View Accommodation"
+        fields={accommodationFields}
         data={viewingItem}
       />
 

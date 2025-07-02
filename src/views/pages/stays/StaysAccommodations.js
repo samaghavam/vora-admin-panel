@@ -8,7 +8,7 @@ const StaysAccommodations = () => {
   const breadcrumbItems = [
     { label: "Home", to: "/admin/dashboard" },
     { label: "Stays management", to: "/admin/stays" },
-    { label: "Stays Info graphics" },
+    { label: "Accommodation List" },
   ];
 
   return (
