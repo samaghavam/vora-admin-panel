@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, forwardRef, useImperativeHandle } from "react";
 import classnames from "classnames";
 import {
   Input,
@@ -9,39 +9,70 @@ import {
   Button,
   CustomInput,
 } from "reactstrap";
-import MapModal from "views/components/ModalMap";
+import MapModal from "views/components/ModalMap"; // Assuming path is correct
 
-const GeneralInfoSection = ({ data, setData, states, setStates }) => {
+const GeneralInfoSection = forwardRef((props, ref) => {
   const [isMapModalOpen, setMapModalOpen] = React.useState(false);
 
-  const handleTextChange = (event, field, minLength = 1) => {
-    const { value } = event.target;
-    setData(prev => ({ ...prev, [field]: value }));
-    setStates(prev => ({
-      ...prev,
-      [`${field}State`]: value.length >= minLength ? "has-success" : "has-danger",
-    }));
+  // --- Internal State for Data ---
+  const [data, setData] = useState({
+    accommodationName: "",
+    accommodationType: "Accommodation",
+    stars: "",
+    location: "",
+    address: "",
+    description: "",
+  });
+
+  // --- Internal State for Validation ---
+  const [states, setStates] = useState({
+    accommodationNameState: "",
+    starsState: "",
+    locationState: "",
+    addressState: "",
+    descriptionState: "",
+  });
+
+  // --- Validation Logic ---
+  const verifyLength = (value) => value && value.trim().length > 0;
+
+  const validateFields = () => {
+    let isValid = true;
+    const newStates = {};
+
+    if (!verifyLength(data.accommodationName)) { newStates.accommodationNameState = "has-danger"; isValid = false; } else { newStates.accommodationNameState = "has-success"; }
+    if (!verifyLength(data.stars)) { newStates.starsState = "has-danger"; isValid = false; } else { newStates.starsState = "has-success"; }
+    if (!verifyLength(data.location)) { newStates.locationState = "has-danger"; isValid = false; } else { newStates.locationState = "has-success"; }
+    if (!verifyLength(data.address)) { newStates.addressState = "has-danger"; isValid = false; } else { newStates.addressState = "has-success"; }
+    if (!verifyLength(data.description)) { newStates.descriptionState = "has-danger"; isValid = false; } else { newStates.descriptionState = "has-success"; }
+    
+    setStates(newStates);
+    return isValid;
   };
 
-  const handleSelectChange = (event, field) => {
-    const { value } = event.target;
+  // --- Expose methods to parent component ---
+  useImperativeHandle(ref, () => ({
+    validate: () => validateFields(),
+    getData: () => data,
+  }));
+
+  // --- Change Handlers ---
+  const handleInputChange = (field, value) => {
     setData(prev => ({ ...prev, [field]: value }));
-    setStates(prev => ({
-      ...prev,
-      [`${field}State`]: (value || value === "0") ? "has-success" : "has-danger",
-    }));
+    // Clear validation state on change
+    if (states[`${field}State`] === "has-danger") {
+      setStates(prev => ({ ...prev, [`${field}State`]: "" }));
+    }
   };
 
   const handleLocationSelect = (locationName) => {
-    setData(prev => ({...prev, location: locationName}));
-    setStates(prev => ({...prev, locationState: "has-success"}));
+    handleInputChange("location", locationName);
   };
 
   return (
     <>
       <h5 className="text-uppercase text-muted mt-4 mb-3 font-weight-bold">General info</h5>
       
-      {/* --- First Row --- */}
       <Row className="mb-3">
         <Col md="6">
           <FormGroup className={`mb-0 ${classnames(states.accommodationNameState)}`}>
@@ -52,11 +83,8 @@ const GeneralInfoSection = ({ data, setData, states, setStates }) => {
               <Col sm={7}>
                 <Input
                   type="text"
-                  name="accommodationName"
-                  id="accommodationName"
-                  placeholder="Text"
-                  value={data.accommodationName || ''}
-                  onChange={(e) => handleTextChange(e, "accommodationName")}
+                  value={data.accommodationName}
+                  onChange={(e) => handleInputChange("accommodationName", e.target.value)}
                 />
               </Col>
             </Row>
@@ -66,53 +94,23 @@ const GeneralInfoSection = ({ data, setData, states, setStates }) => {
         <Col md="6">
           <FormGroup className="mb-0">
              <Row className="align-items-center">
-                <Col sm={7} className="text-nowrap pr-0">
-                    <Label>Select the accommodation type</Label>
-                </Col>
+                <Col sm={7} className="text-nowrap pr-0"><Label>Select the accommodation type</Label></Col>
                 <Col sm={5}>
-                    <CustomInput 
-                      type="radio" 
-                      id="typeAccommodation" 
-                      name="accommodationType" 
-                      label="Accommodation" 
-                      value="Accommodation"
-                      checked={data.accommodationType === "Accommodation"}
-                      onChange={(e) => setData(prev => ({...prev, accommodationType: e.target.value}))}
-                      inline 
-                    />
-                    <CustomInput 
-                      type="radio" 
-                      id="typeHotel" 
-                      name="accommodationType" 
-                      label="Hotel" 
-                      value="Hotel"
-                      checked={data.accommodationType === "Hotel"}
-                      onChange={(e) => setData(prev => ({...prev, accommodationType: e.target.value}))}
-                      inline 
-                    />
+                    <CustomInput type="radio" id="typeAccommodation" name="accommodationType" label="Accommodation" value="Accommodation" checked={data.accommodationType === "Accommodation"} onChange={(e) => handleInputChange("accommodationType", e.target.value)} inline />
+                    <CustomInput type="radio" id="typeHotel" name="accommodationType" label="Hotel" value="Hotel" checked={data.accommodationType === "Hotel"} onChange={(e) => handleInputChange("accommodationType", e.target.value)} inline />
                 </Col>
              </Row>
           </FormGroup>
         </Col>
       </Row>
 
-      {/* --- Second Row --- */}
       <Row className="mb-3">
         <Col md="6">
           <FormGroup className={`mb-0 ${classnames(states.starsState)}`}>
             <Row className="align-items-center">
-                <Col sm={5} className="text-nowrap pr-0">
-                    <Label for="starsInput">How many starts the stay have?</Label>
-                </Col>
+                <Col sm={5} className="text-nowrap pr-0"><Label for="starsInput">How many starts the stay have?</Label></Col>
                 <Col sm={7}>
-                    <Input 
-                      type="select" 
-                      name="stars" 
-                      id="starsInput"
-                      value={data.stars || ''}
-                      onChange={(e)=> handleSelectChange(e, "stars")}
-                      style={{ backgroundColor: '#e14ec9', color: 'white', border: 'none' }}
-                    >
+                    <Input type="select" value={data.stars} onChange={(e)=> handleInputChange("stars", e.target.value)} style={{ backgroundColor: '#e14ec9', color: 'white', border: 'none' }}>
                       <option value="">Select the Stars</option>
                       <option value="0">0 Stars</option> 
                       <option value="1">1 Star</option>
@@ -127,35 +125,24 @@ const GeneralInfoSection = ({ data, setData, states, setStates }) => {
           </FormGroup>
         </Col>
         <Col md="6">
-          <FormGroup className="mb-0">
+          <FormGroup className={`mb-0 ${classnames(states.locationState)}`}>
             <Row className="align-items-center">
-                <Col sm={5} className="text-nowrap pr-0">
-                    <Label>Select the location on map</Label>
-                </Col>
+                <Col sm={5} className="text-nowrap pr-0"><Label>Select the location on map</Label></Col>
                 <Col sm={7} className="d-flex align-items-center">
-                    <Button color="primary" onClick={() => setMapModalOpen(true)}>
-                      Chose on map
-                    </Button>
+                    <Button color="primary" onClick={() => setMapModalOpen(true)}>Chose on map</Button>
                     {data.location && <span className="ml-3 text-muted">{data.location}</span>}
                 </Col>
             </Row>
+             {states.locationState === "has-danger" && (<small className="text-danger d-block mt-1">Please select a location.</small>)}
           </FormGroup>
         </Col>
       </Row>
 
-      {/* --- Address and Description --- */}
       <Row className="mb-3">
         <Col md="12">
           <FormGroup className={`mb-0 ${classnames(states.addressState)}`}>
             <Label for="address">Address</Label>
-            <Input
-              type="text"
-              name="address"
-              id="address"
-              placeholder="Text"
-              value={data.address || ''}
-              onChange={(e) => handleTextChange(e, "address")}
-            />
+            <Input type="text" value={data.address} onChange={(e) => handleInputChange("address", e.target.value)} />
             {states.addressState === "has-danger" && (<small className="text-danger d-block mt-1">This field is required.</small>)}
           </FormGroup>
         </Col>
@@ -164,27 +151,14 @@ const GeneralInfoSection = ({ data, setData, states, setStates }) => {
         <Col md="12">
           <FormGroup className={`mb-0 ${classnames(states.descriptionState)}`}>
             <Label for="description">Description</Label>
-            <Input
-              type="textarea"
-              name="description"
-              id="description"
-              rows="4"
-              placeholder="Text"
-              value={data.description || ''}
-              onChange={(e) => handleTextChange(e, "description")}
-            />
+            <Input type="textarea" rows="4" value={data.description} onChange={(e) => handleInputChange("description", e.target.value)} />
             {states.descriptionState === "has-danger" && (<small className="text-danger d-block mt-1">This field is required.</small>)}
           </FormGroup>
         </Col>
       </Row>
 
-      {/* Render the Map Modal */}
-      <MapModal
-        isOpen={isMapModalOpen}
-        onClose={() => setMapModalOpen(false)}
-        onLocationSelect={handleLocationSelect}
-      />
+      <MapModal isOpen={isMapModalOpen} onClose={() => setMapModalOpen(false)} onLocationSelect={handleLocationSelect} />
     </>
   );
-};
+});
 export default GeneralInfoSection;

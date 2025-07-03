@@ -1,5 +1,4 @@
 import React from "react";
-import classNames from "classnames";
 import {
   Card,
   CardBody,
@@ -8,185 +7,161 @@ import {
   Row,
   Col,
   Button,
-  Badge 
 } from "reactstrap";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 import ReactTable from "components/ReactTable/ReactTable.js";
+import ViewModalAccomodation from "components/viewModal/ViewAccomodationModal";
+import EditModalAccomodation from "components/editModal/EditModalAccomodation";
 
-const visaRequestSampleData = [
-  ["Airi Satou", "P1234567", "2030-10-15", "Tourism", "Flight-direct-stay", "In progress"],
-  ["Angelica Ramos", "P7654321", "2028-11-01", "Business", "Hotel-Only", "Approved"],
-  ["Ashton Cox", "P9876500", "2029-12-05", "Student", "Application Submitted", "Pending Review"],
-  ["Bradley Greer", "P2345678", "2027-09-20", "Tourism", "Flight-direct-stay", "Rejected"],
-  ["Brenden Wagner", "P8765432", "2031-01-10", "Work", "Visa Issued", "Completed"],
-  ["Brielle Williamson", "P3456789", "2026-11-22", "Tourism", "Flight-direct-stay", "In progress"],
-  ["Caesar Vance", "P0987654", "2029-10-30", "Business", "Hotel-Only", "Approved"],
-  ["Cedric Kelly", "P4567890", "2030-02-18", "Student", "Application Submitted", "Pending Review"],
-  ["Charde Marshall", "P1098765", "2028-12-12", "Tourism", "Flight-direct-stay", "In progress"],
-  ["Colleen Hurst", "P5678901", "2027-03-01", "Work", "Visa Issued", "Completed"],
+// **1. DATA UPDATED:** New example data for accommodation management
+const dataTable = [
+  ["Hyatt Regency", "Dubai, UAE", "Has Rooms", "Added by API", 50, 120],
+  ["Marriott Marquis", "New York, USA", "Has Rooms", "Added by API", 100, 250],
+  ["The Shangri-La", "Paris, France", "No Rooms", "Manual", 0, 50],
+  ["Hilton Garden Inn", "London, UK", "Has Rooms", "Added by API", 75, 150],
+  ["Four Seasons", "Tokyo, Japan", "Has Rooms", "Added by API", 60, 180],
+  ["The Peninsula", "Hong Kong", "No Rooms", "Manual", 0, 70],
+  ["Raffles Hotel", "Singapore", "Has Rooms", "Added by API", 80, 200],
+  ["Burj Al Arab", "Dubai, UAE", "Has Rooms", "Added by API", 120, 300],
+  ["The Plaza", "New York, USA", "Has Rooms", "Manual", 40, 100],
+  ["Claridge's", "London, UK", "Has Rooms", "Added by API", 90, 220],
 ];
 
-// Helper function to determine badge color based on state
-const getStateBadgeColor = (state) => {
-  switch (state.toLowerCase()) {
-    case "in progress":
-      return "info";
-    case "approved":
-      return "success";
-    case "pending review":
-      return "warning";
-    case "rejected":
-      return "danger";
-    case "completed":
-      return "primary";
-    default:
-      return "secondary";
-  }
-};
+const ReservationTable = () => {
+  const [data, setData] = React.useState([]);
+  const [alert, setAlert] = React.useState(null);
+  
+  // State for Edit Modal
+  const [editModalOpen, setEditModalOpen] = React.useState(false);
+  const [originalItem, setOriginalItem] = React.useState(null);
+  const [draftItem, setDraftItem] = React.useState(null);
 
+  // State for View Modal
+  const [viewModalOpen, setViewModalOpen] = React.useState(false);
+  const [viewingItem, setViewingItem] = React.useState(null);
 
-const VisaRequestListTable = () => {
-  const [data, setData] = React.useState(
-    visaRequestSampleData.map((prop, key) => {
-      return {
-        id: key,
-        personName: prop[0],
-        passportNumber: prop[1],
-        passportExpirationDate: prop[2],
-        kindOfVisaRequest: prop[3],
-        requestFunnel: prop[4],
-        state: prop[5], 
-        stateDisplay: (
-          <Badge color={getStateBadgeColor(prop[5])} pill>
-            {prop[5]}
-          </Badge>
-        ),
-        actions: (
-          <div className="actions-right">
-            <Button
-              onClick={() => {
-                let obj = data.find((o) => o.id === key);
-                if (obj) {
-                  alert(
-                    "View details for: \n" +
-                    `Person Name: ${obj.personName}\n` +
-                    `Passport Number: ${obj.passportNumber}\n` +
-                    `Passport Expiration: ${obj.passportExpirationDate}\n` +
-                    `Visa Type: ${obj.kindOfVisaRequest}\n` +
-                    `Funnel: ${obj.requestFunnel}\n` +
-                    `State: ${obj.state}`
-                  );
-                }
-              }}
-              color="info"
-              size="sm"
-              className={classNames("btn-icon btn-link", {
-                "btn-neutral": key < 3, 
-              })}
-              title="View"
-            >
-              <i className="tim-icons icon-zoom-split" />
-            </Button>{" "}
-            <Button
-              onClick={() => {
-                let obj = data.find((o) => o.id === key);
-                if (obj) {
-                   alert(
-                    "Edit details for: \n" +
-                    `Person Name: ${obj.personName}\n` +
-                    `Passport Number: ${obj.passportNumber}`
-                  );
-                }
-              }}
-              color="warning"
-              size="sm"
-              className={classNames("btn-icon btn-link", {
-                "btn-neutral": key < 3,
-              })}
-              title="Edit"
-            >
-              <i className="tim-icons icon-pencil" />
-            </Button>{" "}
-            <Button
-              onClick={() => {
-                if (window.confirm("Are you sure you want to delete this request?")) {
-                    setData(currentData => currentData.filter(item => item.id !== key));
-                }
-              }}
-              color="danger"
-              size="sm"
-              className={classNames("btn-icon btn-link", {
-                "btn-neutral": key < 3,
-              })}
-              title="Remove"
-            >
-              <i className="tim-icons icon-simple-remove" />
-            </Button>{" "}
-          </div>
-        ),
-      };
-    })
-  );
+  // **2. FIELDS UPDATED:** New modal field configuration for accommodation
+  const accommodationFields = [
+    { key: 'person name', label: 'person name' },
+    { key: 'Passport Number', label: 'Passport Number' },
+    { key: 'Passport expiration date', label: 'Passport expiration date' },
+    { key: 'Kind of visa request', label: 'Kind of visa request' },
+    { key: 'Request funnel', label: 'Request funnel', type: 'number' },
+    { key: 'state', label: 'state', type: 'number' },
+  ];
+  
+  // **3. DATA MAPPING UPDATED:** Format initial data based on the new structure
+  React.useEffect(() => {
+    const formattedData = dataTable.map((prop, key) => ({
+      id: key,
+      accommodationName: prop[0],
+      location: prop[1],
+      state: prop[2],
+      kind: prop[3],
+      numberOfRooms: prop[4],
+      numberOfReserves: prop[5],
+    }));
+    setData(formattedData);
+  }, []);
+
+  const handleEditClick = (row) => {
+    setOriginalItem(row);
+    setDraftItem({ ...row });
+    setEditModalOpen(true);
+  };
+
+  const handleModalInputChange = (fieldKey, value) => {
+    setDraftItem(prev => ({ ...prev, [fieldKey]: value }));
+  };
+
+  const handleSave = () => {
+    setData(prev => prev.map(item => item.id === originalItem.id ? draftItem : item));
+    setEditModalOpen(false);
+  };
+
+  const handleRemoveClick = (id) => {
+    setAlert(
+      <SweetAlert
+        warning style={{ display: "block", marginTop: "-100px" }} title="Are you sure?"
+        onConfirm={() => { setData(currentData => currentData.filter(item => item.id !== id)); setAlert(null); }}
+        onCancel={() => setAlert(null)}
+        confirmBtnBsStyle="danger" cancelBtnBsStyle="secondary" confirmBtnText="Yes, delete it!" cancelBtnText="Cancel" showCancel
+      >
+        You will not be able to recover this item!
+      </SweetAlert>
+    );
+  };
+  
+  const handleViewClick = (row) => {
+    setViewingItem(row);
+    setViewModalOpen(true);
+  };
 
   return (
     <>
+      {alert}
       <div className="content">
         <Row className="mt-5">
           <Col xs={12} md={12}>
             <Card>
-              <CardHeader>
-                <CardTitle tag="h4">Visa Request List</CardTitle> 
-              </CardHeader>
+              <CardHeader><CardTitle tag="h4">React Table</CardTitle></CardHeader>
               <CardBody>
                 <ReactTable
-                  data={data}
-                  filterable
-                  resizable={false}
+                  data={data.map(item => ({
+                    ...item,
+                    actions: (
+                      <div className="actions-right">
+                        <Button onClick={() => handleViewClick(item)} color="info" size="sm" className="btn-icon btn-link like" title="View"><i className="tim-icons icon-zoom-split" /></Button>{" "}
+                        <Button onClick={() => handleEditClick(item)} color="warning" size="sm" className="btn-icon btn-link edit" title="Edit"><i className="tim-icons icon-pencil" /></Button>{" "}
+                        <Button onClick={() => handleRemoveClick(item.id)} color="danger" size="sm" className="btn-icon btn-link remove" title="Remove"><i className="tim-icons icon-simple-remove" /></Button>
+                      </div>
+                    )
+                  }))}
+                  filterable resizable={false}
+                  // **4. COLUMNS UPDATED:** New column definitions for the table
                   columns={[
-                    {
-                      Header: "Person Name",
-                      accessor: "personName",
-                    },
-                    {
-                      Header: "Passport Number",
-                      accessor: "passportNumber",
-                    },
-                    {
-                      Header: "Passport expiration date",
-                      accessor: "passportExpirationDate",
-                    },
-                    {
-                      Header: "Kind of visa request",
-                      accessor: "kindOfVisaRequest",
-                    },
-                    {
-                      Header: "Request funnel",
-                      accessor: "requestFunnel",
-                    },
-                    {
-                      Header: "State",
-                      accessor: "stateDisplay", 
-                    },
-                    {
-                      Header: "Actions",
-                      accessor: "actions",
-                      sortable: false,
-                      filterable: false,
-                      width: 100 
-                    },
+                    { Header: "person name", accessor: "accommodationName" },
+                    { Header: "Passport Number", accessor: "location" },
+                    { Header: "Passport expiration date", accessor: "state" },
+                    { Header: "Kind of visa request", accessor: "kind" },
+                    { Header: "Request funnel", accessor: "numberOfRooms" },
+                    { Header: "state", accessor: "numberOfReserves" },
+                    { Header: "Actions", accessor: "actions", sortable: false, filterable: false },
                   ]}
-                  defaultPageSize={10}
-                  showPaginationTop
-                  showPaginationBottom={false}
-                  className="-striped -highlight"
+                  defaultPageSize={10} showPaginationTop showPaginationBottom={false} className="-striped -highlight"
                 />
               </CardBody>
             </Card>
           </Col>
         </Row>
       </div>
+
+      <EditModalAccomodation
+        isOpen={editModalOpen}
+        onClose={() => setEditModalOpen(false)}
+        title="Edit Accommodation"
+        fields={accommodationFields}
+        data={draftItem}
+        onSave={handleSave}
+        onInputChange={handleModalInputChange}
+      />
+      
+      <ViewModalAccomodation
+        isOpen={viewModalOpen}
+        onClose={() => setViewModalOpen(false)}
+        title="View Accommodation"
+        fields={accommodationFields}
+        data={viewingItem}
+      />
+
+      <style>{`
+        .ReactTable .actions-right .btn-icon i {
+          color: white !important;
+        }
+      `}</style>
     </>
   );
 };
 
-export default VisaRequestListTable;
+export default ReservationTable;

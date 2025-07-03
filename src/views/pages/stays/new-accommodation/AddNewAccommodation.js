@@ -53,6 +53,7 @@ const AddNewAccommodations = () => {
           <ReactWizard
             steps={steps}
             navSteps
+            validate
             headerTextCenter
             finishButtonClick={handleFinish}
             finishButtonClasses="btn-wd btn-info"
