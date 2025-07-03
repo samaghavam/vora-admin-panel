@@ -1,24 +1,24 @@
-import React, { useRef, useState } from "react"; 
-import { Row, Col, Button } from "reactstrap"; 
-import SimpleBreadcrumb from "../../components/BreadCrumbs"; 
+import React, { useRef, useState } from "react";
+import { Row, Col, Button } from "reactstrap";
+import SimpleBreadcrumb from "../../components/BreadCrumbs";
 import VisaAnalyticMonth from "./VisaAnalyticMonth";
 import VisaAnalyticAllTime from "./VisaAnalyticAllTime";
 
 const VisaAnalytics = () => {
-  const [activeButton, setActiveButton] = useState("thisMonth"); 
+  const [activeButton, setActiveButton] = useState("thisMonth");
   const thisMonthRef = useRef(null);
   const allTimeRef = useRef(null);
 
   const breadcrumbItems = [
-    { label: "Home", to: "/admin/dashboard" }, 
-    { label: "Visa management", to: "/admin/visa" }, 
-    { label: "Visa Info graphics" }, 
+    { label: "Home", to: "/admin/dashboard" },
+    { label: "Visa management", to: "/admin/visa" },
+    { label: "Visa Info graphics" },
   ];
 
   const scrollToSection = (ref, sectionId) => {
     if (ref && ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveButton(sectionId); 
+      setActiveButton(sectionId);
     } else {
       console.warn(`Ref for section "${sectionId}" not found.`);
     }
@@ -35,14 +35,14 @@ const VisaAnalytics = () => {
         </Col>
       </Row>
 
-      <Row className="text-center"> 
+      <Row className="text-center">
         <Col xs="auto" className="px-1">
           <Button
             className="btn-round py-3"
-            color={activeButton === "thisMonth" ? "info" : null} 
-            outline={activeButton !== "thisMonth"} 
+            color={activeButton === "thisMonth" ? "info" : null}
+            outline={activeButton !== "thisMonth"}
             onClick={() => scrollToSection(thisMonthRef, "thisMonth")}
-            style={{ minWidth: '120px' }} 
+            style={{ minWidth: "120px" }}
           >
             This month
           </Button>
@@ -53,16 +53,24 @@ const VisaAnalytics = () => {
             color={activeButton === "allTime" ? "info" : null}
             outline={activeButton !== "allTime"}
             onClick={() => scrollToSection(allTimeRef, "allTime")}
-            style={{ minWidth: '120px' }}
+            style={{ minWidth: "120px" }}
           >
             All time
           </Button>
         </Col>
       </Row>
-      <div ref={thisMonthRef} id="thisMonthSection" className="analytics-section pt-3">
+      <div
+        ref={thisMonthRef}
+        id="thisMonthSection"
+        className="analytics-section pt-3"
+      >
         <VisaAnalyticMonth />
       </div>
-      <div ref={allTimeRef} id="allTimeSection" className="analytics-section pt-5"> 
+      <div
+        ref={allTimeRef}
+        id="allTimeSection"
+        className="analytics-section pt-5"
+      >
         <VisaAnalyticAllTime />
       </div>
     </div>

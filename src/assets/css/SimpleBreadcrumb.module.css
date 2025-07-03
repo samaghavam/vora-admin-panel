@@ -1,0 +1,19 @@
+
+.breadcrumbLinks > .breadcrumb-item + .breadcrumb-item::before {
+  color: #fff !important;
+}
+
+.breadcrumbLink {
+  color: #1D8CF8 !important;
+  text-decoration: none;
+  font-weight: normal; 
+}
+
+.breadcrumbLink:hover {
+  color: #4e9de0 !important; 
+}
+
+.breadcrumbActive {
+  color: #fff !important;
+  font-weight: 600; 
+}

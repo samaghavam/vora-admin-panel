@@ -1,12 +1,12 @@
-import React, { useRef, useState } from "react"; 
-import { Row, Col, Button } from "reactstrap"; 
+import React, { useRef, useState } from "react";
+import { Row, Col, Button } from "reactstrap";
 import SimpleBreadcrumb from "../../components/BreadCrumbs";
 import StaysAnalyticsMonth from "./StaysAnalyticsMonth";
 import StaysAnalyticsAllTime from "./StaysAnalyticsAllTime";
 import StaysAnalyticsOveral from "./StaysAnalyticsOveral";
 
 const StaysAnalytics = () => {
-  const [activeButton, setActiveButton] = useState("thisMonth"); 
+  const [activeButton, setActiveButton] = useState("thisMonth");
   const thisMonthRef = useRef(null);
   const allTimeRef = useRef(null);
   const overallRef = useRef(null);
@@ -20,7 +20,7 @@ const StaysAnalytics = () => {
   const scrollToSection = (ref, sectionId) => {
     if (ref && ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveButton(sectionId); 
+      setActiveButton(sectionId);
     } else {
       console.warn(`Ref for section "${sectionId}" not found.`);
     }
@@ -42,10 +42,10 @@ const StaysAnalytics = () => {
         <Col xs="auto" className="px-1">
           <Button
             className="btn-round py-3"
-            color={activeButton === "thisMonth" ? "info" : null} 
-            outline={activeButton !== "thisMonth"} 
+            color={activeButton === "thisMonth" ? "info" : null}
+            outline={activeButton !== "thisMonth"}
             onClick={() => scrollToSection(thisMonthRef, "thisMonth")}
-            style={{ minWidth: "120px" }} 
+            style={{ minWidth: "120px" }}
           >
             This month
           </Button>
