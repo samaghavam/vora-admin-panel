@@ -98,37 +98,38 @@ const HeaderSubtitle = forwardRef((props, ref) => {
       <CardBody>
         {/* Dynamic Subtitle List */}
         {subtitles.map((item, index) => (
-          <div key={item.id} className="border-top pt-3 mt-3">
-            <Row className="align-items-center">
-              <Col md="6">
-                <FormGroup className={classnames(item.titleState)}>
-                  <Label>Sub header title {index + 1}</Label>
-                  <Input type="text" value={item.title} onChange={(e) => handleSubtitleChange(item.id, "title", e.target.value)} />
-                  {/* **THE FIX IS HERE:** Using <Label> for consistent error styling */}
-                  {item.titleState === "has-danger" && <Label className="error">This field is required.</Label>}
-                </FormGroup>
-                <FormGroup className={classnames(item.linkState)}>
-                  <Label>Link to</Label>
-                  <Input type="text" value={item.link} onChange={(e) => handleSubtitleChange(item.id, "link", e.target.value)} />
-                  {/* **THE FIX IS HERE:** Using <Label> for consistent error styling */}
-                  {item.linkState === "has-danger" && <Label className="error">This field is required.</Label>}
-                </FormGroup>
-              </Col>
-              <Col md="3">
-                <FormGroup className={classnames(item.iconState)}>
-                  <Label>Icon</Label>
-                  <ImageUpload onFileChange={(file) => handleSubtitleChange(item.id, "iconFile", file)} />
-                  {/* **THE FIX IS HERE:** Using <Label> for consistent error styling */}
-                  {item.iconState === "has-danger" && <Label className="error d-block text-center">Icon is required.</Label>}
-                </FormGroup>
-              </Col>
-              <Col md="3">
-                <Button color="danger" onClick={() => removeSubtitle(item.id)}>
-                  <i className="tim-icons icon-simple-remove" /> Remove Sub title
-                </Button>
-              </Col>
-            </Row>
-          </div>
+          <React.Fragment key={item.id}>
+            {/* **THE FIX IS HERE:** A gray <hr> is now added between sections */}
+            {index > 0 && <hr style={{ backgroundColor: '#2c344c', height: '1px', border: 'none' }} />}
+            <div className="pt-3">
+              <Row className="align-items-center">
+                <Col md="7">
+                  <FormGroup className={classnames(item.titleState)}>
+                    <Label>Sub header title {index + 1}</Label>
+                    <Input type="text" value={item.title} onChange={(e) => handleSubtitleChange(item.id, "title", e.target.value)} />
+                    {item.titleState === "has-danger" && <Label className="error">This field is required.</Label>}
+                  </FormGroup>
+                  <FormGroup className={classnames(item.linkState)}>
+                    <Label>Link to</Label>
+                    <Input type="text" value={item.link} onChange={(e) => handleSubtitleChange(item.id, "link", e.target.value)} />
+                    {item.linkState === "has-danger" && <Label className="error">This field is required.</Label>}
+                  </FormGroup>
+                </Col>
+                <Col md="3">
+                  <FormGroup className={classnames(item.iconState)}>
+                    <Label>Icon</Label>
+                    <ImageUpload onFileChange={(file) => handleSubtitleChange(item.id, "iconFile", file)} />
+                    {item.iconState === "has-danger" && <Label className="error d-block text-center">Icon is required.</Label>}
+                  </FormGroup>
+                </Col>
+                <Col md="2">
+                  <Button color="danger" onClick={() => removeSubtitle(item.id)}>
+                    <i className="tim-icons icon-simple-remove" /> Remove Sub title
+                  </Button>
+                </Col>
+              </Row>
+            </div>
+          </React.Fragment>
         ))}
         <Button color="primary" outline className="mt-3" onClick={addSubtitlePair}>
           <i className="tim-icons icon-simple-add" /> Add Sub header
