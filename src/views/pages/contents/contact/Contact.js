@@ -4,8 +4,8 @@ import SweetAlert from "react-bootstrap-sweetalert";
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
 import HeroSection from "./HeroSection";
 import Section2 from "./Section2";
-import Section3 from "./Section3"; 
 import Section4 from "./Section4";
+import Section3 from "./Section3";
 
 const Contact = () => {
   const heroSectionRef = useRef(null);
