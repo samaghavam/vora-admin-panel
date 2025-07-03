@@ -47,7 +47,7 @@ const CostCalculator = () => {
         <Col xs="auto" className="px-1">
           <Button
             className="btn-round py-3"
-            color={activeButton === "thisMonth" ? "primary" : "info"} 
+            color={activeButton === "thisMonth" ? "info" : null} 
             outline={activeButton !== "thisMonth"} 
             onClick={() => scrollToSection(thisMonthRef, "thisMonth")}
             style={{ minWidth: "120px" }} 
@@ -58,7 +58,7 @@ const CostCalculator = () => {
         <Col xs="auto" className="px-1">
           <Button
             className="btn-round py-3"
-            color={activeButton === "allTime" ? "primary" : "info"}
+            color={activeButton === "allTime" ? "info" : null}
             outline={activeButton !== "allTime"}
             onClick={() => scrollToSection(allTimeRef, "allTime")}
             style={{ minWidth: "120px" }}
@@ -69,7 +69,7 @@ const CostCalculator = () => {
         <Col xs="auto" className="px-1">
           <Button
             className="btn-round py-3"
-            color={activeButton === "overall" ? "primary" : "info"}
+            color={activeButton === "overall" ? "info" : null}
             outline={activeButton !== "overall"}
             onClick={() => scrollToSection(overallRef, "overall")}
             style={{ minWidth: "120px" }}

@@ -27,6 +27,7 @@ import Footer from "views/pages/contents/footer/Footer";
 import AiDescription from "views/pages/contents/AI-description/AiDescription";
 import Users from "views/pages/users/Users";
 import Analytics from "views/pages/analytics/Analytics";
+import AiPurchese from "views/pages/ai-management/aiPurcheses/AiPurchese";
 
 const routes = [
   {
@@ -70,6 +71,13 @@ const routes = [
     path: "/ai-management/cost-calculator",
     name: "Cost Calculator",
     component: <CostCalculator />,
+    layout: "/admin",
+    hideInSidebar: true,
+  },
+  {
+    path: "/ai-management/purchases",
+    name: "Cost Calculator",
+    component: <AiPurchese />,
     layout: "/admin",
     hideInSidebar: true,
   },

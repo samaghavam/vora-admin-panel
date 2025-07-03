@@ -141,7 +141,7 @@ const TravelBudgetMonth = () => {
 
   return (
     <div className="content">
-      <h2 className="title text-white mb-4">Overall Performance</h2>
+      <h2 className="title text-white mb-4">This month</h2>
 
       {/* Row 1 */}
       <Row className="mb-4">
@@ -164,7 +164,7 @@ const TravelBudgetMonth = () => {
       </Row>
 
       {/* Row 2 */}
-      <Row>
+      <Row className="mb-4">
         <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableBarChartCard
             cardTitleText="Rounded trip duration"
@@ -223,7 +223,7 @@ const TravelBudgetMonth = () => {
       </Row>
 
       {/* Row 5 - Bar Charts */}
-      <Row>
+      <Row className="mb-4">
         <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableBarChartCard
             cardTitleText="Average packages made"
@@ -240,7 +240,7 @@ const TravelBudgetMonth = () => {
         </Col>
       </Row>
       {/* Row 6 - Bar Charts */}
-      <Row>
+      <Row className="mb-4">
         <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableBarChartCard
             cardTitleText="Average packages made"

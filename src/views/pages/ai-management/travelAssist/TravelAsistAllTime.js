@@ -164,7 +164,7 @@ const TravelAsistAllTime = () => {
       </Row>
 
       {/* Row 2 */}
-      <Row>
+      <Row className="mb-4">
         <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableBarChartCard
             cardTitleText="Rounded trip duration"
@@ -223,7 +223,7 @@ const TravelAsistAllTime = () => {
       </Row>
 
       {/* Row 5 - Bar Charts */}
-      <Row>
+      <Row className="mb-4">
         <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableBarChartCard
             cardTitleText="Average packages made"
@@ -240,7 +240,7 @@ const TravelAsistAllTime = () => {
         </Col>
       </Row>
       {/* Row 6 - Bar Charts */}
-      <Row>
+      <Row className="mb-4">
         <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableBarChartCard
             cardTitleText="Average packages made"
@@ -255,7 +255,7 @@ const TravelAsistAllTime = () => {
             chartHeight="300px"
           />
         </Col>
-      </Row>
+      </Row >
       {/* Row 7 - Doughnut Charts */}
       <Row className="mb-4">
         <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">

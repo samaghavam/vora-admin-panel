@@ -45,7 +45,6 @@ const AllTimeAsist = () => {
         <ReusableDoughnutChart
           chartDataItems={chartDataItems}
           chartHeight="180px"
-          //chartWidth="100%"
         />
       </CardBody>
     </Card>
