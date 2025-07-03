@@ -89,8 +89,6 @@ const StaystAnalyticalOveral = () => {
   return (
     <div className="content"> 
       <h2 className="title text-white mb-4">Overall</h2>
-
-      {/* **THE FIX IS HERE:** Using `d-flex` on the columns and removing fixed heights */}
       <Row className="mb-4">
         <Col lg="6" md="12" className="mb-4 mb-lg-0 d-flex"> 
           <ReusableLineChartCard
@@ -106,8 +104,6 @@ const StaystAnalyticalOveral = () => {
           />
         </Col>
       </Row>
-
-      {/* **THE FIX IS HERE:** Both columns now have a consistent structure */}
       <Row className="mb-4">
         <Col lg="6" md="12" className="mb-4 mb-lg-0 d-flex"> 
            <ReusableBarChartCard
@@ -118,24 +114,59 @@ const StaystAnalyticalOveral = () => {
           />
         </Col>
         <Col lg="6" md="12" className="d-flex"> 
-          {/* A consistent Card wrapper is now used for the Funnel Chart */}
           <Card className="card-chart h-100"> 
             <CardHeader>
               <CardTitle tag="h4" className="text-white">Funnel request rate</CardTitle>
             </CardHeader>
             <CardBody className="d-flex flex-column"> 
               <FunnelRequestChart
-                title="" // Title is now handled by the CardHeader
+                title="" 
                 funnelDataItems={funnelRequestData}
               />
             </CardBody>
           </Card>
         </Col>
       </Row>
-      
-      {/* The rest of the component remains the same */}
       <Row>
-        <Col lg="4" md="6" sm="12" className="mb-4">
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
+          <Card className="card-chart">
+            <CardBody>
+              <ReusableDoughnutChart
+                title="Accommodation type"
+                chartDataItems={accommodationTypeData}
+                chartHeight={smallDoughnutSize}
+                chartWidth={smallDoughnutSize}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
+          <Card className="card-chart">
+            <CardBody>
+              <ReusableDoughnutChart
+                title="Ration of reserved rooms per booking"
+                chartDataItems={reservedRoomsData}
+                chartHeight={smallDoughnutSize}
+                chartWidth={smallDoughnutSize}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
+          <Card className="card-chart">
+            <CardBody>
+              <ReusableDoughnutChart
+                title="UAE visa request ratio"
+                chartDataItems={uaeVisaData}
+                chartHeight={smallDoughnutSize}
+                chartWidth={smallDoughnutSize}
+              />
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col lg="4" md="6" sm="12" className="mb-4 mb-lg-0">
           <Card className="card-chart">
             <CardBody>
               <ReusableDoughnutChart
