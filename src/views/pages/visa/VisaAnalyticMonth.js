@@ -29,51 +29,39 @@ const VisaAnalyticMonth = () => {
       },
     ],
   };
-  const dailySpendingsCategory = "Average Week $ 10,000"; // From image
-
-  // Data for Doughnut Chart: Visa type
-  // Based on the uploaded image
+  const dailySpendingsCategory = "Average Week $ 10,000"; 
   const visaTypeData = [
-    { label: "Tourism", value: 78, color: "rgba(75, 192, 192, 1)" }, // Teal/Greenish from image
-    { label: "Other", value: 22, color: "rgba(54, 162, 235, 1)" },   // Blueish from image
+    { label: "Tourism", value: 78, color: "rgba(75, 192, 192, 1)" }, 
+    { label: "Other", value: 22, color: "rgba(54, 162, 235, 1)" },   
   ];
 
-  // Data for InfoStatCards
-  // Using the same icon and gradient as the original FlightAnalyticMonth for consistency,
-  // as the image shows similar styled cards.
-  const iconForStatCards = "icon-chat-33"; // Chat bubble icon, as seen in image
-  const defaultIconGradient = "linear-gradient(135deg, #FF607D 0%, #FF8A65 100%)"; // Pink/Orange gradient
+  const iconForStatCards = "icon-chat-33"; 
+  const defaultIconGradient = "linear-gradient(135deg, #FF607D 0%, #FF8A65 100%)"; 
 
   return (
     <div>
-      <h3 className="title text-white mb-4">This month</h3> {/* Added mb-4 for spacing */}
-      
-      {/* Top Row: Bar Chart and Line Chart */}
+      <h3 className="title text-white mb-4">This month</h3> 
       <Row>
-        <Col lg="5" md="12" className="mb-4 mb-lg-0">
+        <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableBarChartCard
             cardTitleText="Visa Request channel"
             chartData={visaChannelData}
-            chartHeight="280px" // Adjust height as needed
-            // defaultBarColor can be overridden by dataset's barColor if ReusableBarChartCard supports it
+            chartHeight="280px" 
           />
         </Col>
-        <Col lg="7" md="12">
+        <Col lg="6" md="12">
           <ReusableLineChartCard
             cardTitleText="Daily spendings on visa requests"
             cardCategoryText={dailySpendingsCategory}
             chartData={dailySpendingsData}
-            chartHeight="280px" // Adjust height as needed
-            // lineColor can be overridden by dataset's borderColor if ReusableLineChartCard supports it
+            chartHeight="280px" 
           />
         </Col>
       </Row>
 
-      {/* Bottom Row: Doughnut Chart and InfoStatCards */}
-      <Row className="mt-4"> {/* Added margin-top for spacing between rows */}
+      <Row className="mt-4"> 
         <Col lg="5" md="12" className="mb-4 mb-lg-0">
-          {/* ReusableDoughnutChart does not include Card, so we wrap it here for consistent styling */}
-          <Card className="card-chart h-100"> {/* Added h-100 for consistent height if needed */}
+          <Card className="card-chart h-100"> 
             <CardBody className="d-flex flex-column justify-content-center"> {/* Centering content */}
               <ReusableDoughnutChart
                 title="Visa type" // This title is styled internally by ReusableDoughnutChart
@@ -86,23 +74,23 @@ const VisaAnalyticMonth = () => {
         </Col>
         <Col lg="7" md="12">
           <Row>
-            <Col md="6" sm="6" className="mb-4">
+            <Col md="6" sm="6" className="mb-4 mb-lg-0">
               <InfoStatCard
                 icon={iconForStatCards}
                 iconGradient={defaultIconGradient}
                 title="Number of in progress visa"
-                value="150" // From image
+                value="150" 
               />
             </Col>
-            <Col md="6" sm="6" className="mb-4">
+            <Col md="6" sm="6" className="mb-4 mb-lg-0">
               <InfoStatCard
                 icon={iconForStatCards}
                 iconGradient={defaultIconGradient}
                 title="Number of failed requests"
-                value="150" // From image
+                value="150" 
               />
             </Col>
-            <Col md="6" sm="6" className="mb-4 mb-md-0"> {/* Adjusted mb for responsiveness */}
+            <Col md="6" sm="6" className="mb-4 mb-lg-0"> {/* Adjusted mb for responsiveness */}
               <InfoStatCard
                 icon={iconForStatCards}
                 iconGradient={defaultIconGradient}
@@ -110,7 +98,7 @@ const VisaAnalyticMonth = () => {
                 value="150" // From image
               />
             </Col>
-            <Col md="6" sm="6">
+            <Col md="6" sm="6" className='mb-lg-0'>
               <InfoStatCard
                 icon={iconForStatCards}
                 iconGradient={defaultIconGradient}

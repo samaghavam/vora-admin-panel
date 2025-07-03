@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactWizard from "react-bootstrap-wizard";
 import { Col } from "reactstrap";
+import { useNavigate } from "react-router-dom";
+import SweetAlert from "react-bootstrap-sweetalert";
+
 import Step1 from "./step1/Step1";
 import Step2 from "./step2/Step2.js";
 import Step3 from "./step3/Step3.js";
@@ -24,18 +27,39 @@ const steps = [
 ];
 
 const AddNewAccommodations = () => {
+  const [alert, setAlert] = useState(null);
+  const navigate = useNavigate();
+  // The wizardRef is no longer needed for the finish handler.
 
+  // **THE FIX IS HERE:**
+  // The `handleFinish` function now correctly accepts the `allStates` object
+  // as an argument directly from the ReactWizard component.
   const handleFinish = (allStates) => {
     console.log("Wizard finished. Gathering data from all steps...");
-    console.log(allStates); 
-    if (!allStates.About || !allStates.Rooms || !allStates.Highlights) {
-      alert("A step component failed to load correctly. Check the console for errors.");
+    
+    // Now, we directly use the `allStates` argument.
+    if (!allStates || !allStates.About || !allStates.Rooms || !allStates.Highlights) {
       console.error("One of the step refs is still undefined:", allStates);
+      setAlert(
+        <SweetAlert
+          danger
+          style={{ display: "block", marginTop: "-100px" }}
+          title="Error!"
+          onConfirm={() => setAlert(null)}
+          onCancel={() => setAlert(null)}
+          confirmBtnBsStyle="primary"
+        >
+          A step component failed to load correctly. Please refresh and try again.
+        </SweetAlert>
+      );
       return;
     }
+
+    // Collect data from each step's exposed `getStepData` method
     const step1Data = allStates.About.getStepData();
     const step2Data = allStates.Rooms.getStepData();
     const step3Data = allStates.Highlights.getStepData();
+
     const finalPayload = {
       ...step1Data,
       ...step2Data,
@@ -43,14 +67,32 @@ const AddNewAccommodations = () => {
     };
     
     console.log("Final API Payload:", finalPayload);
-    alert("New accommodation added!");
+    
+    // Show success alert and navigate on confirm
+    setAlert(
+        <SweetAlert
+          success
+          style={{ display: "block", marginTop: "-100px" }}
+          title="Success!"
+          onConfirm={() => {
+              setAlert(null);
+              navigate('/admin/stays/accommodations');
+          }}
+          onCancel={() => setAlert(null)}
+          confirmBtnBsStyle="primary"
+        >
+          New accommodation created successfully!
+        </SweetAlert>
+    );
   };
 
   return (
     <>
+      {alert}
       <div className="content">
         <Col className="mr-auto ml-auto">
           <ReactWizard
+            // The ref is no longer needed here.
             steps={steps}
             navSteps
             validate
