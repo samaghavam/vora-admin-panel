@@ -140,7 +140,7 @@ const Section3 = forwardRef((props, ref) => {
               {location && (
                 <div className="ml-4 d-flex align-items-center">
                    <i className="tim-icons icon-check-2 text-success" style={{fontSize: '20px'}}/>
-                  <span className="text-white ml-2" style={{fontSize: '16px'}}>
+                  <span className="text-muted ml-2" style={{fontSize: '16px'}}>
                     Selected: <strong>{location}</strong>
                   </span>
                 </div>
