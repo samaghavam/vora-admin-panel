@@ -39951,29 +39951,4 @@ a.react-tagsinput .react-tagsinput-tag.neutral.focus {
   border-color: #525577; 
 }
 
-/* In your global CSS file (e.g., assets/css/custom.css) */
-.breadcrumb {
-  background-color: transparent; /* Or your desired background */
-}
 
-.breadcrumb-item.active {
-  color: #FFFFFF !important; /* White for active item, adjust as needed */
-  font-weight: 600;
-}
-
-.breadcrumb-item a {
-  color: #5293EA !important; /* Blue for links, adjust as needed */
-  text-decoration: none;
-}
-
-.breadcrumb-item a:hover {
-  color: #75AEF0 !important; /* Lighter blue on hover */
-}
-
-.breadcrumb-item + .breadcrumb-item::before {
-  display: inline-block;
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  color: #FFFFFF !important; /* White separator, adjust as needed */
-  content: "/";
-}

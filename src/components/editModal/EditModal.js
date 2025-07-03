@@ -12,6 +12,7 @@ import {
   Label,
   Input,
 } from "reactstrap";
+import styles from "../../assets/css/EditModal.module.css"; // Import the CSS module
 
 const EditModal = ({ isOpen, onClose, title, fields, data, onSave, onInputChange }) => {
   // If the modal isn't open or there's no data, render nothing.
@@ -23,7 +24,7 @@ const EditModal = ({ isOpen, onClose, title, fields, data, onSave, onInputChange
 
   return (
     <>
-      <Modal isOpen={isOpen} toggle={onClose} centered scrollable={true} size="lg" modalClassName="edit-ticket-modal">
+      <Modal isOpen={isOpen} toggle={onClose} centered scrollable={true} size="lg">
         <ModalHeader toggle={onClose} className="text-dark">
           {title}
         </ModalHeader>
@@ -40,6 +41,8 @@ const EditModal = ({ isOpen, onClose, title, fields, data, onSave, onInputChange
                     value={data[field.key] || ''}
                     onChange={(e) => onInputChange(field.key, e.target.value)}
                     placeholder={field.placeholder}
+                    // Apply the class from the CSS module
+                    className={styles.input}
                   />
                 </Col>
               </Row>
@@ -50,17 +53,11 @@ const EditModal = ({ isOpen, onClose, title, fields, data, onSave, onInputChange
           <Button color="secondary" onClick={onClose}>
             Cancel
           </Button>
-          <Button color="primary" onClick={handleSave}>
+          <Button color="info" onClick={handleSave}>
             Save Changes
           </Button>
         </ModalFooter>
       </Modal>
-
-      <style>{`
-        .edit-ticket-modal .modal-body .form-control {
-          color: #495057 !important; 
-        }
-      `}</style>
     </>
   );
 };
