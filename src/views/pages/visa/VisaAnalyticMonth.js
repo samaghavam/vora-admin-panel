@@ -62,12 +62,12 @@ const VisaAnalyticMonth = () => {
       <Row className="mt-4"> 
         <Col lg="5" md="12" className="mb-4 mb-lg-0">
           <Card className="card-chart h-100"> 
-            <CardBody className="d-flex flex-column justify-content-center"> {/* Centering content */}
+            <CardBody className="d-flex flex-column justify-content-center"> 
               <ReusableDoughnutChart
-                title="Visa type" // This title is styled internally by ReusableDoughnutChart
+                title="Visa type" 
                 chartDataItems={visaTypeData}
-                chartHeight="180px" // Adjust as needed
-                chartWidth="100%"  // Make chart responsive within card body, adjust as per ReusableDoughnutChart's capability
+                chartHeight="180px" 
+                chartWidth="100%"  
               />
             </CardBody>
           </Card>
@@ -90,12 +90,12 @@ const VisaAnalyticMonth = () => {
                 value="150" 
               />
             </Col>
-            <Col md="6" sm="6" className="mb-4 mb-lg-0"> {/* Adjusted mb for responsiveness */}
+            <Col md="6" sm="6" className="mb-4 mb-lg-0"> 
               <InfoStatCard
                 icon={iconForStatCards}
                 iconGradient={defaultIconGradient}
                 title="Total Number of requested visa"
-                value="150" // From image
+                value="150" 
               />
             </Col>
             <Col md="6" sm="6" className='mb-lg-0'>
@@ -103,7 +103,7 @@ const VisaAnalyticMonth = () => {
                 icon={iconForStatCards}
                 iconGradient={defaultIconGradient}
                 title="Number of successful requests"
-                value="150" // From image
+                value="150" 
               />
             </Col>
           </Row>

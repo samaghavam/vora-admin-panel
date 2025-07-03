@@ -131,7 +131,7 @@ const Section4 = forwardRef((props, ref) => {
           }
           return (
             <Row key={faq.id} className="align-items-center mb-3">
-              <Col md="5">
+              <Col md="4">
                 <FormGroup className={`has-label ${faq.questionState} mb-0`}>
                   <Label>{`Question ${index + 1}`}</Label>
                   <Input type="text" value={faq.question} onChange={(e) => handleFaqChange(faq.id, "question", e.target.value)} />
@@ -145,10 +145,10 @@ const Section4 = forwardRef((props, ref) => {
                   {faq.answerState === "has-danger" && <Label className="error">Answer cannot be empty.</Label>}
                 </FormGroup>
               </Col>
-              <Col md="2">
+              <Col md="3">
                 <Button
                   block
-                  className="btn-round"
+                  className="btn"
                   color="danger"
                   onClick={() => removeQuestion(faq.id)}
                   style={{

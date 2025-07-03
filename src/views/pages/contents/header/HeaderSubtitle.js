@@ -12,16 +12,13 @@ import {
   Input,
   Button,
 } from "reactstrap";
-import ImageUpload from "components/CustomUpload/ImageUpload"; // Assuming path is correct
+import ImageUpload from "components/CustomUpload/ImageUpload"; 
 
 const HeaderSubtitle = forwardRef((props, ref) => {
-  // --- Internal State for the list of subtitle blocks ---
   const [subtitles, setSubtitles] = useState([
     { id: 1, title: "", link: "", iconFile: null, titleState: "", linkState: "", iconState: "" },
     { id: 2, title: "", link: "", iconFile: null, titleState: "", linkState: "", iconState: "" },
   ]);
-
-  // --- Validation Logic ---
   const verifyLength = (value) => value && value.trim().length > 0;
 
   useImperativeHandle(ref, () => ({
@@ -29,14 +26,12 @@ const HeaderSubtitle = forwardRef((props, ref) => {
       let isAllValid = true;
       const validatedSubtitles = subtitles.map(item => {
         const newItem = { ...item };
-        // Validate Title
         if (!verifyLength(item.title)) {
           newItem.titleState = "has-danger";
           isAllValid = false;
         } else {
           newItem.titleState = "has-success";
         }
-        // Validate Link
         if (!verifyLength(item.link)) {
           newItem.linkState = "has-danger";
           isAllValid = false;
@@ -60,7 +55,6 @@ const HeaderSubtitle = forwardRef((props, ref) => {
     }),
   }));
 
-  // --- Handlers for dynamic list ---
   const addSubtitlePair = () => {
     const newId1 = Date.now();
     const newId2 = newId1 + 1;
@@ -72,7 +66,6 @@ const HeaderSubtitle = forwardRef((props, ref) => {
   };
 
   const removeSubtitle = (idToRemove) => {
-    // Prevent removing if it would leave only one item behind
     if (subtitles.length > 2) {
       setSubtitles(subtitles.filter((s) => s.id !== idToRemove));
     }
@@ -81,7 +74,6 @@ const HeaderSubtitle = forwardRef((props, ref) => {
   const handleSubtitleChange = (id, field, value) => {
     const newSubtitles = subtitles.map(item => {
       if (item.id === id) {
-        // Clear validation state for the field being changed
         return { ...item, [field]: value, [`${field}State`]: "" };
       }
       return item;
@@ -95,14 +87,12 @@ const HeaderSubtitle = forwardRef((props, ref) => {
         <CardTitle tag="h4">Header Subtitles</CardTitle>
       </CardHeader>
       <CardBody>
-        {/* Dynamic Subtitle List */}
         {subtitles.map((item, index) => (
           <React.Fragment key={item.id}>
-            {/* **THE FIX IS HERE:** A gray <hr> is now added between sections */}
             {index > 0 && <hr style={{ backgroundColor: '#2c344c', height: '1px', border: 'none' }} />}
             <div className="pt-3">
               <Row className="align-items-center">
-                <Col md="7">
+                <Col md="6">
                   <FormGroup className={classnames(item.titleState)}>
                     <Label>Sub header title {index + 1}</Label>
                     <Input type="text" value={item.title} onChange={(e) => handleSubtitleChange(item.id, "title", e.target.value)} />
@@ -121,7 +111,7 @@ const HeaderSubtitle = forwardRef((props, ref) => {
                     {item.iconState === "has-danger" && <Label className="error d-block text-center">Icon is required.</Label>}
                   </FormGroup>
                 </Col>
-                <Col md="2">
+                <Col md="3">
                   <Button color="danger" onClick={() => removeSubtitle(item.id)}>
                     <i className="tim-icons icon-simple-remove" /> Remove Sub title
                   </Button>
