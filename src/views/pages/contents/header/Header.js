@@ -4,10 +4,12 @@ import SweetAlert from "react-bootstrap-sweetalert";
 import SimpleBreadcrumb from "views/components/BreadCrumbs";
 import HeaderImage from "./HeaderImage";
 import HeaderTitle from "./HeaderTitle";
+import HeaderSubtitle from "./HeaderSubtitle";
 
 const HeaderContent = () => {
   const headerImageRef = useRef(null);
-  const headerTitleRef = useRef(null)
+  const headerTitleRef = useRef(null);
+  const HeaderSubtitleRef = useRef(null)
   const [alert, setAlert] = useState(null);
   const breadcrumbItems = [
     { label: "Home", to: "/admin/dashboard" },
@@ -76,9 +78,11 @@ const HeaderContent = () => {
 
     const isHeaderImageValid = headerImageRef.current.validate();
     const isHeaderTitleValid = headerTitleRef.current.validate();
-    if (isHeaderImageValid && isHeaderTitleValid) {
+    const isSubHeaderValid = HeaderSubtitleRef.current.validate()
+    if (isHeaderImageValid && isHeaderTitleValid && isSubHeaderValid) {
       const headerImageData = headerImageRef.current.getData();
-      const headerTitleData = headerTitleRef.current.getData()
+      const headerTitleData = headerTitleRef.current.getData();
+      const subHeaderData = HeaderSubtitleRef.current.getData()
 
       const formData = new FormData();
 
@@ -88,6 +92,9 @@ const HeaderContent = () => {
 
       Object.keys(headerTitleData).forEach((key) => {
         formData.append(`faq_${key}`, headerTitleData[key]);
+      });
+      Object.keys(subHeaderData).forEach((key) => {
+        formData.append(`faq_${key}`, subHeaderData[key]);
       });
       try {
         await mockApiCall(formData);
@@ -117,6 +124,7 @@ const HeaderContent = () => {
       <Form onSubmit={handleSave}>
       <HeaderImage ref={headerImageRef}/>
       <HeaderTitle ref={headerTitleRef}/>
+      <HeaderSubtitle ref={HeaderSubtitleRef}/>
         <Card>
           <CardBody>
             <Row>
