@@ -87,7 +87,7 @@ const Faq = forwardRef((props, ref) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle tag="h4">Section 4 - FAQs</CardTitle>
+        <CardTitle tag="h4">FAQs</CardTitle>
       </CardHeader>
       <CardBody>
         <Row>
@@ -138,24 +138,24 @@ const Faq = forwardRef((props, ref) => {
                   {faq.questionState === "has-danger" && <Label className="error">Question cannot be empty.</Label>}
                 </FormGroup>
               </Col>
-              <Col md="5">
+              <Col md="4">
                 <FormGroup className={`has-label ${faq.answerState} mb-0`}>
                   <Label>{`Answer ${index + 1}`}</Label>
                   <Input type="text" value={faq.answer} onChange={(e) => handleFaqChange(faq.id, "answer", e.target.value)} />
                   {faq.answerState === "has-danger" && <Label className="error">Answer cannot be empty.</Label>}
                 </FormGroup>
               </Col>
-              <Col md="2">
+              <Col md="3">
                 <Button
                   block
-                  className="btn-round"
+                  className="btn"
                   color="danger"
                   onClick={() => removeQuestion(faq.id)}
                   style={{
                       background: 'linear-gradient(to right, #ff416c, #ff4b2b)',
                       border: 'none',
                       color: 'white',
-                      marginTop: '20px'
+                      marginTop: '20px',
                   }}
                 >
                   <i className="fa fa-times" style={{ marginRight: '5px' }} />
