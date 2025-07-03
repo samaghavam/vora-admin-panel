@@ -44,14 +44,14 @@ const VisaAnalyticAllTime = () => {
       <h3 className="title text-white mb-4">All Time</h3> 
       
       <Row>
-        <Col lg="5" md="12" className="mb-4 mb-lg-0">
+        <Col lg="6" md="12" className="mb-4 mb-lg-0">
           <ReusableBarChartCard
             cardTitleText="Visa Request channel"
             chartData={visaChannelData}
             chartHeight="280px" 
           />
         </Col>
-        <Col lg="7" md="12">
+        <Col lg="6" md="12">
           <ReusableLineChartCard
             cardTitleText="Daily spendings on visa requests"
             cardCategoryText={dailySpendingsCategory}
