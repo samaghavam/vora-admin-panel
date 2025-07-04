@@ -8,6 +8,7 @@ import {
   ModalFooter,
 } from "reactstrap";
 import { VectorMap } from "react-jvectormap";
+import styles from "../../assets/css/MapModal.module.css"; 
 
 // A local map to look up country names from their codes, avoiding the window.jvm issue.
 const countryNameMap = {
@@ -56,9 +57,6 @@ const MapModal = ({ isOpen, onClose, onLocationSelect }) => {
   useEffect(() => {
     if (!isOpen) {
       setSelectedRegion({ code: null, name: null });
-      // **THE FIX IS HERE:**
-      // Manually find and remove any lingering tooltip elements created by jvectormap
-      // when the modal is closed.
       const tooltips = document.querySelectorAll('.jvectormap-tip');
       tooltips.forEach(tip => tip.remove());
     }
@@ -73,7 +71,8 @@ const MapModal = ({ isOpen, onClose, onLocationSelect }) => {
         <p className="text-center text-dark">
           Selected: <strong className="text-primary">{selectedRegion.name || "None"}</strong>
         </p>
-        <div style={{ width: "100%", height: "450px" }}>
+        {/* Apply the class from the CSS module */}
+        <div className={styles.mapContainer}>
           <VectorMap
             map={"world_mill"}
             backgroundColor="transparent"

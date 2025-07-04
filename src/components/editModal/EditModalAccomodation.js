@@ -13,21 +13,19 @@ import {
   Input,
 } from "reactstrap";
 import classnames from "classnames";
+import styles from "../../assets/css/EditModalAccomodation.module.css"; 
 
 const EditModalAccomodation = ({ isOpen, onClose, title, data, onSave, onInputChange }) => {
-  // If the modal isn't open or there's no data, render nothing.
   if (!isOpen || !data) return null;
 
   const handleSave = () => {
     onSave();
   };
 
-  // This handler is for the three state buttons
   const handleStateChange = (newState) => {
     onInputChange('state', newState);
   };
 
-  // The fields are defined here to match the layout in the screenshot
   const fields = [
     { key: 'passportName', label: 'Passport Name', placeholder: 'Name of the accommodation' },
     { key: 'passportNumber', label: 'Passport number', placeholder: 'Have room' },
@@ -42,7 +40,7 @@ const EditModalAccomodation = ({ isOpen, onClose, title, data, onSave, onInputCh
 
   return (
     <>
-      <Modal isOpen={isOpen} toggle={onClose} centered size="lg" modalClassName="edit-accommodation-modal">
+      <Modal isOpen={isOpen} toggle={onClose} centered size="lg">
         <ModalHeader toggle={onClose} className="text-dark">
           {title}
         </ModalHeader>
@@ -59,32 +57,32 @@ const EditModalAccomodation = ({ isOpen, onClose, title, data, onSave, onInputCh
                     value={data[field.key] || ''}
                     onChange={(e) => onInputChange(field.key, e.target.value)}
                     placeholder={field.placeholder}
+                    className={styles.input}
                   />
                 </Col>
               </Row>
             </FormGroup>
           ))}
           <FormGroup>
-          <Label className="text-dark font-weight-bold">State</Label>
+            <Label className="text-dark font-weight-bold">State</Label>
             <Row className="align-items-center">
-              <Col className="d-flex justify-content-center">
-                {/* **THE FIX IS HERE:** Added the "btn-round" class to make the buttons pill-shaped. */}
+              <Col className={`d-flex justify-content-center ${styles.stateButtons}`}>
                 <Button
-                  color={data.state === 'In Progress' ? 'info' : 'dark'}
+                  color={data.state === 'In Progress' ? 'primary' : 'dark'}
                   onClick={() => handleStateChange('In Progress')}
                   className={classnames("mr-2", "btn-round", { active: data.state === 'In Progress' })}
                 >
                   In Progress
                 </Button>
                 <Button
-                  color={data.state === 'Successful' ? 'info' : 'dark'}
+                  color={data.state === 'Successful' ? 'primary' : 'dark'}
                   onClick={() => handleStateChange('Successful')}
                   className={classnames("mr-2", "btn-round", { active: data.state === 'Successful' })}
                 >
                   Successful
                 </Button>
                 <Button
-                  color={data.state === 'Failed' ? 'info' : 'dark'}
+                  color={data.state === 'Failed' ? 'primary' : 'dark'}
                   onClick={() => handleStateChange('Failed')}
                   className={classnames("btn-round", { active: data.state === 'Failed' })}
                 >
@@ -103,16 +101,6 @@ const EditModalAccomodation = ({ isOpen, onClose, title, data, onSave, onInputCh
           </Button>
         </ModalFooter>
       </Modal>
-      {/* This CSS ensures the input text is visible and the inactive buttons have a dark background */}
-      <style>{`
-        .edit-accommodation-modal .modal-body .form-control {
-          color: #495057 !important; 
-        }
-        .edit-accommodation-modal .btn.btn-dark:not(.active) {
-            background-color: #27293d;
-            color: #fff;
-        }
-      `}</style>
     </>
   );
 };

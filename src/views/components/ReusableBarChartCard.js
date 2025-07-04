@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 // PropTypes import removed
-import { Bar } from 'react-chartjs-2';
-import { Card, CardHeader, CardBody, CardTitle } from 'reactstrap';
+import { Bar } from "react-chartjs-2";
+import { Card, CardHeader, CardBody, CardTitle } from "reactstrap";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,8 +10,8 @@ import {
   Title as ChartJsTitle,
   Tooltip,
   Legend as ChartJsLegend,
-  Filler 
-} from 'chart.js';
+  Filler,
+} from "chart.js";
 
 // Register necessary ChartJS components
 ChartJS.register(
@@ -29,47 +29,54 @@ const createBarGradient = (canvas, mainColorHex) => {
   const ctx = canvas.getContext("2d");
   if (!ctx) return null;
 
-  let mainR = 0, mainG = 0, mainB = 0;
+  let mainR = 0,
+    mainG = 0,
+    mainB = 0;
   if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(mainColorHex)) {
-    let c = mainColorHex.substring(1).split('');
+    let c = mainColorHex.substring(1).split("");
     if (c.length === 3) {
       c = [c[0], c[0], c[1], c[1], c[2], c[2]];
     }
-    c = '0x' + c.join('');
+    c = "0x" + c.join("");
     mainR = (c >> 16) & 255;
     mainG = (c >> 8) & 255;
     mainB = c & 255;
-  } else { 
+  } else {
     console.warn("Invalid hex color for gradient:", mainColorHex);
-    mainR = 253; mainG = 93; mainB = 147; // Default to #FD5D93
+    mainR = 253;
+    mainG = 93;
+    mainB = 147; // Default to #FD5D93
   }
 
-  const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height); 
+  const gradient = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
   gradient.addColorStop(0, `rgba(${mainR},${mainG},${mainB},0.45)`);
-  gradient.addColorStop(1, `rgba(${mainR},${mainG},${mainB},0.1)`); 
+  gradient.addColorStop(1, `rgba(${mainR},${mainG},${mainB},0.1)`);
 
   return gradient;
 };
 
-
 const ReusableBarChartCard = ({
-  cardTitleText,     
-  chartData,         
-  // The fixed chartHeight prop is no longer needed for consistent height
-  // chartHeight = "250px",
-  defaultBarColor = "#FD5D93", 
-  customOptions = {}
+  cardTitleText,
+  chartData,
+  defaultBarColor = "#FD5D93",
+  customOptions = {},
 }) => {
-
   const preparedChartData = (canvas) => {
-    const datasetsWithGradient = chartData.datasets.map(dataset => {
+    const datasetsWithGradient = chartData.datasets.map((dataset) => {
       const barBaseColor = dataset.barColor || defaultBarColor;
       return {
         ...dataset,
         backgroundColor: createBarGradient(canvas, barBaseColor),
-        borderColor: barBaseColor, 
-        borderWidth: dataset.borderWidth === undefined ? 1.5 : dataset.borderWidth,
-        hoverBackgroundColor: `rgba(${parseInt(barBaseColor.slice(1,3),16)},${parseInt(barBaseColor.slice(3,5),16)},${parseInt(barBaseColor.slice(5,7),16)},0.6)`,
+        borderColor: barBaseColor,
+        borderWidth:
+          dataset.borderWidth === undefined ? 1.5 : dataset.borderWidth,
+        hoverBackgroundColor: `rgba(${parseInt(
+          barBaseColor.slice(1, 3),
+          16
+        )},${parseInt(barBaseColor.slice(3, 5), 16)},${parseInt(
+          barBaseColor.slice(5, 7),
+          16
+        )},0.6)`,
         hoverBorderColor: barBaseColor,
       };
     });
@@ -85,16 +92,16 @@ const ReusableBarChartCard = ({
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false, 
+        display: false,
       },
       tooltip: {
         enabled: true,
-        backgroundColor: '#333', 
-        titleColor: '#fff',
-        bodyColor: '#fff',
+        backgroundColor: "#333",
+        titleColor: "#fff",
+        bodyColor: "#fff",
         bodySpacing: 4,
         padding: 10,
-        mode: "index", 
+        mode: "index",
         intersect: false,
       },
     },
@@ -106,24 +113,24 @@ const ReusableBarChartCard = ({
           zeroLineColor: "transparent",
         },
         ticks: {
-          suggestedMin: 60, 
-          suggestedMax: 130, 
+          suggestedMin: 60,
+          suggestedMax: 130,
           padding: 10,
-          color: "#9a9a9a", 
+          color: "#9a9a9a",
           font: {
             size: 11,
           },
-          stepSize: 10, 
+          stepSize: 10,
         },
       },
       x: {
         grid: {
           drawBorder: false,
-          display: false, 
+          display: false,
         },
         ticks: {
           padding: 10,
-          color: "#9a9a9a", 
+          color: "#9a9a9a",
           font: {
             size: 11,
           },
@@ -135,16 +142,14 @@ const ReusableBarChartCard = ({
   const options = { ...defaultChartOptions, ...customOptions };
 
   return (
-    // **THE FIX IS HERE:**
-    // 1. Added `h-100` to make the card fill its parent's height.
-    <Card className="card-chart h-100"> 
+    <Card className="card-chart h-100">
       <CardHeader>
-        <CardTitle tag="h4" className="text-white">{cardTitleText}</CardTitle>
+        <CardTitle tag="h4" className="text-white">
+          {cardTitleText}
+        </CardTitle>
       </CardHeader>
-      {/* 2. Made CardBody a flex container to allow the chart to grow. */}
       <CardBody className="d-flex flex-column">
-        {/* 3. The chart-area now grows to fill the available space. */}
-        <div className="chart-area flex-grow-1" style={{ position: 'relative' }}>
+        <div className="chart-area flex-grow-1 position-relative">
           <Bar data={preparedChartData} options={options} />
         </div>
       </CardBody>

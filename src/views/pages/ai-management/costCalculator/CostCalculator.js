@@ -22,7 +22,7 @@ const CostCalculator = () => {
   const scrollToSection = (ref, sectionId) => {
     if (ref && ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveButton(sectionId); // Update active button state
+      setActiveButton(sectionId); 
     } else {
       console.warn(`Ref for section "${sectionId}" not found.`);
     }
@@ -30,7 +30,6 @@ const CostCalculator = () => {
 
   return (
     <div className="content">
-      {/* Breadcrumb Row */}
       <Row>
         <Col md="12">
           <SimpleBreadcrumb
@@ -39,11 +38,7 @@ const CostCalculator = () => {
           />
         </Col>
       </Row>
-
-      {/* Navigation Buttons Row */}
       <Row className="text-center">
-        {" "}
-        {/* Centering the buttons */}
         <Col xs="auto" className="px-1">
           <Button
             className="btn-round py-3"

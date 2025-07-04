@@ -51,10 +51,9 @@ const createGradientFill = (canvas, mainColorHex) => {
 
 
 const ReusableLineChartCard = ({
-  cardTitleText,     // e.g., "Average Spend daily Past week"
-  cardCategoryText,  // e.g., "Average Week $ 10,000"
-  chartData,         // { labels: [...], datasets: [{ data: [...], label: '...', ... }] }
-  // chartHeight prop is no longer needed for consistent height
+  cardTitleText,     
+  cardCategoryText,  
+  chartData,         
   lineColor = "#e14ec9",
   pointBorderColor = "#fff",
   pointBackgroundColor = "#e14ec9",
@@ -140,8 +139,6 @@ const ReusableLineChartCard = ({
   const options = { ...defaultChartOptions, ...customOptions };
 
   return (
-    // **THE FIX IS HERE:**
-    // 1. Added `h-100` to make the card fill its parent's height.
     <Card className="card-chart h-100">
       <CardHeader>
         <Row>
@@ -157,9 +154,7 @@ const ReusableLineChartCard = ({
           </Col>
         </Row>
       </CardHeader>
-      {/* 2. Made CardBody a flex container to allow the chart to grow. */}
       <CardBody className="d-flex flex-column">
-        {/* 3. The chart-area now grows to fill the available space. */}
         <div className="chart-area flex-grow-1" style={{ position: 'relative' }}>
           <Line data={preparedChartData} options={options} />
         </div>

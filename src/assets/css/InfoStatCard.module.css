@@ -1,0 +1,17 @@
+.iconWrapper {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 1.75rem;
+}
+
+.title {
+  font-size: 0.875rem;
+}
+
+.value {
+  font-size: 1.2rem;
+}

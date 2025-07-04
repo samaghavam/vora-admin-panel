@@ -1,0 +1,8 @@
+.input {
+  color: #495057 !important;
+}
+
+.stateButtons .btn.btn-dark:not(.active) {
+  background-color: #27293d;
+  color: #fff;
+}

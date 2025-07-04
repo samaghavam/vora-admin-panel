@@ -119,7 +119,6 @@ const ReservationTable = () => {
                     )
                   }))}
                   filterable resizable={false}
-                  // **4. COLUMNS UPDATED:** New column definitions for the table
                   columns={[
                     { Header: "NAME", accessor: "name" },
                     { Header: "Accommodation name", accessor: "accommodationName" },

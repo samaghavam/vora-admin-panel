@@ -1,0 +1,56 @@
+/* ReusableDoughnutChart.module.css */
+
+.component {
+  color: #9a9a9a;
+}
+
+.title {
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+  text-align: left;
+  color: #9a9a9a;
+}
+
+.chartArea {
+  display: flex;
+  align-items: center;
+}
+
+.chartWrapper {
+  position: relative;
+}
+
+.legendWrapper {
+  margin-left: 35px;
+  font-size: 0.65rem;
+}
+
+.legendList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.legendColorDot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.legendText {
+  color: #9a9a9a;
+}
+
+.legendValue {
+  margin-left: auto;
+  padding-left: 10px;
+  color: #9a9a9a;
+}

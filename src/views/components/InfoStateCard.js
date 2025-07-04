@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardBody } from 'reactstrap'; 
+import { Card, CardBody } from 'reactstrap';
+import styles from '../../assets/css/InfoStatCard.module.css'; 
 
 const InfoStatCard = ({
   icon,
@@ -13,26 +14,23 @@ const InfoStatCard = ({
 
   const iconCircleStyle = {
     background: iconGradient,
-    width: '60px',  
-    height: '60px',
-    flexShrink: 0, 
   };
 
   return (
     <Card className={`card-stats ${cardClassName}`}>
       <CardBody className="d-flex align-items-center p-3"> 
         <div
-          className={`rounded-circle d-flex align-items-center justify-content-center mr-3 ${iconWrapperClass}`}
+          className={`rounded-circle d-flex align-items-center justify-content-center mr-3 ${styles.iconWrapper} ${iconWrapperClass}`}
           style={iconCircleStyle}
         >
-          <i className={`tim-icons ${icon} text-white`} style={{ fontSize: '1.75rem' }} /> 
+          <i className={`tim-icons ${icon} text-white ${styles.icon}`} /> 
         </div>
 
         <div className={`d-flex flex-column justify-content-center ${textWrapperClass}`}>
-          <p className="text-muted" style={{ fontSize: '0.875rem' }}> 
+          <p className={`text-muted ${styles.title}`}> 
             {title}
           </p>
-          <h2 className="font-weight-bold text-white my-0" style={{ fontSize: '1.2rem' }}> 
+          <h2 className={`font-weight-bold text-white my-0 ${styles.value}`}> 
             {value}
           </h2>
         </div>

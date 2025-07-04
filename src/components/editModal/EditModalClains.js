@@ -9,104 +9,88 @@ import {
   Row,
   Col,
   FormGroup,
+  Label,
   Input,
-  CustomInput,
 } from "reactstrap";
+import classnames from "classnames";
+import styles from "../../assets/css/EditModalClains.module.css"; 
 
-const EditModalClains = ({ isOpen, onClose, data, onSave, onInputChange }) => {
+const EditModalAccomodation = ({ isOpen, onClose, title, data, onSave, onInputChange }) => {
   if (!isOpen || !data) return null;
 
   const handleSave = () => {
     onSave();
   };
-  
-  const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    const updatedClaims = { ...data.claims, [name]: checked };
-    onInputChange('claims', updatedClaims);
+
+  const handleStateChange = (newState) => {
+    onInputChange('state', newState);
   };
 
-  const editableFields = [
-    { key: 'adminName', label: 'Admin name' },
-    { key: 'creationDate', label: 'Creation date', type: 'date' },
-    { key: 'stateAdmin', label: 'State' }, 
-    { key: 'role', label: 'Role' },
-    { key: 'phoneNumber', label: 'Phone number' },
-    { key: 'userName', label: 'User name' },
-    { key: 'userPhoneNumber', label: 'User phone number' },
-    { key: 'userMail', label: 'User Mail' },
+  const fields = [
+    { key: 'passportName', label: 'Passport Name', placeholder: 'Name of the accommodation' },
+    { key: 'passportNumber', label: 'Passport number', placeholder: 'Have room' },
+    { key: 'passportExpiration', label: 'Passport expiration date', placeholder: 'Country - city', type: 'date' },
+    { key: 'visaType', label: 'Kind of requested visa', placeholder: 'Added manually' },
+    { key: 'requestFunnel', label: 'Request funnel', placeholder: 'Number of rooms' },
+    { key: 'state', label: 'State', placeholder: 'Total number of reserves' },
+    { key: 'userName', label: 'User name', placeholder: 'Reserved rooms number' },
+    { key: 'userPhoneNumber', label: 'User phone number', placeholder: 'Room 1 Name' },
+    { key: 'userMail', label: 'User Mail', placeholder: 'Room 2 Name' },
   ];
-  
-  const claimsList = Array.from({ length: 10 }, (_, i) => `Upper floors accessible by elevator`);
 
   return (
     <>
-      <Modal isOpen={isOpen} toggle={onClose} centered size="lg" modalClassName="edit-claims-modal">
+      <Modal isOpen={isOpen} toggle={onClose} centered size="lg">
         <ModalHeader toggle={onClose} className="text-dark">
-          Ticket details
+          {title}
         </ModalHeader>
         <ModalBody>
-          {editableFields.map((field) => (
-            <Row key={field.key} className="mb-2 align-items-center">
-              <Col md="5">
-                <strong className="text-dark">{field.label}</strong>
-              </Col>
-              <Col md="7">
-                {field.key === 'stateAdmin' ? (
-                  <Input
-                    type="select"
-                    value={data[field.key] || ''}
-                    onChange={(e) => onInputChange(field.key, e.target.value)}
-                  >
-                    <option value="">Select State</option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                  </Input>
-                ) : (
+          {fields.map((field) => (
+            <FormGroup key={field.key}>
+              <Row className="align-items-center">
+                <Col md="5">
+                  <Label className="text-dark font-weight-bold">{field.label}</Label>
+                </Col>
+                <Col md="7">
                   <Input
                     type={field.type || 'text'}
                     value={data[field.key] || ''}
                     onChange={(e) => onInputChange(field.key, e.target.value)}
+                    placeholder={field.placeholder}
+                    className={styles.input}
                   />
-                )}
+                </Col>
+              </Row>
+            </FormGroup>
+          ))}
+          <FormGroup>
+            <Label className="text-dark font-weight-bold">State</Label>
+            <Row className="align-items-center">
+              <Col className={`d-flex justify-content-center ${styles.stateButtons}`}>
+                <Button
+                  color={data.state === 'In Progress' ? 'primary' : 'dark'}
+                  onClick={() => handleStateChange('In Progress')}
+                  className={classnames("mr-2", "btn-round", { active: data.state === 'In Progress' })}
+                >
+                  In Progress
+                </Button>
+                <Button
+                  color={data.state === 'Successful' ? 'primary' : 'dark'}
+                  onClick={() => handleStateChange('Successful')}
+                  className={classnames("mr-2", "btn-round", { active: data.state === 'Successful' })}
+                >
+                  Successful
+                </Button>
+                <Button
+                  color={data.state === 'Failed' ? 'primary' : 'dark'}
+                  onClick={() => handleStateChange('Failed')}
+                  className={classnames("btn-round", { active: data.state === 'Failed' })}
+                >
+                  Failed
+                </Button>
               </Col>
             </Row>
-          ))}
-
-          {/* Actions Section */}
-          <hr />
-          <h5 className="text-dark font-weight-bold mb-3">Actions</h5>
-          <Row>
-            <Col>
-              <Button color="danger" block><i className="tim-icons icon-simple-remove mr-1" /> Block access</Button>
-            </Col>
-            <Col>
-              <Button color="secondary" outline block>Edit</Button>
-            </Col>
-            <Col>
-              <Button color="primary" block>Change password</Button>
-            </Col>
-          </Row>
-
-          {/* Claims Section */}
-          <hr />
-          <h5 className="text-dark font-weight-bold mb-3">Claims</h5>
-          <Row>
-            {claimsList.map((claim, index) => (
-              <Col md="6" key={`claim-edit-${index}`}>
-                <FormGroup>
-                  <CustomInput
-                    type="checkbox"
-                    id={`edit-claim-${index}`}
-                    name={`claim${index + 1}`}
-                    label={claim}
-                    checked={!!data.claims?.[`claim${index + 1}`]}
-                    onChange={handleCheckboxChange}
-                  />
-                </FormGroup>
-              </Col>
-            ))}
-          </Row>
+          </FormGroup>
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={onClose}>
@@ -117,21 +101,17 @@ const EditModalClains = ({ isOpen, onClose, data, onSave, onInputChange }) => {
           </Button>
         </ModalFooter>
       </Modal>
-       <style>{`
-        .edit-claims-modal .modal-body .form-control {
-          color: #495057 !important; 
-        }
-      `}</style>
     </>
   );
 };
 
-EditModalClains.propTypes = {
+EditModalAccomodation.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
   data: PropTypes.object,
   onSave: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
 };
 
-export default EditModalClains;
+export default EditModalAccomodation;
